@@ -1,0 +1,30 @@
+<article class="list__item post list__index-item">
+	<figure class="list__thumbnail list__index-thumbnail">
+		{{- if .Params.thumbnail }}
+		<a href="{{ .Permalink }}">
+			<img src="{{ .Params.thumbnail | relURL }}" alt="{{ .Title }}" />
+		</a>
+		{{- end }}
+	</figure>
+	<div>
+		<header class="list__header">
+			<h3 class="list__title post__title ">
+				<a href="{{ .RelPermalink }}" rel="bookmark">
+				{{ .Title }}
+				</a>
+			</h3>
+			{{- with .Params.lead }}
+			<p class="list__lead post__lead">{{ . }}</p>
+			{{- end }}
+			{{ with partial "post_meta.html" . -}}
+			<div class="list__meta meta">{{ . }}</div>
+			{{- end }}
+		</header>
+		<div class="content list__excerpt post__content clearfix">
+			{{ .Summary }}
+			{{- if .Site.Params.readmore }}
+				<a class="list__footer-readmore" href="{{ .RelPermalink }}">Read More...</a>
+			{{- end }}
+		</div>
+	</div>
+</article>

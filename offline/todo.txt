@@ -1,0 +1,30 @@
+Tema Güncellemesi
+
+* Sidebar'ı saklanabilir yap.
+* Categories Widget'inde kategorinin yanına kaç yazı olduğunu yazdır.
+* Social Widget'inde yazıları yok edip hesapları yan yana yazdır.
+* Index'in sayfa geçme kısmındaki numaraları genişlemesine yazdır.
+* Siyah tema yap.
+* Dilleri düzenle.
+* Postları tek tek gezerek sıkıntılı yerleri düzelt.
+* Postları tamamen Markdown'a dönüştür.
+
+Yayınlanması planlanan yazılar:
+
+* FOSS Günlüğü : KDE'ye Katkı Yapmak
+* FOSS Günlüğü : KDE Hacking
+* FOSS Günlüğü : LibreOffice'e Katkı Yapmak
+* FOSS Günlüğü : LibreOffice Hacking
+* FOSS Günlüğü : libinput Geliştirme Tecrübem
+* Raspberry Pi 3 Fast Boot : Less Than 2 Seconds
+* Raspberry Pi 3 Fast Boot : >2 Saniyede Açılan RPI3
+* Raspberry Pi 3 Pin Controller Yazma
+* Raspberry Pi 3 Qt İle Pin Kontrolü
+* Raspberry Pi 3 InitialRAMFileSystem (initramFS)
+* Bloğumu Hugo'ya Taşıdım, GitLab'ta Host Ediyorum
+* TÜBİTAK EV Challenge : Nasıl Başlamalıyım ?
+* TÜBİTAK EV Challenge : Otonom Araç Tasarımı
+
+Güncellenmesi gereken yazılar:
+
+* Guru Olma Rehberi

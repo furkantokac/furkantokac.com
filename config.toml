@@ -1,0 +1,41 @@
+baseURL = "https://furkantokac.gitlab.io/"
+languageCode = "tr"
+title = "Bir Coder'ın Günlüğü"
+theme = "coder-diary"
+disqusShortname = "" # Enable comments by entering your Disqus shortname
+googleAnalytics = "" # Enable Google Analytics by entering your tracking id
+summaryLength = 25
+
+[Author]
+  name = "Furkan Tokaç"
+  bio = "I'm FOSS supporter and developer. Main interest : Embedded Linux Systems. Hobbies : Computer Graphics, Decentralization, Scalable Data Systems, Cyber-Security, Simulation. Basically, I like low-level stuffs."
+  avatar = "/img/avatar-simurg.jpg"
+
+[Params]
+  subtitle = ""
+  description = ""
+  header_img = "/img/decentralization-cropped.jpg"
+  post_meta = ["date", "categories"]
+  readmore = true # Show "Read more" button in list if true
+  authorbox = true
+  post_navigation = true
+  mainSections = ["blog"]
+
+[Params.sidebar]
+  home = "right"   # Configure layout for home page
+  list = "right"   # Configure layout for list pages
+  single = "false" # Configure layout for single pages
+  widgets = ["search", "social", "recent", "categories", "taglist"]
+
+[Params.widgets]
+  recent_num = 5 # Set the number of articles in the "Recent articles" widget
+  tags_counter = true # Enable counter for each tag in "Tags" widget (disabled by default)
+
+[Params.widgets.social]
+  # Enable parts of social widget
+  twitter = "FrknTkc"
+  instagram = "furkantokac"
+  linkedin = "furkantokac"
+  github = "furkantokac"
+  gitlab = "furkantokac"
+  email = "furkan.tokac[at]kdemail.net"

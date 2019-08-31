@@ -1,0 +1,15 @@
+# Available versions : https://gitlab.com/pages/hugo/container_registry
+image:
+    registry.gitlab.com/pages/hugo:latest
+
+variables:
+    GIT_SUBMODULE_STRATEGY: recursive
+
+pages:
+    script:
+        - hugo
+    artifacts:
+        paths:
+            - public
+    only:
+        - master  
