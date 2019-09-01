@@ -1,14 +1,14 @@
 name = "Coder Diary"
 license = "GPLv2"
 licenselink = "https://github.com/furkantokac/coder-diary/blob/master/LICENSE.md"
-description = "Coder Diary is a fork of Mainroad theme that specialized to readibility of long posts."
+description = "Coder Diary is a fork of Mainroad theme and specialized to readibility of long posts."
 homepage = "https://github.com/furkantokac/coder-diary/"
 tags = ["blog", "responsive", "widgets", "rss", "disqus", "google analytics", "wordpress"]
 features = ["blog", "responsive", "widgets", "rss", "disqus", "wordpress"]
 min_version = "0.48"
 
 [author]
-  name = "Furkan Tokac"
+  name = "Furkan Tokaç"
   homepage = "https://github.com/furkantokac"
 
 # If porting an existing theme

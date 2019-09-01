@@ -369,7 +369,6 @@ select {
 
 .warning {
 	padding: 20px 10px;
-	text-align: center;
 	border: 1px solid #ddd;
 }
 
@@ -1301,5 +1300,14 @@ textarea {
 		display: block;
 		font-size: 11px;
 		font-size: .6875rem;
+	}
+	
+    .list__index-item {
+		display: flex;
+		align-items: center;
+	}
+
+	.list__index-thumbnail {
+		min-width: 80px;
 	}
 }

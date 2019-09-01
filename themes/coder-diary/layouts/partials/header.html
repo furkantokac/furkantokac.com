@@ -6,7 +6,7 @@
 			{{ end }}
 		</div>
 		<div class="logo">
-			<a class="logo__link" href="{{ "" | relLangURL }}" title="{{ .Site.Title }}" rel="home">
+			<a class="logo__link" href="{{ "" | relLangURL }}" title="{{ .Site.Params.logo_link_title }}" rel="home">
 				<div class="logo__title">{{ .Site.Title }}</div>
 				{{ with .Site.Params.subtitle }}<div class="logo__tagline">{{ . }}</div>{{ end }}
 			</a>

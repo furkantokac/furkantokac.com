@@ -1,5 +1,6 @@
-baseURL = "https://furkantokac.gitlab.io/"
+baseURL = "https://furkantokac.com"
 languageCode = "tr"
+DefaultContentLanguage = "tr-en"
 title = "Bir Coder'ın Günlüğü"
 theme = "coder-diary"
 disqusShortname = "" # Enable comments by entering your Disqus shortname
@@ -8,10 +9,11 @@ summaryLength = 25
 
 [Author]
   name = "Furkan Tokaç"
-  bio = "I'm FOSS supporter and developer. Main interest : Embedded Linux Systems. Hobbies : Computer Graphics, Decentralization, Scalable Data Systems, Cyber-Security, Simulation. Basically, I like low-level stuffs."
+  bio = "Özgür yazılım destekçisi ve geliştiricisiyim. Özellikle düşük seviye işler ile uğraşmayı seviyorum. Detaylı bilgi için Hakkımda sayfasına göz atabilirsiniz. [ENG] I'm FOSS supporter and developer. Basically, I interested in low-level stuffs. You can check About Me page for details. "
   avatar = "/img/avatar-simurg.jpg"
 
 [Params]
+  logo_link_title = "The Life Of A Coder"
   subtitle = ""
   description = ""
   header_img = "/img/decentralization-cropped.jpg"
@@ -20,12 +22,14 @@ summaryLength = 25
   authorbox = true
   post_navigation = true
   mainSections = ["blog"]
+  dateformat = "02.01.2006"
+  lastmod = true
 
 [Params.sidebar]
   home = "right"   # Configure layout for home page
   list = "right"   # Configure layout for list pages
   single = "false" # Configure layout for single pages
-  widgets = ["search", "social", "recent", "categories", "taglist"]
+  widgets = ["search", "social", "categories", "recent", "taglist"]
 
 [Params.widgets]
   recent_num = 5 # Set the number of articles in the "Recent articles" widget

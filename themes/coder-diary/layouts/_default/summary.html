@@ -23,7 +23,7 @@
 		<div class="content list__excerpt post__content clearfix">
 			{{ .Summary }}
 			{{- if .Site.Params.readmore }}
-				<a class="list__footer-readmore" href="{{ .RelPermalink }}">Read More...</a>
+				<a class="list__footer-readmore" href="{{ .RelPermalink }}">{{ T "read_more" }}</a>
 			{{- end }}
 		</div>
 	</div>

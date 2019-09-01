@@ -1,8 +1,9 @@
 ---
 title: "OpenGL On Linux 1 - IDE Setup : Qt Creator, CMake, GLFW, X11, Ubuntu"
 date: "2019-08-23T23:38:09+03:00"
+lastmod: "2019-08-30T23:38:09+03:00"
 thumbnail: "/img/opengl-logo.jpg"
-categories: ["Yazılarım"]
+categories: ["OpenGL"]
 tags: ["opengl", "english", "cpp", "c"]
 url: "opengl-on-linux-1-ide-setup"
 ---
