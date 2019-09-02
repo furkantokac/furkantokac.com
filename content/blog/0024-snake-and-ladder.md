@@ -1,7 +1,7 @@
 ---
 title: "Snake and Ladder"
 date: "2015-06-30T01:05:12+03:00"
-thumbnail: "/img/0024-snake-and-ladder.png"
+thumbnail: "/img/0024-snake-and-ladder.jpg"
 categories: ["C"]
 tags: ["C"]
 url: "snake-and-ladder"

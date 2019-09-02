@@ -9,17 +9,18 @@ Tema Güncellemesi
 
 Yayınlanması planlanan yazılar:
 
+* Wordpress'ten Hugo'ya, DigitalOcean'dan GitLab'a Geçiş
+* Moved from Wordpress To Hugo, DigitalOcean To GitLab
 * FOSS Günlüğü : KDE'ye Katkı Yapmak
-* FOSS Günlüğü : KDE Hacking
+* FOSS Günlüğü : KDE Hacking (katkı yap, süreci anlat)
 * FOSS Günlüğü : LibreOffice'e Katkı Yapmak
-* FOSS Günlüğü : LibreOffice Hacking
+* FOSS Günlüğü : LibreOffice Hacking (katkı yap, süreci anlat)
 * FOSS Günlüğü : libinput Geliştirme Tecrübem
 * Raspberry Pi 3 Fast Boot : Less Than 2 Seconds
 * Raspberry Pi 3 Fast Boot : >2 Saniyede Açılan RPI3
 * Raspberry Pi 3 Pin Controller Yazma
 * Raspberry Pi 3 Qt İle Pin Kontrolü
 * Raspberry Pi 3 InitialRAMFileSystem (initramFS)
-* Bloğumu Hugo'ya Taşıdım, GitLab'ta Host Ediyorum
 * TÜBİTAK EV Challenge : Nasıl Başlamalıyım ?
 * TÜBİTAK EV Challenge : Otonom Araç Tasarımı
 
@@ -28,6 +29,3 @@ Güncellenmesi gereken yazılar:
 * Guru Olma Rehberi
 * Projet-Maryo'da maryolib.py'yi güncelle.
 * Ingilizce Pratik İçin Kaynaklar'a yeni kaynaklar ekle, Writing hiç yok.
-* Linux - Run Commands From It's Icon'da resimleri güncelle.
-* Linux - Komutu İkona Çift Tıklama İle Çalıştırmak'da resimleri güncelle.
-* FThotspot : Tek Tuş İle Hotspot Oluşturun'da resimleri güncelle.
