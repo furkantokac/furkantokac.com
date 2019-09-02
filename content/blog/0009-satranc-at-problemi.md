@@ -2,8 +2,8 @@
 title: "Satranç At Problemi"
 date: "2013-07-03T21:10:25+03:00"
 thumbnail: "/img/0009-satranc-at-problemi.png"
-categories: ["C Programlama"]
-tags: ["c"]
+categories: ["C"]
+tags: ["C"]
 url: "satranc-at-problemi"
 ---
 

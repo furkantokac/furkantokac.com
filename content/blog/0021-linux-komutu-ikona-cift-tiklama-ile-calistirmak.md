@@ -2,8 +2,8 @@
 title: "Linux - Komutu İkona Çift Tıklama İle Çalıştırmak"
 date: "2014-08-26T07:37:33+03:00"
 thumbnail: "/img/linux-orange-gradient.jpg"
-categories: ["Yazılarım"]
-tags: ["yazı", "linux"]
+categories: ["Yazılar|Posts"]
+tags: ["Yazı", "Linux"]
 url: "linux-komutu-ikona-cift-tiklama-ile-calistirmak"
 ---
 

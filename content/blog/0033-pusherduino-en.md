@@ -2,8 +2,8 @@
 title: "Pusherduino : An Arduino Game"
 date: "2016-09-14T15:15:24+03:00"
 thumbnail: "/img/0032-pusherduino.png"
-categories: ["Elektronik"]
-tags: ["c", "arduino", "english"]
+categories: ["Elektronik|Electronics"]
+tags: ["C", "Arduino", "English", "Electronic"]
 url: "pusherduino-en"
 ---
 
@@ -11,16 +11,21 @@ Project Link : [https://circuits.io/circuits/2710731-pusher/](https://circuits.i
 Github Link : [https://github.com/furkantokac/Pusherduino/](https://github.com/furkantokac/Pusherduino/)
 
 ## Video
+
 {{< youtube hvHljwiRgoY >}} </br>
 
+
 ## Description
+
 Pusherduino is an Arduino based, simple and excited board game. Follow the comments in source code for more info.
 
 Basic explanation of the game : There are 4 buttons and each button has a led. When the game start, one led is turned on. Gamer should push the button of the led in the given time interval. If gamer can push the correct button, s/he will make a score and delayTime will decrease. If gamer push the wrong button or cannot push the button in the given time interval, s/he will lose a life. If gamer makes a combo, s/he will gain a life.
 
 Note : If you will build the game on your own Arduino, do not forget to put resistors for LEDs.
 
+
 ## Source Code
+
 {{< highlight c >}}
 /*GAMEL LOGIC
 There are 4 buttons and each button has a led. When the game start, one led is turned on.

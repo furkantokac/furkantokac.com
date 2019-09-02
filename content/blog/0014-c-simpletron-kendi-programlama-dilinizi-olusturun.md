@@ -2,8 +2,8 @@
 title: "C Simpletron - Kendi Programlama Dilinizi Oluşturun"
 date: "2013-08-28T22:17:37+03:00"
 thumbnail: "/img/0014-c-simpletron-kendi-programlama-dilinizi-olusturun.png"
-categories: ["C Programlama"]
-tags: ["c"]
+categories: ["C"]
+tags: ["C", "Simpletron"]
 url: "c-simpletron-kendi-programlama-dilinizi-olusturun"
 ---
 

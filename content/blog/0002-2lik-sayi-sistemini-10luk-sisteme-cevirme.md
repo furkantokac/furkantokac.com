@@ -2,8 +2,8 @@
 title: "2lik Sayı Sistemini 10luk Sisteme Çevirme"
 date: "2013-07-03T02:17:10+03:00"
 thumbnail: "/img/0002-2lik-sayi-sistemini-10luk-sisteme-cevirme.png"
-categories: ["C Programlama"]
-tags: ["c"]
+categories: ["C"]
+tags: ["C"]
 url: "2lik-sayi-sistemini-10luk-sisteme-cevirme"
 ---
 

@@ -2,8 +2,8 @@
 title: "Herşey Bir \"Oyun\" Dergisiyle Başlar -Teknolojiye Ilk Adim-"
 date: "2012-01-03T03:49:0+03:00"
 thumbnail: "/img/blue-motherboard.jpg"
-categories: ["Yazılarım"]
-tags: ["yazı"]
+categories: ["Yazılar|Posts"]
+tags: ["Yazı"]
 url: "hersey-bir-oyun-dergisiyle-baslar-teknolojiye-ilk-adim"
 ---
 

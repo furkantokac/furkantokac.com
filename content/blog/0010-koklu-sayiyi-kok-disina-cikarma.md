@@ -2,8 +2,8 @@
 title: "Köklü Sayıyı Kök Dışına Çıkarma"
 date: "2013-07-03T21:50:16+03:00"
 thumbnail: "/img/0010-koklu-sayiyi-kok-disina-cikarma.png"
-categories: ["C Programlama"]
-tags: ["c"]
+categories: ["C"]
+tags: ["C"]
 url: "koklu-sayiyi-kok-disina-cikarma"
 ---
 

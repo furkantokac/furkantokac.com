@@ -2,8 +2,8 @@
 title: "8 Vezir Problemi"
 date: "2013-07-20T22:49:01+03:00"
 thumbnail: "/img/0012-8-vezir-problemi.png"
-categories: ["C Programlama"]
-tags: ["c"]
+categories: ["C"]
+tags: ["C"]
 url: "8-vezir-problemi"
 ---
 

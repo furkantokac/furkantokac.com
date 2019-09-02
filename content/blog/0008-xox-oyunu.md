@@ -2,8 +2,8 @@
 title: "XOX Oyunu"
 date: "2013-07-03T20:53:47+03:00"
 thumbnail: "/img/0008-xox-oyunu.png"
-categories: ["C Programlama"]
-tags: ["c"]
+categories: ["C"]
+tags: ["C"]
 url: "xox-oyunu"
 ---
 

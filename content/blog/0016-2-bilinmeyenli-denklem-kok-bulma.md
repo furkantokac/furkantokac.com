@@ -2,8 +2,8 @@
 title: "2 Bilinmeyenli Denklem Kök Bulma"
 date: "2013-11-14T00:05:46+03:00"
 thumbnail: "/img/0016-2-bilinmeyenli-denklem-kok-bulma.png"
-categories: ["C Programlama"]
-tags: ["c"]
+categories: ["C"]
+tags: ["C"]
 url: "2-bilinmeyenli-denklem-kok-bulma"
 ---
 

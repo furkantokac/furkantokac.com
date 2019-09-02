@@ -2,8 +2,8 @@
 title: "Çarpma Alıştırması"
 date: "2013-07-03T19:41:32+03:00"
 thumbnail: "/img/0007-carpma-alistirmasi.png"
-categories: ["C Programlama"]
-tags: ["c"]
+categories: ["C"]
+tags: ["C"]
 url: "carpma-alistirmasi"
 ---
 

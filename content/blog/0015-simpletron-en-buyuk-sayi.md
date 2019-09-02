@@ -2,17 +2,21 @@
 title: "Simpletron En Büyük Sayı"
 date: "2013-08-28T22:34:47+03:00"
 thumbnail: "/img/0015-simpletron-en-buyuk-sayi.png"
-categories: ["C Programlama"]
-tags: ["c"]
+categories: ["C"]
+tags: ["C", "Simpletron"]
 url: "simpletron-en-buyuk-sayi"
 ---
 
 ### Açıklama :
+
 Aşağıdaki programı [Simpletron](http://furkantokac.com/c-simpletron-kendi-programlama-dilinizi-olusturun/) ile çalıştırmanız gerekiyor. Programın amacı, kullanıcı tarafından girilen sayıların en büyüğünü bulmak. Fakat kaç sayı gireceğini kullanıcı karar verecek. Kullanıcıdan alınacak ilk sayı, kaç sayı gireceği olacak.
 Örnek/ ilk olarak 12 girildiyse, 12 tane sayı okuyarak bunların en büyüğünü bulacak ve programın sonunda bu sayıyı konsola yazdıracak.
 
+
 ### Kod İnceleme :
+
 Not: 50 konumundaki sayı en büyük sayı, 49 konumundaki sayı kullanıcının her turda girdiği sayı, 48 konumudaki sayı kullanıcının kaç sayı gireceği bilgilerini tutan sayı.
+
 {{< highlight js >}}
  0 ? Kullanıcıdan bir sayı al ve bunu 48 konumuna yaz. Bu sayı kullanıcının kaç sayı gireceğini gösteriyor.
  1 ? 48 konumundaki sayıyı bir azalt. Aslında burası döndümüzün başlangıcı. Devam edelim, anlayacaksınız.
@@ -32,7 +36,9 @@ Not: 50 konumundaki sayı en büyük sayı, 49 konumundaki sayı kullanıcının
 15 ? Kod girişini kes.
 {{< /highlight >}}
 
+
 ### Kaynak Kod :
+
 {{< highlight js >}}
  0 ? 1048
  1 ? 3848

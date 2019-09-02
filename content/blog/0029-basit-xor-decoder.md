@@ -2,20 +2,25 @@
 title: "Basit XOR Decoder"
 date: "2016-03-15T18:13:51+03:00"
 thumbnail: "/img/0029-basit-xor-decoder.png"
-categories: ["C Programlama"]
-tags: ["c"]
+categories: ["C"]
+tags: ["C"]
 url: "basit-xor-decoder"
 ---
 
 ### Açıklama :
+
 Bu kodu yaklaşık 1 sene önce ödevim olduğu için yazmıştım bu yüzden bazı kısıtlamalara uymak zorunda kaldım. (fonksiyon vs. kullanımı yasaktı) Temiz ve açık bir şekilde yazdığım için yararı olabilir :)
 
+
 ### Örnek Kodlar :
+
 Binary, secred code z : 001111000000111100001000000100010001101100010100</br>
 Octal, secred code z : 074017010021033024</br>
 Decimal, secred code z : 060015008017027020
 
+
 ### Kaynak Kod :
+
 {{< highlight c >}}
 /* Simple Decoder V1.0
  * 

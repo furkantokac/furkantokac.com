@@ -5,8 +5,6 @@ Tema Güncellemesi
 * Social Widget'inde yazıları yok edip hesapları yan yana yazdır.
 * Index'in sayfa geçme kısmındaki numaraları genişlemesine yazdır.
 * Siyah tema yap.
-* Postları tek tek gezerek sıkıntılı yerleri düzelt.
-* Postları tamamen Markdown'a dönüştür.
 * index.html'de sayfa küçüldüğünde Post'un kategori kısmındaki klasörü yok et.
 
 Yayınlanması planlanan yazılar:
@@ -28,3 +26,8 @@ Yayınlanması planlanan yazılar:
 Güncellenmesi gereken yazılar:
 
 * Guru Olma Rehberi
+* Projet-Maryo'da maryolib.py'yi güncelle.
+* Ingilizce Pratik İçin Kaynaklar'a yeni kaynaklar ekle, Writing hiç yok.
+* Linux - Run Commands From It's Icon'da resimleri güncelle.
+* Linux - Komutu İkona Çift Tıklama İle Çalıştırmak'da resimleri güncelle.
+* FThotspot : Tek Tuş İle Hotspot Oluşturun'da resimleri güncelle.

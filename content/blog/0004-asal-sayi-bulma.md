@@ -2,8 +2,8 @@
 title: "Asal Sayı Bulma"
 date: "2013-07-03T13:06:40+03:00"
 thumbnail: "/img/0004-asal-sayi-bulma.png"
-categories: ["C Programlama"]
-tags: ["c"]
+categories: ["C"]
+tags: ["C"]
 url: "asal-sayi-bulma"
 ---
 

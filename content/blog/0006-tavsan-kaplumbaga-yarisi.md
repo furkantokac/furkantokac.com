@@ -2,8 +2,8 @@
 title: "Tavşan Kaplumbağa Yarışı"
 date: "2013-07-03T14:10:29+03:00"
 thumbnail: "/img/0006-tavsan-kaplumbaga-yarisi.png"
-categories: ["C Programlama"]
-tags: ["c"]
+categories: ["C"]
+tags: ["C"]
 url: "tavsan-kaplumbaga-yarisi"
 ---
 

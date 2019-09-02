@@ -2,8 +2,8 @@
 title: "C'de Matematik Fonksiyonlari"
 date: "2013-07-03T12:47:40+03:00"
 thumbnail: "/img/0003-cde-matematik-fonksiyonlari.png"
-categories: ["C Programlama"]
-tags: ["c"]
+categories: ["C"]
+tags: ["C"]
 url: "cde-matematik-fonksiyonlari"
 ---
 

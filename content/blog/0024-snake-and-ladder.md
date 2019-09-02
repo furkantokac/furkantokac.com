@@ -2,16 +2,19 @@
 title: "Snake and Ladder"
 date: "2015-06-30T01:05:12+03:00"
 thumbnail: "/img/0024-snake-and-ladder.png"
-categories: ["C Programlama"]
-tags: ["c"]
+categories: ["C"]
+tags: ["C"]
 url: "snake-and-ladder"
 ---
 
-<h3>Açıklama :</h3>
+### Açıklama :
+
 Küçüklüğümüzde oynadığımız yılan ve merdiven oyununu ödev olarak C'de yazmıştım. Şuan biraz karışık gözükebilir zaman sınırlı diye hızlı yazmıştım bazı yerleri. Yakın zamanda koda yorumlar eklerim. Zamanla, özellikle talep çok olursa kodu gözden geçiririm.
 
-<h3>Kaynak Kod :</h3>
-<pre>
+
+### Kaynak Kod :
+
+{{< highlight c >}}
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -621,5 +624,4 @@ int** create2Darray(int xAxis, int yAxis)
     
     return a;
 }
-
-</pre>
+{{< /highlight >}}

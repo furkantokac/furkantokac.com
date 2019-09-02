@@ -2,8 +2,8 @@
 title: "Pusherduino : Bir Arduino Oyunu"
 date: "2016-09-14T15:14:24+03:00"
 thumbnail: "/img/0032-pusherduino.png"
-categories: ["Elektronik"]
-tags: ["c", "arduino"]
+categories: ["Elektronik|Electronics"]
+tags: ["C", "Arduino", "Elektronik"]
 url: "pusherduino"
 ---
 
@@ -11,14 +11,18 @@ Proje linki : [https://circuits.io/circuits/2710731-pusher/](https://circuits.io
 Github Linki : [https://github.com/furkantokac/Pusherduino/](https://github.com/furkantokac/Pusherduino/) 
 
 ## Video
+
 {{< youtube hvHljwiRgoY >}} </br>
 
+
 ## Açıklama
+
 Pusherduino (biliyorum isim çok orjinal :D ) Arduino ile yapılmış, basit ve eğlenceli bir oyundur. Kod hakkında bilgiyi koddaki yorumlardan sağlayabilirsiniz.
 
 Oyunu kısaca açıklayacak olursak : 4 buton ve 4 led var. (Basit bir şekilde arttırılabilir) Her buton bir ledi karşılamakta. Oyun başladığında bir led yanacak. Oyuncu, yanan ledin altındaki butona, verilen zaman aralığında basması gerekiyor. Doğru butona basabilirse "scoru"u yükselecek ve "delayTime" azalacak. "delayTime" butona basmak için ne kadar zamanımızın olduğunu tutan değişken. Eğer yanlış butona tıklarsa veya verilen zaman aralığında doğru butona basamazsa can azalacak. Combo yaparsa 1 can kazanacak.
 
 Not : Oyunu kendi Arduino'nuz üzerinde deneyecekseniz ledler için direnç kullanmayı unutmayın.
+
 
 ## Program Kodu
 

@@ -2,16 +2,18 @@
 title: "Unity3D Başlama Rehberi"
 date: "2013-07-04T21:55:18+03:00"
 thumbnail: "/img/unity3d-logo.jpg"
-categories: ["Yazılarım"]
-tags: ["oyun-gelistirme", "unity3d"]
+categories: ["Yazılar|Posts"]
+tags: ["Oyun Geliştirme", "Unity3D", "Başlangıç"]
 url: "unity3d-baslama-rehberi"
 ---
 
 ### Açıklama :
+
 Kendim nasıl başlağımı, hangi kaynakları kullandığımı sizinle paylaşacağım.
 İlk olarak türkçe kaynaklardan programı tanıyıp, daha sonra yabancı kaynaklardan video izlemenizi tavsiye ederim.
 
 Paylaşacağım dosyaları indirip bir klasörde arşivlemenizi öneririm. İndirmek için "Download"a basmanız yeterli.
+
 
 ### Kaynaklar :
 <ol>

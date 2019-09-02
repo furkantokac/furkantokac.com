@@ -2,8 +2,8 @@
 title: "Barbut Oyunu"
 date: "2013-07-03T13:53:58+03:00"
 thumbnail: "img/0005-barbut-oyunu.png"
-categories: ["C Programlama"]
-tags: ["c"]
+categories: ["C"]
+tags: ["C"]
 url: "barbut-oyunu"
 ---
 

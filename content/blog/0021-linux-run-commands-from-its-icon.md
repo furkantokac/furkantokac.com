@@ -2,8 +2,8 @@
 title: "Linux - Run Commands From It's Icon"
 date: "2014-08-26T07:37:40+03:00"
 thumbnail: "/img/linux-orange-gradient.jpg"
-categories: ["Yazılarım"]
-tags: ["linux", "english", "yazı"]
+categories: ["Yazılar|Posts"]
+tags: ["Linux", "English", "Post"]
 url: "linux-run-commands-from-its-icon"
 ---
 
