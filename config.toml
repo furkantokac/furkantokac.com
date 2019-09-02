@@ -4,7 +4,7 @@ DefaultContentLanguage = "tr-en"
 title = "Bir Coder'ın Günlüğü"
 theme = "coder-diary"
 disqusShortname = "" # Enable comments by entering your Disqus shortname
-googleAnalytics = "" # Enable Google Analytics by entering your tracking id
+googleAnalytics = "UA-71579891-1" # Enable Google Analytics by entering your tracking id
 summaryLength = 25
 
 [Author]
