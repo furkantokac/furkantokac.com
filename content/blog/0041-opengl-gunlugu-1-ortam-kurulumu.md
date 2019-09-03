@@ -1,31 +1,35 @@
 ---
-title: "OpenGL On Linux 1 - IDE Setup : Qt Creator, CMake, GLFW, X11, Ubuntu"
-date: "2019-08-23T23:38:09+03:00"
-lastmod: "2019-08-30T23:38:09+03:00"
+title: "OpenGL Günlüğü 1 - Ortam Kurulumu, İlk Proje \"SA World!\""
+date: "2019-09-03T01:54:09+03:00"
 thumbnail: "/img/opengl-logo.jpg"
 categories: ["Yazılar|Posts"]
-tags: ["OpenGL", "English", "C++", "C"]
-url: "opengl-on-linux-1-ide-setup"
+tags: ["OpenGL", "C++", "C", "Başlangıç"]
+url: "opengl-gunlugu-1-ortam-kurulumu"
+publishdate: 2023-09-03
 ---
 
-If you want to start OpenGL development by using Qt Creator, you're on the right place. By this post, you'll have a ready-to-work development environment for OpenGL development. The OpenGL libraries will be automatically in your "libs" folder so no need to worry about importing them. Just #include &lt;libraryYouWant.h>. I'll not mention about each technologies seperately (like what is CMake etc.) so you can search them online if you want.
+GPU'nun gücünden faydalanarak grafikleri kodlamak istiyorsanız doğru yerdesiniz. Bu alanda pek tecrübeli olmayan kişiler OpenGL ile bu işe giriştiğinde, kafa karışıklığı oluşturması muhtemel bir çok farklı teknoloji (kütüphane, terim vb.) ile karşılaşacaktır. Bu yazıda, bu teknolojilere bir bakış atıp OpenGL ile ilk projenizi kodlayabilecek duruma gelene kadar yapılması gerekenleri adım adım anlatacağız.
 
-Although the post mainly targets to Ubuntu, it should work for the most of the distros and platforms as long as you have the dependencies. If you're not using Ubuntu, I think you already know how to survive :) If you have any problem, just comment.
+Bu yazı Ubuntu'yu temel alarak hazırlanmıştır fakat çoğu dağıtımda veya platformda takip edilmesi gereken adımlar aynı olacaktır. Bir sıkıntı olursa e-posta atabilirsiniz veya yorum yazabilirsiniz.
 
-You can find the project on my GitHub account : [github.com/furkantokac/opengl-dev-qtcreator](https://github.com/furkantokac/opengl-dev-qtcreator)
-
-**Currently supported libraries** : GLFW, GLEW, GLAD
+Proje dosyalarına şuradan erişebilirsiniz : [github.com/furkantokac/opengl-dev-qtcreator](https://github.com/furkantokac/opengl-dev-qtcreator)
 
 
-### Outline
+### İçerik
 
-**1.** Installing Dependencies, CMake, Git <br>
-**2.** Installing Qt Creator <br>
-**3.** Clone The Template And Run On Qt Creator <br>
-**4.** How To Use The Template
+**1.** İlgili Teknolojilere Bakış <br>
+**2.** Bağımlılıkların Kurulumu <br>
+**3.** Qt Creator Kurulumu <br>
+**4.** İlk Proje, "SA World!" <br>
+**5.** Proje Dosyalarına Bakış
 
 
-### 1. Installing Dependencies, CMake, Git
+### 1. İlgili Teknolojilere Bakış
+
+Yazı.
+
+
+### 2. Bağımlılıkların Kurulumu
 
 **a.** GLFW Deps : `sudo apt-get install xorg-dev` <br>
 **b.** GLEW Deps : `sudo apt-get install build-essential libXmu-dev libXi-dev libgl-dev` <br>
@@ -33,7 +37,7 @@ You can find the project on my GitHub account : [github.com/furkantokac/opengl-d
 **d.** Git : `sudo apt-get install git`
 
 
-### 2. Installing Qt Creator
+### 3. Qt Creator Kurulumu
 
 **a.** Download Qt Installer from <a href="https://www.qt.io/download-qt-installer">here, Qt's website</a>. <br>
 **b.**&emsp;**->** Right click to the downloaded file <br>
@@ -46,7 +50,7 @@ You can find the project on my GitHub account : [github.com/furkantokac/opengl-d
 ![ ](/img/qt-installation-packages.png#center)
 
 
-### 3. Clone The Template And Run On Qt Creator
+### 4. İlk Proje, "SA World!"
 
 **a.** Clone (recursively) the template that I prepare by the following command : <br>`git clone --recursive git@github.com:furkantokac/opengl-dev-qtcreator.git` <br>
 **b.**&emsp;**->** Go to Qt Creator <br>
@@ -59,7 +63,7 @@ You can find the project on my GitHub account : [github.com/furkantokac/opengl-d
 ![ ](/img/qtcreator-run-glfw-examples.png#center)
 
 
-### 4. How To Use The Template
+### 5. Proje Dosyalarına Bakış
 
 You can work on src folder. New files/folders under src folder will be automatically added to the project after you re-run the CMake. To re-run CMake, right click the project name on Qt Creator and click "Run CMake". (see the following image) As default, src/main.cpp is running so you can directly edit main.cpp if you don't want to add new files.
 
