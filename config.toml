@@ -24,6 +24,7 @@ summaryLength = 25
   mainSections = ["blog"]
   dateformat = "02.01.2006"
   lastmod = true
+  twitter_cards = true
 
 [Params.sidebar]
   home = "right"   # Configure layout for home page
