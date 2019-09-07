@@ -15,7 +15,8 @@ url: "qt-framework-genel-bakis"
 - Qt her platformda kullanılabilir
 - Gömülü yazılım desteği (tv GUI, akıllı telefon GUI, araba GUI vs.)
 - Öğrenmek için bol sayıda kaynak
-- Açık kaynak (en son Özgür Yazılım olmaya çalışıyorlardı)
+- Özgür yazılım
+- Qt Creator geliştirme ortamı
 
 
 ##### [?] Qt kullanan uygulamalar, cihazlar, gömülü yazılımlar:
@@ -25,7 +26,7 @@ url: "qt-framework-genel-bakis"
 - [Softwares That Uses Qt](https://en.wikipedia.org/wiki/Category:Software_that_uses_Qt)
 
 
-##### [?] Ekran görüntüleri:
+##### [?] Qt Creator Ekran görüntüleri:
 
 [![](/img/qt-creator-ui-ss.png)](/img/qt-creator-ui-ss.png)
 
@@ -40,4 +41,5 @@ url: "qt-framework-genel-bakis"
 ##### [?] Yüklerken hangi seçenekleri seçmeliyim ?
 
 Minimal bir kurulum için şu paketleri seçebilirsiniz:
+
 ![](/img/qt-installation-packages.png)
