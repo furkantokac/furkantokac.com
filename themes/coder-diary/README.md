@@ -64,7 +64,6 @@ googleAnalytics = "" # Enable Google Analytics by entering your tracking id
   description = "John Doe's Personal blog about everything" # Site description. Used in meta description
   header_img = "img/header_img.svg" # Logo displayed in site header
   opengraph = true # Enable OpenGraph if true
-  twitter_cards = true # Enable Twitter Cards if true
   readmore = false # Show "Read more" button in list if true
   authorbox = true # Show authorbox at bottom of pages if true
   toc = true # Enable Table of Contents

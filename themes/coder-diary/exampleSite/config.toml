@@ -16,7 +16,6 @@ googleAnalytics = "" # Enable Google Analytics by entering your tracking id
   description = "John Doe's Personal blog about everything" # Description of your site
   header_img = "img/placeholder.png"
   opengraph = true
-  twitter_cards = false
   readmore = false # Show "Read more" button in list if true
   authorbox = true
   post_navigation = true

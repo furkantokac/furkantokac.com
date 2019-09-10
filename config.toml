@@ -14,6 +14,7 @@ summaryLength = 25
 
 [Params]
   logo_link_title = "The Life Of A Coder"
+  images = ["/img/decentralization.jpg"]
   subtitle = ""
   description = ""
   header_img = "/img/decentralization-cropped.jpg"
@@ -24,7 +25,6 @@ summaryLength = 25
   mainSections = ["blog"]
   dateformat = "02.01.2006"
   lastmod = true
-  twitter_cards = true
 
 [Params.sidebar]
   home = "right"   # Configure layout for home page

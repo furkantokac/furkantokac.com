@@ -6,8 +6,6 @@ categories: ["Yazılar|Posts"]
 tags: ["OpenGL", "C++", "C", "Başlangıç"]
 url: "opengl-gunlugu-1-ortam-kurulumu"
 summary: GPU'nun gücünden faydalanarak grafikleri kodlamak istiyorsanız doğru yerdesiniz. Bu yazıda, OpenGL ile ilk projenizi kodlayabilecek duruma gelene kadar yapılması gerekenleri adım adım yapacağız.
-twitter:
-    image = "/img/opengl-logo.jpg"
 ---
 
 GPU'nun gücünden faydalanarak grafikleri kodlamak istiyorsanız doğru yerdesiniz. Bu alanda pek tecrübeli olmayan kişiler OpenGL ile bu işe giriştiğinde, kafa karışıklığı oluşturması muhtemel bir çok farklı teknoloji (kütüphane, terim vb.) ile karşılaşacaktır. Bu yazıda, bu teknolojilere bir bakış atıp OpenGL ile ilk projenizi kodlayabilecek duruma gelene kadar yapılması gerekenleri adım adım yapacağız.
