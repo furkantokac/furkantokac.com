@@ -1,10 +1,10 @@
-# Coder Diary
+# Kodcu
 
-This theme is forked from **[Mainroad](https://github.com/Vimux/Mainroad)** and specialized to readibility of long posts. The source code is clean so you can easily hack it if you want.
+This theme is forked from [Mainroad](https://github.com/Vimux/Mainroad) and specialized to readibility of long posts. The source code is clean so you can easily hack it if you want.
 
-[Real-life Example](https://furkantokac.com/)
+Check for real-life example : [furkantokac.com](https://www.furkantokac.com/)
 
-Following of the README is taken directly from [Mainroad's README](https://github.com/Vimux/Mainroad/blob/master/README.md) and edited according to changes.
+Following of the README is directly taken from [Mainroad's README](https://github.com/Vimux/Mainroad/blob/master/README.md) and edited according to changes.
 
 **Features:**
 
@@ -25,19 +25,21 @@ Other browsers (like Opera on Blink engine) are also supported, but not tested.
 
 ## Installation
 
-*Before starting, please be sure that you have [installed Hugo](https://gohugo.io/getting-started/quick-start/#step-1-install-hugo) and [created a new site](https://gohugo.io/getting-started/quick-start/#step-2-create-a-new-site). After that, you ready to install **Coder Diary**.*
+*Before starting, please be sure that you have [installed Hugo](https://gohugo.io/getting-started/quick-start/#step-1-install-hugo) and [created a new site](https://gohugo.io/getting-started/quick-start/#step-2-create-a-new-site). After that, you ready to install **Kodcu**.*
 
 In your Hugo site `themes` directory, run:
 
 ```
-git clone https://github.com/furkantokac/coder-diary
+git clone https://github.com/furkantokac/kodcu
 ```
 
-Next, open `config.toml` in the base of the Hugo site and ensure the theme option is set to `coder-diary`:
+Next, open `config.toml` in the base of the Hugo site and ensure the theme option is set to `kodcu`:
 
 ```
-theme = "coder-diary"
+theme = "kodcu"
 ```
+
+To apply the demo, remove all the folders, files on base directory except /themes folder, copy all the files in /themes/kodcu/exampleSite to base directory.
 
 For more information read the official [setup guide](https://gohugo.io/themes/installing-and-using-themes/) of Hugo.
 
@@ -47,10 +49,10 @@ For more information read the official [setup guide](https://gohugo.io/themes/in
 
 ```toml
 baseurl = "/"
-title = "Coder Diary"
+title = "Kodcu"
 languageCode = "en-us"
 paginate = "10" # Number of posts per page
-theme = "coder-diary"
+theme = "kodcu"
 disqusShortname = "" # Enable comments by entering your Disqus shortname
 googleAnalytics = "" # Enable Google Analytics by entering your tracking id
 
@@ -133,7 +135,7 @@ For more information about front matter variables read [Hugo Front Matter](https
 
 ### Sidebar
 
-**Coder Diary** comes with a configurable sidebar that can be on the left, on the right, or disabled. The default layout can be specified in the `[Params.sidebar]` section of the configuration. The position can be specified for home, list and single pages individually. Use the keys `home`, `list` and `single` with values `"left"`, `"right"` or `false`. The layout can be configured per page, by setting the `sidebar` parameter with one of the same values in the page's front matter.
+**Kodcu** comes with a configurable sidebar that can be on the left, on the right, or disabled. The default layout can be specified in the `[Params.sidebar]` section of the configuration. The position can be specified for home, list and single pages individually. Use the keys `home`, `list` and `single` with values `"left"`, `"right"` or `false`. The layout can be configured per page, by setting the `sidebar` parameter with one of the same values in the page's front matter.
 
 The sidebar consists of multiple widgets. Widgets can be enabled individually using the `widgets` key with a list of widget names as value. You can add your own widgets, by placing a template under `layouts/partials/widgets/<name>.html`. The list of widgets can be overwritten from a page's front matter.
 
@@ -141,18 +143,18 @@ Some widget respect optional configuration. Have a look at the `[Params.widgets]
 
 ### Header Image
 
-**Coder Diary** can be customized with image in the site header. You just have to provide a `header_img=path/to/your/header_img.svg` stanza in your configuration file (see above). Currently, **Coder Diary** includes the image at `max-height: 80px`. This might change in the future, thus we expect you to provide the logo in a vector format (`.svg`). (Thanks to [Patrik Keller](https://github.com/pkel) for this feature.)
+**Kodcu** can be customized with image in the site header. You just have to provide a `header_img=path/to/your/header_img.svg` stanza in your configuration file (see above). Currently, **Kodcu** includes the image at `max-height: 80px`. This might change in the future, thus we expect you to provide the logo in a vector format (`.svg`). (Thanks to [Patrik Keller](https://github.com/pkel) for this feature.)
 
 ### Menus
 
-**Coder Diary** supports multiple menus. The `main` menu is fully responsive and displayed right under the site header. The secondary menus `side` and `footer` are displayed in a sidebar widget and the page footer. In order to add a page to a menu, add a `menu = <menu>` parameter to the pages frontmatter. You can also add a page to many menus by providing a list, e.g. `menu = [main, side, footer]`. Don't forget to enable the `sidemenu` widget in the widget configuration if you want to use the `side` menu.
+**Kodcu** supports multiple menus. The `main` menu is fully responsive and displayed right under the site header. The secondary menus `side` and `footer` are displayed in a sidebar widget and the page footer. In order to add a page to a menu, add a `menu = <menu>` parameter to the pages frontmatter. You can also add a page to many menus by providing a list, e.g. `menu = [main, side, footer]`. Don't forget to enable the `sidemenu` widget in the widget configuration if you want to use the `side` menu.
 
-**Sidenote:** Please keep in mind that Coder Diary menus don't support nested items (submenus).
+**Sidenote:** Please keep in mind that Kodcu menus don't support nested items (submenus).
 
 ## Contributing
 
-Have you found a bug or got an idea for a new feature? Feel free to use the [issue tracker](https://github.com/furkantokac/coder-diary/issues) to let me know. Or make directly a [pull request](https://github.com/furkantokac/coder-diary/pulls).
+Have you found a bug or got an idea for a new feature? Feel free to use the [issue tracker](https://github.com/furkantokac/kodcu/issues) to let me know. Or make directly a [pull request](https://github.com/furkantokac/kodcu/pulls).
 
 ## License
 
-This theme is released under the [GPLv2 license](https://github.com/furkantokac/coder-diary/blob/master/LICENSE.md).
+This theme is released under the [GPLv2 license](https://github.com/furkantokac/kodcu/blob/master/LICENSE.md).

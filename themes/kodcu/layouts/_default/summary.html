@@ -1,11 +1,11 @@
 <article class="list__item post list__index-item">
+    {{- if .Params.thumbnail }}
 	<figure class="list__thumbnail list__index-thumbnail">
-		{{- if .Params.thumbnail }}
 		<a href="{{ .Permalink }}">
 			<img src="{{ .Params.thumbnail | relURL }}" alt="{{ .Title }}" />
 		</a>
-		{{- end }}
 	</figure>
+		{{- end }}
 	<div>
 		<header class="list__header">
 			<h3 class="list__title post__title ">

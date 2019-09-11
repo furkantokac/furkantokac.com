@@ -1,8 +1,8 @@
-name = "Coder Diary"
+name = "Kodcu"
 license = "GPLv2"
-licenselink = "https://github.com/furkantokac/coder-diary/blob/master/LICENSE.md"
-description = "Coder Diary is a fork of Mainroad theme and specialized to readibility of long posts."
-homepage = "https://github.com/furkantokac/coder-diary/"
+licenselink = "https://github.com/furkantokac/kodcu/blob/master/LICENSE.md"
+description = "Kodcu is a fork of Mainroad theme and specialized to readibility of long posts."
+homepage = "https://github.com/furkantokac/kodcu/"
 tags = ["blog", "responsive", "widgets", "rss", "disqus", "google analytics", "wordpress"]
 features = ["blog", "responsive", "widgets", "rss", "disqus", "wordpress"]
 min_version = "0.48"
