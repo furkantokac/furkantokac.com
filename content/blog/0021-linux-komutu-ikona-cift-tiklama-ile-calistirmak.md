@@ -5,9 +5,10 @@ thumbnail: "/img/linux-orange-gradient.jpg"
 categories: ["Yazılar|Posts"]
 tags: ["Yazı", "Linux"]
 url: "linux-komutu-ikona-cift-tiklama-ile-calistirmak"
+summary: "Bu işlem sayesinde ister çalıştırılabilir (executable) dosya oluşturmayan (Python gibi), terminal aracılığı ile komut girerek çalıştırılan programlarınızı çift tıklama ile çalıştırabilirsiniz, isterseniz de kendinize ait küçük komutlar yazabilirsiniz(.bat dosyaları gibi)."
 ---
 
-[(Click to go to English version of the post)](/linux-run-commands-from-its-icon)
+{{< goEnPost url="/linux-run-commands-from-its-icon" >}} <br>
 
 ### Açıklama :
 

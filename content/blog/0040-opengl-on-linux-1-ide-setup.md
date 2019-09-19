@@ -6,7 +6,10 @@ thumbnail: "/img/opengl-logo.jpg"
 categories: ["Yazılar|Posts"]
 tags: ["OpenGL", "English", "C++", "C"]
 url: "opengl-on-linux-1-ide-setup"
+summary: "By this post, you'll have a ready-to-work development environment for OpenGL development. The OpenGL libraries will be automatically in your libs folder so no need to worry about importing them. Just #include &lt;libraryYouWant.h>."
 ---
+
+{{< goTrPost url="/opengl-gunlugu-1-ortam-kurulumu" >}} <br>
 
 If you want to start OpenGL development by using Qt Creator, you're on the right place. By this post, you'll have a ready-to-work development environment for OpenGL development. The OpenGL libraries will be automatically in your "libs" folder so no need to worry about importing them. Just #include &lt;libraryYouWant.h>. I'll not mention about each technologies seperately (like what is CMake etc.) so you can search them online if you want.
 

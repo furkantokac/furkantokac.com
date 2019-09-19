@@ -7,9 +7,7 @@ tags: ["Gömülü Linux", "Raspberry Pi", "Gömülü"]
 url: "rpi3-fast-boot-2-saniyede-acilan-sistem"
 ---
 
-Click [HERE](/rpi3-fast-boot-less-than-2-seconds) for the English version of this post. <br>
-Bu yazının İngilizce'si için [BURAYA](/rpi3-fast-boot-less-than-2-seconds) tıklayın.
-
+{{< goEnPost url="/rpi3-fast-boot-less-than-2-seconds" >}} <br>
 
 ### <u>Giriş</u>
 

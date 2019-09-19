@@ -5,6 +5,7 @@ thumbnail: "/img/kdeplasma-4.jpg"
 categories: ["KDE"]
 tags: ["English", "KDE", "FOSS Dev"]
 url: "this-week-in-kde-part-4"
+summary: New Mouse KCM is available! Now, there are bugs to fix in my schedule so I'll more focuse on bug fixes then new features for sometime. Mouse KCM redesing is published. Touchpad KCM QtQuickControls2 Conversion is published.
 ---
 
 ### Cheap talk

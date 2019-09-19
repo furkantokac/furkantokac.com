@@ -5,9 +5,10 @@ thumbnail: "/img/linux-orange-gradient.jpg"
 categories: ["Yazılar|Posts"]
 tags: ["Linux", "English", "Post"]
 url: "linux-run-commands-from-its-icon"
+summary: "Thanks to this file, we can start our programs without terminal even if it needs to get command on terminal to start (like Python programs) with double click to its icon (really .png icon :) ) or we can write commands to facilitate our works."
 ---
 
-[(Bu yazının Türkçesi için tıklayın)](/linux-komutu-ikona-cift-tiklama-ile-calistirmak)
+{{< goTrPost url="/linux-komutu-ikona-cift-tiklama-ile-calistirmak" >}} <br>
 
 ### Description :
 

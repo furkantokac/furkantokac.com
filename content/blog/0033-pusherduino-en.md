@@ -5,7 +5,10 @@ thumbnail: "/img/0032-pusherduino.png"
 categories: ["Elektronik|Electronics"]
 tags: ["C", "Arduino", "English", "Electronic"]
 url: "pusherduino-en"
+summary: "Pusherduino is an Arduino based, simple and excited board game. Follow the comments in source code for more info. There are 4 buttons and each button has a led. When the game start, one led is turned on. Gamer should push the button of the led in the given time interval."
 ---
+
+{{< goTrPost url="/pusherduino" >}} <br>
 
 Project Link : [https://circuits.io/circuits/2710731-pusher/](https://circuits.io/circuits/2710731-pusher/) </br>
 Github Link : [https://github.com/furkantokac/Pusherduino/](https://github.com/furkantokac/Pusherduino/)

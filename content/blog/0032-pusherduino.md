@@ -5,7 +5,10 @@ thumbnail: "/img/0032-pusherduino.png"
 categories: ["Elektronik|Electronics"]
 tags: ["C", "Arduino", "Elektronik"]
 url: "pusherduino"
+summary: "Pusherduino Arduino ile yapılmış, basit ve eğlenceli bir oyundur. Kod hakkında bilgiyi koddaki yorumlardan sağlayabilirsiniz. 4 buton ve 4 led var. (Basit bir şekilde arttırılabilir) Her buton bir ledi karşılamakta. Oyun başladığında bir led yanacak."
 ---
+
+{{< goEnPost url="/pusherduino-en" >}} <br>
 
 Proje linki : [https://circuits.io/circuits/2710731-pusher/](https://circuits.io/circuits/2710731-pusher/) </br>
 Github Linki : [https://github.com/furkantokac/Pusherduino/](https://github.com/furkantokac/Pusherduino/) 
