@@ -3,13 +3,13 @@ title: "Raspberry Pi 3 Fastboot - 2 Saniyede Açılan Sistem"
 date: "2050-09-15T20:38:09+03:00"
 thumbnail: "/img/0042-rpi3-fast-boot-2-saniyede-acilan-sistem.jpg"
 categories: ["Gömülü|Embedded"]
-tags: ["Gömülü Linux", "Raspberry Pi", "Gömülü"]
+tags: ["Gömülü Linux", "Raspberry Pi", "Gömülü", "Buildroot"]
 url: "rpi3-fast-boot-2-saniyede-acilan-sistem"
 ---
 
 {{< goEnPost url="/rpi3-fast-boot-less-than-2-seconds" >}} <br>
 
-### <u>Giriş</u>
+Bu yazı sonunda, Raspberry Pi 3'ün 1.75 saniyede açılabilmesi için yapılması gereken ayarlamalarını öğrenmiş olacaksınız. Buna ek olarak Raspberry Pi 3 üzerinde Qt uygulamasını en hızlı şekilde çalıştırabilmek için yapılması gereken ayarlamalara da değineceğiz. Sonuç olarak, sisteme güç verildiği andan itibaren 2.83 saniyede açılan, Raspberry Pi 3 üzerinde çalışan bir Qt uygulamasına sahip olacağız.
 
 Her şeyden önce boot optimizasyonunun kritik bazı aşamaları düşük seviyeli (donanıma bağımlı) işler oldukları için kullanacağımız kartı çok iyi tanımamız gerekiyor. Kartımız boot işlemini nasıl yapıyor, hangi dosyaları hangi sıra ile çalıştırıyor, çalıştırdığı dosyaların hangileri %100 gerekli gibi sorulara net cevaplar verebiliyor olmak gerekiyor. Bunun yanında yapılan optimizasyonlar kesinlikle teker teker yapılıp test edilmesi gerekiyor ki o işlemin kart üzerinde nasıl bir etki yaptığı açıkça görülebilsin.
 
@@ -36,10 +36,11 @@ Raspberry’nin boot süreci ile alakalı dosyalar ve amaçları kısaca  şöyl
 Bu çalışma ile, Raspberry'e güç gitmesinden aşağıdaki gereklilikleri sağlayan uygulamanın başlamasına kadar geçen sürenin en aza indirilmesi amaçlanmıştır.
 
 - Kart olarak Raspberry Pi 3 kullanılacak.
-- GPIO ile kontrol edilebilen bir LED, belirli aralıklarla yanıp sönecek.
+- Linux özelleştirmesi için Buildroot kullanılacak.
+- Raspberry Pi 3'ün GPIO, UART özellikleri aktif ve Qt üzerinden kullanılabilir olacak.
 - Buton ile GPIO tetikleyip LED'in yanıp sönme periyodu değiştirilebilecek.
-- BMS'in UART ile yolladığı veriler alınacak.
-- Alınan BMS verileri Qt'de yazılmış olan arayüzde gösterilecek.
+- UART üzerinden veri alınacak.
+- Alınan UART verileri Qt'de yazılmış olan arayüzde gösterilecek.
 
 
 ### Raspberry Boot Süreci
@@ -157,7 +158,7 @@ Qt Creator bize detaylı hata ayıklama araçları sunuyor. Bu araçları kullan
 K5’te yaptığımız en önemli geliştirmelerin başında statik derleme gelmektedir. Statik derleme, uygulamanın çalışabilmesi için gerekli olan tüm kütüphanelerin kendi içinde bulunması demektir. Statik derleme işlemi için özel bazı adımlar uygulamak gerekiyor. (bkz. [6][6], [7][7]) Normal derleme işlemi yaptığımızda uygulama dinamik derlenir. Dinamik derlemede ise, uygulama ihtiyaç duyduğu kütüphaneleri sistem dosyalarından tek tek çağırır, dolayısıyla zaman kaybı meydana gelir. Statik derlemenin bizim kullanım senaryomuzda bir dezavantajı yoktur. Aksine boyut, hız gibi avantajları vardır. Yani işlerimizi kısıtlayacak bir durum yok. Bu geliştirme bize yaklaşık olarak 0.33sn kazanç sağladı.
 
 **Budama (Stripping)** <br>
-Budama işlemi, çalıştırılabilir dosyanın içerisindeki gereksiz alanları budayarak dosya boyutunu küçültmeye yaramaktadır. Özellikle statik derleme işlemi sonrasında çok yararlı, olmazsa olmaz bir adımdır. Budama işlemi için şu komutu kullanmak yeterli olacaktır: strip --strip-all BMSApp Bu işlem sonrasında 21mb olan uygulama boyutumuz 15mb’a kadar düşmüştür.
+Budama işlemi, çalıştırılabilir dosyanın içerisindeki gereksiz alanları budayarak dosya boyutunu küçültmeye yaramaktadır. Özellikle statik derleme işlemi sonrasında çok yararlı, olmazsa olmaz bir adımdır. Budama işlemi için şu komutu kullanmak yeterli olacaktır: `strip --strip-all QtUygulamam` Bu işlem sonrasında 21mb olan uygulama boyutumuz 15mb’a kadar düşmüştür.
 
 **QML Optimizasyonu** <br>
 QML dosyamız, kullanıcıya gösterilecek ekran olduğu için optimize halde olması, uygulamanın kullanıcıya yansıtılması aşamasını hızlandıracaktır. QML kodlarının tek, büyük bir QML dosyası içinde olması yerine mantıksal olarak parçalara bölünmesi QML kodunun çalışmasını hızlandıracaktır. Biz de bu doğrultuda uygulamamızda bolca olan Label’lara bu işlemi uyguladık. Bu işlem, programı optimize etmese dahi kodun temiz olması açısından yapılması gereken bir işlemdir. Aslında temiz kod, dolaylı yoldan, yazılımın her parçasını etkileyen en önemli optimizasyonlardan biridir.
@@ -248,7 +249,7 @@ Not : Ölçümler, cihazın açılışı yüksek hızlı kamera ile çekilerek, 
 [2]: https://github.com/raspberrypi/firmware 
 [3]: https://bootlin.com/pub/conferences/2014/elc/petazzoni-device-tree-dummies/petazzoni-device-tree-dummies.pdf
 [4]: http://www.mergely.com/editor
-[5]: https://gitlab.com/furkantokac/buildroot/blob/ftdev/board/ftdev/docs/distro_optimization/fcond04/README.config
+[5]: https://gitlab.com/furkantokac/buildroot/blob/ftdev/board/ftdev/rpi3/docs/distro_optimization/fcond04/README.config
 [6]: https://wiki.qt.io/RaspberryPi2EGLFS 
 [7]: http://doc.qt.io/QtForDeviceCreation/qtee-static-linking.html 
 [8]: https://www.tldp.org/LDP/sag/html/buffer-cache.html 
