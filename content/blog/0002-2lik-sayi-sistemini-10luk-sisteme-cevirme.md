@@ -6,6 +6,7 @@ thumbnail: "/img/0002-2lik-sayi-sistemini-10luk-sisteme-cevirme.png"
 categories: ["C"]
 tags: ["C"]
 url: "2lik-sayi-sistemini-10luk-sisteme-cevirme"
+images: ["/img/0002-2lik-sayi-sistemini-10luk-sisteme-cevirme.png"]
 ---
 
 ### Açıklama
