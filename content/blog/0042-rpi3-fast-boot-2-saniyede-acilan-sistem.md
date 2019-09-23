@@ -1,6 +1,6 @@
 ---
 title: "Raspberry Pi 3 Fastboot - 2 Saniyede Açılan Sistem"
-date: "2050-09-15T20:38:09+03:00"
+date: "2019-09-15T20:38:09+03:00"
 thumbnail: "/img/0042-rpi3-fast-boot-2-saniyede-acilan-sistem.jpg"
 categories: ["Gömülü|Embedded"]
 tags: ["Gömülü Linux", "Raspberry Pi", "Gömülü", "Buildroot"]
@@ -9,7 +9,25 @@ url: "rpi3-fast-boot-2-saniyede-acilan-sistem"
 
 {{< goEnPost url="/rpi3-fast-boot-less-than-2-seconds" >}} <br>
 
-Bu yazı sonunda, Raspberry Pi 3'ün 1.75 saniyede açılabilmesi için yapılması gereken ayarlamalarını öğrenmiş olacaksınız. Buna ek olarak Raspberry Pi 3 üzerinde Qt uygulamasını en hızlı şekilde çalıştırabilmek için yapılması gereken ayarlamalara da değineceğiz. Sonuç olarak, sisteme güç verildiği andan itibaren 2.83 saniyede açılan, Raspberry Pi 3 üzerinde çalışan bir Qt uygulamasına sahip olacağız.
+Bu yazının sonunda, Raspberry Pi 3'ün 1.75 saniyede açılabilmesi için yapılması gerekenleri öğrenmiş olacaksınız. Buna ek olarak Raspberry Pi 3 üzerinde Qt uygulamasını en hızlı şekilde çalıştırabilmek için yapıbılabilecek optimizasyonlara da değineceğiz. Sonuç olarak, sisteme güç verildiği andan itibaren toplam 1.75 saniyede açılan sisteme, toplam 2.83 saniyede açılan Qt uygulamasına sahip olacağız.
+
+
+## İçerik
+
+**1.** Giriş <br>
+**2.** Proje Gereksinimleri <br>
+**3.** Raspberry Boot Dosyaları <br>
+**4.** Raspberry Boot Süreci <br>
+&emsp;&emsp;**K1 -** Raspberry’nin Hazırlık Süreci <br>
+&emsp;&emsp;**K2 -** Linux’un Hazırlık Süreci <br>
+&emsp;&emsp;**K3 -** Linux’un Çalışması <br>
+&emsp;&emsp;**K4 -** InitSystem’in çalışması (BusyBox) <br>
+&emsp;&emsp;**K5 -** Uygulamamızın çalışması (Qt) <br>
+**5.** Daha Fazla Optimizasyon! <br>
+**6.** Sonuç <br>
+
+
+## Giriş
 
 Her şeyden önce boot optimizasyonunun kritik bazı aşamaları düşük seviyeli (donanıma bağımlı) işler oldukları için kullanacağımız kartı çok iyi tanımamız gerekiyor. Kartımız boot işlemini nasıl yapıyor, hangi dosyaları hangi sıra ile çalıştırıyor, çalıştırdığı dosyaların hangileri %100 gerekli gibi sorulara net cevaplar verebiliyor olmak gerekiyor. Bunun yanında yapılan optimizasyonlar kesinlikle teker teker yapılıp test edilmesi gerekiyor ki o işlemin kart üzerinde nasıl bir etki yaptığı açıkça görülebilsin.
 
@@ -18,7 +36,19 @@ Bu çalışma için kullanacağımız kart olan Raspberry Pi 3’ün boot işlem
 Raspberry, System on Chip (SoC) olarak Qualcomm'un kapalı kaynak bir çipini kullanmaktadır. Dolayısıyla SoC ile alakalı yazılımlar, Raspberry tarafından bize sağlanmakta. (bkz. [2][2]) Kapalı kaynak olduğu için bu yazılımlara normal yollarla etki edilememektedir. Raspberry ile boot optimizasyonu aşamalarında en fazla sıkıntı yaşanılan kısımlar bu nedenle bize sağlanan SoC dosyalarının üstlendiği kısımlarıdır. 
 
 
-#### Raspberry Boot Dosyaları
+## Proje Gereksinimleri
+
+Bu çalışma ile, Raspberry'e güç gitmesinden aşağıdaki gereklilikleri sağlayan uygulamanın başlamasına kadar geçen sürenin en aza indirilmesi amaçlanmıştır.
+
+- Kart olarak Raspberry Pi 3 kullanılacak.
+- Linux özelleştirmesi için Buildroot kullanılacak.
+- Raspberry Pi 3'ün GPIO, UART özellikleri aktif ve Qt üzerinden kullanılabilir olacak.
+- Buton ile GPIO tetikleyip LED'in yanıp sönme periyodu değiştirilebilecek.
+- UART üzerinden veri alınacak.
+- Alınan UART verileri Qt'de yazılmış olan arayüzde gösterilecek.
+
+
+## Raspberry Boot Dosyaları
 
 Raspberry’nin boot süreci ile alakalı dosyalar ve amaçları kısaca  şöyledir;
 
@@ -31,19 +61,7 @@ Raspberry’nin boot süreci ile alakalı dosyalar ve amaçları kısaca  şöyl
 * **Temel mantık** : Raspberry’e güç verildi -> Raspberry’nin içindeki gömülü yazılım çalıştı -> bootcode.bin çalıştı -> start.elf çalıştı -> config.txt okundu -> .dtb okundu -> cmdline.txt okundu -> kernel.img çalıştı
 
 
-#### Proje Gereksinimleri
-
-Bu çalışma ile, Raspberry'e güç gitmesinden aşağıdaki gereklilikleri sağlayan uygulamanın başlamasına kadar geçen sürenin en aza indirilmesi amaçlanmıştır.
-
-- Kart olarak Raspberry Pi 3 kullanılacak.
-- Linux özelleştirmesi için Buildroot kullanılacak.
-- Raspberry Pi 3'ün GPIO, UART özellikleri aktif ve Qt üzerinden kullanılabilir olacak.
-- Buton ile GPIO tetikleyip LED'in yanıp sönme periyodu değiştirilebilecek.
-- UART üzerinden veri alınacak.
-- Alınan UART verileri Qt'de yazılmış olan arayüzde gösterilecek.
-
-
-### Raspberry Boot Süreci
+## Raspberry Boot Süreci
 
 Raspberry'de bir Qt uygulamasının çalışması için gerekli olan aşamalar sırasıyla şu şekildedir;  <br>
 **K1** - Raspberry'nin hazırlık süreci (1. & 2. Stage Bootloader) (bootcode.bin) <br>
@@ -53,39 +71,39 @@ Raspberry'de bir Qt uygulamasının çalışması için gerekli olan aşamalar s
 **K5** - Uygulamamızın çalışması (Qt)
 
 
-### <u>K1 - Raspberry'nin Hazırlık Süreci</u>
+#### <u>K1 - Raspberry'nin Hazırlık Süreci</u>
 
-Bu kısımda kartın üzerine üretici tarafından gömülmüş bir yazılım, bootcode.bin’i çalıştırıyor. Kartın üzerine gömülü olan kısıma legal yollarla etki etmemiz mümkün olmadığı için o kısım ile ilgili işlem yapamadan bootcode.bin üzerinde çalışmaya başlıyoruz. bootcode.bin kapalı kaynak olduğu için direkt etki edemiyoruz. Geriye 2 yol kalıyor. Ya kapalı kaynak olarak bize sağlanan bootcode.bin’leri deneyerek ilerleme sağlamayı deneyeceğiz, ya da bootcode.bin bağlantılı olduğu dosyalara etki ederek ilerleme sağlamayı deneyeceğiz.(tersine mühendislik yolunu hesaba katmıyoruz.)
+Bu kısımda kartın üzerine üretici tarafından gömülmüş bir yazılım, bootcode.bin’i çalıştırıyor. Kartın üzerine gömülü olan kısıma normal yollarla etki etmemiz mümkün olmadığı için o kısım ile ilgili işlem yapamadan bootcode.bin üzerinde çalışmaya başlıyoruz. bootcode.bin kapalı kaynak olduğu için direkt etki edemiyoruz. Geriye 2 yol kalıyor. Ya kapalı kaynak olarak bize sağlanan bootcode.bin’leri deneyerek ilerleme sağlamayı deneyeceğiz, ya da bootcode.bin bağlantılı olduğu dosyalara etki ederek ilerleme sağlamayı deneyeceğiz.(tersine mühendislik yolunu hesaba katmıyoruz.)
 
-Raspberry’nin GIT sayfasına (bkz. [2][2]) giderek bootcode.bin’in farklı versiyonları var mı diye kontrol edince olmadığını görebiliriz. Eski versiyonları da denediğimizde hızda değişim olmadığını görüyoruz. Diğer seçeneğe geçebiliriz.
+Raspberry’nin GIT sayfasına (bkz. [2][2]) giderek bootcode.bin’in farklı versiyonları var mı diye kontrol edince olmadığını görebiliriz. Eski Commit'lere gidip eski versiyonları da denediğimizde hızda değişim olmadığını görüyoruz. Diğer seçeneğe geçebiliriz.
 
 Start.elf kapalı kaynak olduğu için ona da direkt etki edemiyoruz fakat Raspberry’nin sayfasında farklı start.elf dosyaları olduğu gözüküyor: start_cd.elf, start_db.elf, start_x.elf. Bu dosyaların farkını araştırınca start_cd.elf’in start.elf’in basitleştirilmiş versiyonu olduğunu görüyoruz. Bu sürümde GPU özellikleri kırpılmış. Bizim uygulamamız grafiksel arayüz kullandığı için çalışmasına engel olabilir fakat tabi denemeden bilemeyiz. Kendi start.elf’imizi start_cd.elf ile değiştirip farkı gözlemlemek istediğimizde, bootcode.bin’in 0.5sn hızlandığını görebiliyoruz. Lakin uygulamamızı çalıştırmak istediğimizde hata ile karşılaşıyoruz. Peki hata neyden kaynaklanıyor, çözülebilir mi ?
 Arayüz uygulamamız, OpenGL ES üzerinde çalışıyor ve start_cd.elf, OpenGL ES’in ihtiyaç duyduğu kadar GPU hafızası ayırmıyor. Bu sıkıntıyı aşmayı denediysek de başarılı olamadık ama zaman ayırılıp üzerine gidilirse çözülebileceğine inanıyorum.
 
 
-### <u>K2 - Linux'un Hazırlık Süreci</u>
+#### <u>K2 - Linux'un Hazırlık Süreci</u>
 
 Bu kısımdaki işleri start.elf dosyası üstleniyor. Device Tree dosyasından donanım özelliklerine göre karttaki gerekli ayarlamaları yaparak, kendi ürettiği ve varsa cmdline.txt dosyasındaki parametreler ile birlikte Kernel imajını boot ediyor. Kernel boot olabilmesi için illa ki Device Tree dosyasının içindeki bazı kısımlara ihtiyaç duyar. start.elf de kapalı kaynak olduğu için direkt etki edemiyoruz fakat bu dosya ile bağlantılı olan, açık kaynak 2 dosya daha var: bcm2710-rpi-3-b.dtb, kernel.img
 
-İlk olarak yapabileceğimiz iş, bu dosyalardan herhangi biri start.elf’yi yavaşlatıyor mu diye bakmak olabilir. Device Tree dosyasını sildiğimizde Kernel boot olmuyor. Burada önemli bir soru sorabiliriz, Kernel’in boot olmamasının sebebi start.elf’nin Device Tree dosyası olmadığı için çalışmaması mı yoksa Kernel için gerekli ayarların yapılamaması mı ? Bunu test edebilmek için bir yol düşünmeliyiz. Device Tree’ye ihtiyaç duymadan çalışabilen bir uygulama işimizi görecektir. Peki bu ne olabilir ? Raspberry Pi, genel amaçlı bir karttır ve sadece Kernel çalıştırmak için tasarlanmamıştır. (lakin öyle olsa bile sıkıntı olmazdı) Bu nedenle direkt olarak SoC’u programlayabilmemiz mümkündür. Ufak bir led yakma uygulaması yapıp, start.elf’in Kernel yerine bu uygulamayı çalıştırmasını sağlarsak Device Tree’yi silmemizin herhangi bir hız değişimi oluşturup oluşturmadığını gözlemleyebiliriz. İkinci bir seçenek olarak U-Boot derleyip Kernel yerine U-Boot’u çalıştırarak da deneyebiliriz fakat biz ilk seçeneği uygulayacağız. LED yakma uygulamasını yazıp çalıştırdığımızda görüyoruz ki, Device Tree’yi silmemiz bize 1.0sn kazanç sağlamış. Bir de Device Tree’nin varsayılan ismini (bcm2710-rpi-3-b.dtb) değiştirip deniyoruz. Hızlanma yine işe yarıyor. Anlıyoruz ki start.elf, öntanımlı olarak direkt “bcm2710-rpi-3-b.dtb” ismi ile dosyayı aramakta. Sonuç olarak gelişme gösterebilmek için Device Tree dosyasını bir şekilde yok etmemiz veya ismi değişmiş bir şekilde kullanmamız gerekiyor.
+İlk olarak yapabileceğimiz iş, bu dosyalardan herhangi biri start.elf’yi yavaşlatıyor mu diye bakmak olabilir. Device Tree dosyasını sildiğimizde Kernel boot olmuyor. Burada önemli bir soru sorabiliriz, Kernel’in boot olmamasının sebebi start.elf’nin Device Tree dosyası olmadığı için çalışmaması mı yoksa Kernel için gerekli ayarların yapılamaması mı ? Bunu test edebilmek için bir yol düşünmeliyiz. Device Tree’ye ihtiyaç duymadan çalışabilen bir uygulama işimizi görecektir. Peki bu ne olabilir ? Raspberry Pi, genel amaçlı bir karttır ve sadece Kernel çalıştırmak için tasarlanmamıştır. (lakin öyle olsa bile sıkıntı olmazdı) Bu nedenle direkt olarak SoC’u programlayabilmemiz mümkündür. Ufak bir led yakma uygulaması yapıp, start.elf’in Kernel yerine bu uygulamayı çalıştırmasını sağlarsak Device Tree’yi silmemizin herhangi bir hız değişimi oluşturup oluşturmadığını gözlemleyebiliriz. İkinci bir seçenek olarak U-Boot derleyip Kernel yerine U-Boot’u çalıştırarak da deneyebiliriz fakat biz ilk seçeneği uygulayacağız. LED yakma uygulamasını yazıp çalıştırdığımızda görüyoruz ki, Device Tree’yi silmemiz bize 1.0sn kazanç sağlamış. Bir de Device Tree’nin varsayılan ismini (bcm2710-rpi-3-b.dtb) değiştirip deniyoruz. Hızlanma yine işe yarıyor. Buradan şu çıkarımları yapıyoruz; 1. Kernel boot etmesek bile Device Tree start.elf tarafından işleniyor. 2. start.elf, öntanımlı olarak direkt “bcm2710-rpi-3-b.dtb” ismi ile dosyayı aramakta. Sonuç olarak gelişme gösterebilmek için Device Tree dosyasını bir şekilde yok etmemiz veya ismi değişmiş bir şekilde kullanmamız gerekiyor.
 
 Device Tree dosyasının ismini değiştireceğimiz ilk yöntem için şöyle bir yol uygulayabiliriz; start.elf tarafından çalıştırılacak bir yazılım yazabiliriz. Bu yazılım, bir nevi LED yakmak yerine Device Tree ile beraber Kernel’i boot edebilecek bir yazılım olur. start.elf, bizim yazdığımız yazılımı çalıştırır, bizim yazdığımız yazılım da ismi değiştirilmiş Device Tree dosyası ile birlikte Kernel’i boot eder. Bunun için raspberry/linux kaynak kodundan yardım alabiliriz. (bkz. [10][10]) Tabi bu yönteme başlamadan önce diğer yöntemi de gözden geçirip arasında seçim yapmak en doğrusu olacaktır.
 
-Diğer yöntemde Device Tree’yi bir şekilde iptal etmemiz lazım. Device Tree’nin, Kernel’i boot ederken zaruri olarak gerektiğini, start.elf için ise kesin olarak gerekmediğini testimizde gördük. Device Tree Kernel ile alakalıysa, bir şekilde Device Tree konfigürasyonlarını Kernel’e hardcoded şekilde belirtmeyi deneyebiliriz. Yani Device Tree’yi Kernel’e gömebiliriz. Device Tree hakkında detaylı bilgi edinirken Kernel için bu tarz bir seçeneğin halihazırda olduğunu görüyoruz. (bkz. [3][3] sayfa 11) Gerekli ayarları yapıp (bir sonraki kısımda bu ayarlamalar hakkındaki bilgi bulunuyor) test ettiğimizde görüyoruz ki Kernel boot olabiliyor. Şimdi durum analizi yapıp her şey yolunda mı diye bakmamız lazım.
+Diğer yöntemde Device Tree’yi bir şekilde iptal etmemiz lazım. Device Tree’nin, Kernel’i boot ederken zaruri olarak gerektiğini, start.elf için ise kesin olarak gerekmediğini testimizde gördük. Device Tree Kernel ile alakalıysa, bir şekilde Device Tree konfigürasyonlarını Kernel’e Hardcoded şekilde belirtmeyi deneyebiliriz. Yani Device Tree’yi Kernel’e gömebiliriz. Device Tree hakkında detaylı bilgi edinirken Kernel için bu tarz bir seçeneğin halihazırda olduğunu görüyoruz. (bkz. [3][3] sayfa 11) Gerekli ayarları yapıp (K3'te bu ayarlama hakkında bilgi bulunuyor) test ettiğimizde görüyoruz ki Kernel boot olabiliyor. Şimdi durum analizi yapıp her şey yolunda mı diye bakmamız lazım.
 
 Testlerden sonraki durum aşağıdaki gibi oluyor; <br>
 - Qt uygulamamız sıkıntısız çalışıyor. <br>
 - UART’ı test ettiğimizde çalışmadığını görüyoruz. <br>
 - Kernel’in boot olma süresinin 0.8sn kadar uzadığını görüyoruz.
 
-İlk olarak UART ile ilgili sıkıntının ne olduğunu bulmamız gerekiyor. UART’ın sıkıntısız çalıştığı bir Kernel’i boot edip, boot logları kaydediyoruz. Sonra UART’ın sıkıntılı olduğu, Device Tree gömülmüş olan Kernel’imizi de boot edip loglarını kaydediyoruz. (Bu loglara “dmesg” komutu ile ulaşılabiliyor.) Farklarını inceliyoruz. (bkz. [4][4]) Özellikle “Kernel command line:” ile başlayan satırda, UART’ın çalıştığı sistemde olup da çalışmadığı sistemde olmayan bir farkı görüyoruz. UART’ın çalıştığı sistemde “8250.nr_uarts=1” şeklinde bir parametre Kernel’e geçiriliyor. Biz de cmdline.txt dosyasına bu parametreyi koyarak UART’ın çalışmadığı sistemi boot ettiğimizde UART’ın artık çalıştığını görüyoruz. Bu problemi çözdük.
+İlk olarak UART ile ilgili sıkıntının ne olduğunu bulmamız gerekiyor. UART’ın sıkıntısız çalıştığı bir Kernel’i boot edip, boot loglarını kaydediyoruz. Sonra UART’ın sıkıntılı olduğu, Device Tree gömülmüş olan Kernel’imizi de boot edip loglarını kaydediyoruz. (Bu loglara “dmesg” komutu ile ulaşılabiliyor.) Farklarını inceliyoruz. (bkz. [4][4]) Özellikle “Kernel command line:” ile başlayan satırda, UART’ın çalıştığı sistemde olup da çalışmadığı sistemde olmayan bir farkı görüyoruz. UART’ın çalıştığı sistemde “8250.nr_uarts=1” şeklinde bir parametre Kernel’e geçiriliyor. Biz de cmdline.txt dosyasına bu parametreyi koyarak UART’ın çalışmadığı sistemi boot ettiğimizde UART’ın artık çalıştığını görüyoruz. Bu problemi çözdük.
 
-Diğer işimiz, Kernel’in boot süresinin yaklaşık 1.0sn uzamasının nedenini araştırmak. Yine loglardan faydalanacağız. Logları incelediğimizde görüyoruz ki normal çalışan sistemde olmayıp da geliştirdiğimiz sistemde olan, “random” kelimesini içeren bir problem var ve gecikme orada oluyor. Kernel’den random ile ilgili ayarları tek tek kapayıp deneyince sıkıntılı ayarı buluyoruz. Ayarı kapattığımızda her şeyin normale döndüğünü görüyoruz. Bu problemi de çözdük.
+Diğer işimiz, Kernel’in boot süresinin yaklaşık 1.0sn uzamasının nedenini araştırmak. Yine loglardan faydalanacağız. Logları incelediğimizde görüyoruz ki normal çalışan sistemde olmayıp da geliştirdiğimiz sistemde olan, “random” kelimesini içeren bir log var ve gecikme orada oluyor. Kernel’den "random" ile ilgili ayarları tek tek kapayıp deneyince sıkıntılı ayarı buluyoruz. (K3'te bu ayarlama hakkında bilgi bulunuyor) Ayarı kapattığımızda her şeyin normale döndüğünü görüyoruz. Bu problemi de çözdük. 
 
 Sonuç olarak geliştirdiğimiz strateji sayesinde yaklaşık 2.0sn’lik bir kazanç sağladık. K2 için toplam harcanan zaman 0.25sn oldu. Burada geliştirmelerimiz devam edebilir (en basitinden Device Tree optimizasyonu yapılabilir) fakat daha büyük sıkıntılarımızın olduğu yerlere zaman harcamamız, az zamanda daha fazla yol kat etmemizi sağlayacaktır. Bu nedenle bir sonraki adıma geçiyoruz.
 
 
-### <u>K3 - Linux'un Çalışması</u>
+#### <u>K3 - Linux'un Çalışması</u>
 
 Aslında K2’de Kernel optimizasyonumuzun bir kısmını anlattık. Bu kısımda, değiştirdiğimiz ayarları ekleyeceğiz. Bu ayarlar hakkında bilgi almak için lütfen projenin GIT sayfasını ziyaret ediniz (bkz. [5][5]) ve gerektiğinde internet üzerinden detaylı araştırma yapınız.
 
@@ -138,7 +156,7 @@ HID_ASUS
 ```
 
 
-### <u>K4 - InitSystem'in çalışması (BusyBox)</u>
+#### <u>K4 - InitSystem'in çalışması (BusyBox)</u>
 
 Init system aslında ciddi bir zaman harcamıyor fakat en hızlı çalışan kod, çalışmayan koddur. :) Bu nedenle BusyBox’ı aradan çıkardık. Burada yapılan ve bizim için gerekli olan tek işlemi, GPIO ve UART işlemlerinden dolayı “File System Mounting” işlemidir. Bu işlemi basit bir şekilde kendi uygulamamıza gömdük.
 
@@ -150,7 +168,7 @@ Tabiki kullanıcıya arayüzün yansıtılmasını yavaşlatmayacak şekilde do�
 Kernel, Userspace’i yüklediğinde her şeyden önce /sbin/init dosyasını otomatik olarak çalıştırır. Dolayısıyla uygulamamız her şeyden önce çalışmış olacak.
 
 
-### <u>K5 - Uygulamamızın çalışması (Qt)</u>
+#### <u>K5 - Uygulamamızın çalışması (Qt)</u>
 
 Qt Creator bize detaylı hata ayıklama araçları sunuyor. Bu araçları kullanarak Qt uygulamamızın açılmasını en çok yavaşlatan unsurun ne olduğunu tespit edebiliyoruz.
 
@@ -170,7 +188,7 @@ QML dosyamız, kullanıcıya gösterilecek ekran olduğu için optimize halde ol
 .qrc dosyası aracılığı ile projeye eklediğimiz her türlü kaynak, derlenmiş olan programın içine gömülür. Bu uygulamaya hız kazandırır. Bizim programımızda kullandığımız resmi projemize bu şekilde ekledik. Bunun yanında uygulamamız, yazı tipini sistemden almaktaydı. Biz, kaynak kodumuzda ufak değişiklikler yaparak fontu da derlenmiş programımızın içine gömdük.
 
 
-### <u>Geliştirilebilir</u>
+## Daha Fazla Optimizasyon!
 
 Bu kısımda, sonsuz farklı seçenek olsa da, bahsedilecek olan seçenekler, bize büyük ilerleme sağlayacak ve kabul edilebilir miktarda zaman alacak seçeneklerdir. Aynı zamanda optimizasyon yaparken izlenen yolun nasıl geliştirilebileceği konusunda da tavsiyeler içermektedir.
 
@@ -218,11 +236,12 @@ Bu kısımda, sonsuz farklı seçenek olsa da, bahsedilecek olan seçenekler, bi
 **Açıklama** : Fark edildiyse optimizasyona en düşük seviyeden, yani Raspberry’nin kendini boot etmesinden başlayarak yüksek seviyeye doğru, yani Qt uygulamasının optimizasyonuna doğru ilerledik. Bu yöntem, optimizasyon işleminin temeli olan debugging işini zorlaştırıyor. Bunun yerine optimizasyona Qt uygulamasından başlanırsa daha sağlıklı ilerlenebilir diye düşünüyorum.
 
 
-### Sonuç
+## Sonuç
 
-“Normal” ölçümler, Buildroot ile üzerinde ayar yapılmayarak derlenmiş imajın ölçümleridir. Sadece konfigürasyon ayarlarından boot gecikme süresi sıfıra indirilmiştir. Ayrıca Qt uygulamasının kodları değiştirilmemiştir. “Normal” deki K5 ölçümü bir miktar optimizasyon içermektedir.
+“Normal” ölçümler, Buildroot ile üzerinde ayar yapılmayarak derlenmiş imajın ölçümleridir. Sadece konfigürasyon ayarlarından boot gecikme süresi sıfıra indirilmiştir.
 
 “ftDev” ise kendi ayarlarımızı yaptığımız imajın verileridir.
+
 
 |           |**K1** |**K2** |**K3** |**K4** |**K5** |**Toplam** |
 |---:       |---    |---    |---    |---    |---    |---        |
@@ -232,7 +251,7 @@ Bu kısımda, sonsuz farklı seçenek olsa da, bahsedilecek olan seçenekler, bi
 Not : Ölçümler, cihazın açılışı yüksek hızlı kamera ile çekilerek, daha sonrasında görüntüler yavaşlatılıp izlenerek yapılmıştır.
 
 
-### Referanslar
+## Referanslar
 
 **1.** [How the Raspberry Pi boots up](https://thekandyancode.wordpress.com/2013/09/21/how-the-raspberry-pi-boots-up/) <br>
 **2.** [Raspberry Pi Firmware](https://github.com/raspberrypi/firmware) <br>
