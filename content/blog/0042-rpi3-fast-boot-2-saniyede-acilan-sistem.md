@@ -9,7 +9,7 @@ url: "rpi3-fast-boot-2-saniyede-acilan-sistem"
 
 {{< goEnPost url="/rpi3-fast-boot-less-than-2-seconds" >}} <br>
 
-Bu yazının sonunda, Raspberry Pi 3'ün 1.75 saniyede açılabilmesi için yapılması gerekenleri öğrenmiş olacaksınız. Buna ek olarak Raspberry Pi 3 üzerinde Qt uygulamasını en hızlı şekilde çalıştırabilmek için yapıbılabilecek optimizasyonlara da değineceğiz. Sonuç olarak, sisteme güç verildiği andan itibaren toplam 1.75 saniyede açılan sisteme, toplam 2.83 saniyede açılan Qt uygulamasına sahip olacağız.
+Bu yazının sonunda, Raspberry Pi 3'ün 1.75 saniyede açılabilmesi için yapılması gerekenleri öğrenmiş olacaksınız. Buna ek olarak Raspberry Pi 3 üzerinde Qt uygulamasını en hızlı şekilde çalıştırabilmek için yapılabilecek optimizasyonlara da değineceğiz. Sonuç olarak, sisteme güç verildiği andan itibaren toplam 1.75 saniyede açılan Linux'a, toplam 2.83 saniyede açılan Qt (QML) uygulamasına sahip olacağız.
 
 
 ## İçerik
@@ -17,7 +17,7 @@ Bu yazının sonunda, Raspberry Pi 3'ün 1.75 saniyede açılabilmesi için yap�
 **1.** Giriş <br>
 **2.** Proje Gereksinimleri <br>
 **3.** Raspberry Boot Dosyaları <br>
-**4.** Raspberry Boot Süreci <br>
+**4.** Raspberry Boot Optimizasyonu <br>
 &emsp;&emsp;**K1 -** Raspberry’nin Hazırlık Süreci <br>
 &emsp;&emsp;**K2 -** Linux’un Hazırlık Süreci <br>
 &emsp;&emsp;**K3 -** Linux’un Çalışması <br>
@@ -25,9 +25,10 @@ Bu yazının sonunda, Raspberry Pi 3'ün 1.75 saniyede açılabilmesi için yap�
 &emsp;&emsp;**K5 -** Uygulamamızın çalışması (Qt) <br>
 **5.** Daha Fazla Optimizasyon! <br>
 **6.** Sonuç <br>
+**7.** Özet : Adım Adım Anlatım <br>
 
 
-## Giriş
+## 1. Giriş
 
 Her şeyden önce boot optimizasyonunun kritik bazı aşamaları düşük seviyeli (donanıma bağımlı) işler oldukları için kullanacağımız kartı çok iyi tanımamız gerekiyor. Kartımız boot işlemini nasıl yapıyor, hangi dosyaları hangi sıra ile çalıştırıyor, çalıştırdığı dosyaların hangileri %100 gerekli gibi sorulara net cevaplar verebiliyor olmak gerekiyor. Bunun yanında yapılan optimizasyonlar kesinlikle teker teker yapılıp test edilmesi gerekiyor ki o işlemin kart üzerinde nasıl bir etki yaptığı açıkça görülebilsin.
 
@@ -36,7 +37,7 @@ Bu çalışma için kullanacağımız kart olan Raspberry Pi 3’ün boot işlem
 Raspberry, System on Chip (SoC) olarak Qualcomm'un kapalı kaynak bir çipini kullanmaktadır. Dolayısıyla SoC ile alakalı yazılımlar, Raspberry tarafından bize sağlanmakta. (bkz. [2][2]) Kapalı kaynak olduğu için bu yazılımlara normal yollarla etki edilememektedir. Raspberry ile boot optimizasyonu aşamalarında en fazla sıkıntı yaşanılan kısımlar bu nedenle bize sağlanan SoC dosyalarının üstlendiği kısımlarıdır. 
 
 
-## Proje Gereksinimleri
+## 2. Proje Gereksinimleri
 
 Bu çalışma ile, Raspberry'e güç gitmesinden aşağıdaki gereklilikleri sağlayan uygulamanın başlamasına kadar geçen sürenin en aza indirilmesi amaçlanmıştır.
 
@@ -45,10 +46,10 @@ Bu çalışma ile, Raspberry'e güç gitmesinden aşağıdaki gereklilikleri sa�
 - Raspberry Pi 3'ün GPIO, UART özellikleri aktif ve Qt üzerinden kullanılabilir olacak.
 - Buton ile GPIO tetikleyip LED'in yanıp sönme periyodu değiştirilebilecek.
 - UART üzerinden veri alınacak.
-- Alınan UART verileri Qt'de yazılmış olan arayüzde gösterilecek.
+- Alınan UART verileri Qt'de yazılmış olan arayüzde (QML) gösterilecek.
 
 
-## Raspberry Boot Dosyaları
+## 3. Raspberry Boot Dosyaları
 
 Raspberry’nin boot süreci ile alakalı dosyalar ve amaçları kısaca  şöyledir;
 
@@ -61,9 +62,9 @@ Raspberry’nin boot süreci ile alakalı dosyalar ve amaçları kısaca  şöyl
 * **Temel mantık** : Raspberry’e güç verildi -> Raspberry’nin içindeki gömülü yazılım çalıştı -> bootcode.bin çalıştı -> start.elf çalıştı -> config.txt okundu -> .dtb okundu -> cmdline.txt okundu -> kernel.img çalıştı
 
 
-## Raspberry Boot Süreci
+## 4. Raspberry Boot Optimizasyonu
 
-Raspberry'de bir Qt uygulamasının çalışması için gerekli olan aşamalar sırasıyla şu şekildedir;  <br>
+Raspberry'de, karta güç verildiği andan itibaren bir Qt uygulamasının çalışmasına kadarki süreç sırasıyla şu şekildedir;  <br>
 **K1** - Raspberry'nin hazırlık süreci (1. & 2. Stage Bootloader) (bootcode.bin) <br>
 **K2** - Linux'un hazırlık süreci (3. Stage Bootloader) (start.elf, bcm2710-rpi-3-b.dtb) <br>
 **K3** - Linux'un çalışması (kernel.img) <br>
@@ -87,7 +88,7 @@ Bu kısımdaki işleri start.elf dosyası üstleniyor. Device Tree dosyasından 
 
 İlk olarak yapabileceğimiz iş, bu dosyalardan herhangi biri start.elf’yi yavaşlatıyor mu diye bakmak olabilir. Device Tree dosyasını sildiğimizde Kernel boot olmuyor. Burada önemli bir soru sorabiliriz, Kernel’in boot olmamasının sebebi start.elf’nin Device Tree dosyası olmadığı için çalışmaması mı yoksa Kernel için gerekli ayarların yapılamaması mı ? Bunu test edebilmek için bir yol düşünmeliyiz. Device Tree’ye ihtiyaç duymadan çalışabilen bir uygulama işimizi görecektir. Peki bu ne olabilir ? Raspberry Pi, genel amaçlı bir karttır ve sadece Kernel çalıştırmak için tasarlanmamıştır. (lakin öyle olsa bile sıkıntı olmazdı) Bu nedenle direkt olarak SoC’u programlayabilmemiz mümkündür. Ufak bir led yakma uygulaması yapıp, start.elf’in Kernel yerine bu uygulamayı çalıştırmasını sağlarsak Device Tree’yi silmemizin herhangi bir hız değişimi oluşturup oluşturmadığını gözlemleyebiliriz. İkinci bir seçenek olarak U-Boot derleyip Kernel yerine U-Boot’u çalıştırarak da deneyebiliriz fakat biz ilk seçeneği uygulayacağız. LED yakma uygulamasını yazıp çalıştırdığımızda görüyoruz ki, Device Tree’yi silmemiz bize 1.0sn kazanç sağlamış. Bir de Device Tree’nin varsayılan ismini (bcm2710-rpi-3-b.dtb) değiştirip deniyoruz. Hızlanma yine işe yarıyor. Buradan şu çıkarımları yapıyoruz; 1. Kernel boot etmesek bile Device Tree start.elf tarafından işleniyor. 2. start.elf, öntanımlı olarak direkt “bcm2710-rpi-3-b.dtb” ismi ile dosyayı aramakta. Sonuç olarak gelişme gösterebilmek için Device Tree dosyasını bir şekilde yok etmemiz veya ismi değişmiş bir şekilde kullanmamız gerekiyor.
 
-Device Tree dosyasının ismini değiştireceğimiz ilk yöntem için şöyle bir yol uygulayabiliriz; start.elf tarafından çalıştırılacak bir yazılım yazabiliriz. Bu yazılım, bir nevi LED yakmak yerine Device Tree ile beraber Kernel’i boot edebilecek bir yazılım olur. start.elf, bizim yazdığımız yazılımı çalıştırır, bizim yazdığımız yazılım da ismi değiştirilmiş Device Tree dosyası ile birlikte Kernel’i boot eder. Bunun için raspberry/linux kaynak kodundan yardım alabiliriz. (bkz. [10][10]) Tabi bu yönteme başlamadan önce diğer yöntemi de gözden geçirip arasında seçim yapmak en doğrusu olacaktır.
+Device Tree dosyasının ismini değiştireceğimiz ilk yöntem için şöyle bir yol uygulayabiliriz; start.elf tarafından çalıştırılacak bir yazılım yazabiliriz. Bu yazılım, bir nevi LED yakmak yerine Device Tree ile beraber Kernel’i boot edebilecek bir yazılım olur. start.elf, bizim yazdığımız yazılımı çalıştırır, bizim yazdığımız yazılım da ismi değiştirilmiş Device Tree dosyası ile birlikte Kernel’i boot eder. Bunun için raspberry/linux kaynak kodundan yardım alabiliriz. (bkz. [11][11]) Tabi bu yönteme başlamadan önce diğer yöntemi de gözden geçirip arasında seçim yapmak en doğrusu olacaktır.
 
 Diğer yöntemde Device Tree’yi bir şekilde iptal etmemiz lazım. Device Tree’nin, Kernel’i boot ederken zaruri olarak gerektiğini, start.elf için ise kesin olarak gerekmediğini testimizde gördük. Device Tree Kernel ile alakalıysa, bir şekilde Device Tree konfigürasyonlarını Kernel’e Hardcoded şekilde belirtmeyi deneyebiliriz. Yani Device Tree’yi Kernel’e gömebiliriz. Device Tree hakkında detaylı bilgi edinirken Kernel için bu tarz bir seçeneğin halihazırda olduğunu görüyoruz. (bkz. [3][3] sayfa 11) Gerekli ayarları yapıp (K3'te bu ayarlama hakkında bilgi bulunuyor) test ettiğimizde görüyoruz ki Kernel boot olabiliyor. Şimdi durum analizi yapıp her şey yolunda mı diye bakmamız lazım.
 
@@ -105,7 +106,7 @@ Sonuç olarak geliştirdiğimiz strateji sayesinde yaklaşık 2.0sn’lik bir ka
 
 #### <u>K3 - Linux'un Çalışması</u>
 
-Aslında K2’de Kernel optimizasyonumuzun bir kısmını anlattık. Bu kısımda, değiştirdiğimiz ayarları ekleyeceğiz. Bu ayarlar hakkında bilgi almak için lütfen projenin GIT sayfasını ziyaret ediniz (bkz. [5][5]) ve gerektiğinde internet üzerinden detaylı araştırma yapınız.
+Aslında K2’de Kernel optimizasyonumuzun bir kısmını anlattık. Bu kısımda, değiştirdiğimiz ayarları ekleyeceğiz. Bu ayarlar ve etkileri hakkında bilgi almak için lütfen projenin GIT sayfasını ziyaret ediniz (bkz. [5][5]) ve gerektiğinde internet üzerinden detaylı araştırma yapınız.
 
 **Aktifleştirdiğimiz Özellikler**
 ```
@@ -158,7 +159,7 @@ HID_ASUS
 
 #### <u>K4 - InitSystem'in çalışması (BusyBox)</u>
 
-Init system aslında ciddi bir zaman harcamıyor fakat en hızlı çalışan kod, çalışmayan koddur. :) Bu nedenle BusyBox’ı aradan çıkardık. Burada yapılan ve bizim için gerekli olan tek işlemi, GPIO ve UART işlemlerinden dolayı “File System Mounting” işlemidir. Bu işlemi basit bir şekilde kendi uygulamamıza gömdük.
+InitSystem aslında ciddi bir zaman harcamıyor fakat en hızlı çalışan kod, çalışmayan koddur. :) Bu nedenle BusyBox’ı aradan çıkardık. Burada yapılan ve bizim için gerekli olan tek işlemi, GPIO ve UART işlemlerinden dolayı “File System Mounting” işlemidir. Bu işlemi basit bir şekilde kendi uygulamamıza gömdük.
 
 Tek yapmamız gereken şu kod parçasını Qt programımızın herhangi bir yerinde çalıştırmak: <br>
 `QProcess::execute("/bin/mount -a");`
@@ -178,9 +179,6 @@ K5’te yaptığımız en önemli geliştirmelerin başında statik derleme gelm
 **Budama (Stripping)** <br>
 Budama işlemi, çalıştırılabilir dosyanın içerisindeki gereksiz alanları budayarak dosya boyutunu küçültmeye yaramaktadır. Özellikle statik derleme işlemi sonrasında çok yararlı, olmazsa olmaz bir adımdır. Budama işlemi için şu komutu kullanmak yeterli olacaktır: `strip --strip-all QtUygulamam` Bu işlem sonrasında 21mb olan uygulama boyutumuz 15mb’a kadar düşmüştür.
 
-**QML Optimizasyonu** <br>
-QML dosyamız, kullanıcıya gösterilecek ekran olduğu için optimize halde olması, uygulamanın kullanıcıya yansıtılması aşamasını hızlandıracaktır. QML kodlarının tek, büyük bir QML dosyası içinde olması yerine mantıksal olarak parçalara bölünmesi QML kodunun çalışmasını hızlandıracaktır. Biz de bu doğrultuda uygulamamızda bolca olan Label’lara bu işlemi uyguladık. Bu işlem, programı optimize etmese dahi kodun temiz olması açısından yapılması gereken bir işlemdir. Aslında temiz kod, dolaylı yoldan, yazılımın her parçasını etkileyen en önemli optimizasyonlardan biridir.
-
 **QML Lazy Load** <br>
 Üzerinde çalıştığımız uygulamanın arayüzü çok kompleks olmadığı için bu özellik bir fark oluşturmamaktadır fakat büyük QML dosyalarında, kullanıcıya ilk gösterilecek arayüzün kodlarının bulunduğu dosya, mümkün olduğunca az kod içermeli. Bu sayede kullanıcı erken yüklenen bu ekranı görürken arka tarafta geri kalan işlemler yapılabilir veya işlemler ihtiyaç duyuldukça başlatılabilir.
 
@@ -188,7 +186,7 @@ QML dosyamız, kullanıcıya gösterilecek ekran olduğu için optimize halde ol
 .qrc dosyası aracılığı ile projeye eklediğimiz her türlü kaynak, derlenmiş olan programın içine gömülür. Bu uygulamaya hız kazandırır. Bizim programımızda kullandığımız resmi projemize bu şekilde ekledik. Bunun yanında uygulamamız, yazı tipini sistemden almaktaydı. Biz, kaynak kodumuzda ufak değişiklikler yaparak fontu da derlenmiş programımızın içine gömdük.
 
 
-## Daha Fazla Optimizasyon!
+## 5. Daha Fazla Optimizasyon!
 
 Bu kısımda, sonsuz farklı seçenek olsa da, bahsedilecek olan seçenekler, bize büyük ilerleme sağlayacak ve kabul edilebilir miktarda zaman alacak seçeneklerdir. Aynı zamanda optimizasyon yaparken izlenen yolun nasıl geliştirilebileceği konusunda da tavsiyeler içermektedir.
 
@@ -204,7 +202,7 @@ Bu kısımda, sonsuz farklı seçenek olsa da, bahsedilecek olan seçenekler, bi
 **İlgili olduğu kısım** : K5 (Qt) <br>
 **Tahmini kazandıracağı süre** : 0.9sn <br>
 **Kullanılabilecek Araç/Yöntem** : Cache <br>
-**Açıklama** : Userspace uygulamaları, ilk açıldıkları zaman yavaş açılırlar. Sonraki açılışlarında  Kernel tarafından Cache’lendikleri için hızlı açılırlar. (bkz. [8][8]) Qt uygulamamızda da aynı durum gözlenmektedir. Eğer Cache’lenmiş uygulamanın Cache’lerini bir şekilde kopyalayıp, Kernel açılışında bunları Kernel’a geçirebilirsek, uygulamamız ilk baştan itibaren hızlı açılır. Kernel kaynak kodunun içindeki “hibernete.c” (bkz. [9][9]) ve “drop_caches.c” (bkz. [10][10]) kaynak kodları bu iş için kullanılabilir. Özellikle Hibernete işlemi, bizim bu yaptığımız işlemi kapsamaktadır.
+**Açıklama** : Userspace uygulamaları, ilk açıldıkları zaman yavaş açılırlar. Sonraki açılışlarında  Kernel tarafından Cache’lendikleri için hızlı açılırlar. (bkz. [8][8]) Qt uygulamamızda da aynı durum gözlenmektedir. Qt uygulamasını açıp, sonra kapatıp tekrar açınca ve fark gözlemlenebilir. Eğer Cache’lenmiş uygulamanın Cache’lerini bir şekilde kopyalayıp, Kernel açılışında bunları Kernel’a geçirebilirsek, uygulamamız ilk baştan itibaren hızlı açılır. Kernel kaynak kodunun içindeki “hibernete.c” (bkz. [10][10]) ve “drop_caches.c” (bkz. [11][11]) kaynak kodları bu iş için kullanılabilir. Özellikle Hibernete işlemi, bizim bu yaptığımız işlemi kapsamalı diye düşünüyorum.
 
 
 **Kod** : G3 <br>
@@ -218,7 +216,7 @@ Bu kısımda, sonsuz farklı seçenek olsa da, bahsedilecek olan seçenekler, bi
 **İlgili olduğu kısım** : K3 (kernel.img), K5 (Qt) <br>
 **Tahmini kazandıracağı süre** : - <br>
 **Kullanılabilecek Araç/Yöntem** : initramfs, SquashFS <br>
-**Açıklama** : SD kartta 2 Partition bulunmaktadır. Boot Partition ve File System Partition. Boot Partition, Raspberry’nin boot olabilmesi için gerekli dosyaları içinde barındırır. Bu nedenle Boot Partition, Raspberry tarafından otomatik okunmaya başlar ve gerekli dosyalar otomatik çalıştırılır. Aslında File System olmadan Kernel, RAM üzerinde çalışır. Biz de kısaca bu durumu kullanmaya çalışabiliriz. Biraz daha detaylara inelim. Şu an uygulamamız File System Partition’a duruyor ve kullanılacağı zaman RAM’e kopyalanarak çalışmaya başlıyor. Yani uygulamamızı çalıştırmak için File System Partition’u bağlamak zorunda kalıyoruz (bu durumun neden olduğu ek işlemler de var) ve bu zaman alan bir işlem. Kernel.img, File System Partition’un kırpılmış, boot süreci için gerekli olan bir kısmının kopyasını içinde barındırıyor. start.elf’in kernel.img’i çalıştırması, kernel.img’in RAM’e kopyalanması demek. Eğer biz uygulamamızı kernel.img’in içine gömersek, start.elf kernel.img’i RAM’e kopyalarken bizim uygulamamız da kopyalanmış olur ve ayrıyetten File System Partition bağlanmasına gerek kalmadan kazanç sağlamış oluruz. Başka bir kazanç da, uygulamamızın direkt RAM üzerinden başlatılacağından dolayı, daha hızlı başlaması olacaktır. Tabiki bunu yapabilmek için uygulamamızın statik derlenmiş olması veya gerekli bütün kütüphanelerin de kernel.img’in içine gömülmesi gerekir. Bu geliştirmenin dezavantajlarından birisi, uygulamamızın RAM’de çalışması halinde Read-Only bir ortamda çalışacak olmasıdır. Tabiki bu problem gerektiğinde aşılabilir.
+**Açıklama** : SD kartta 2 Partition bulunmaktadır. Boot Partition ve File System Partition. Boot Partition, Raspberry’nin boot olabilmesi için gerekli dosyaları içinde barındırır. Bu nedenle Boot Partition, Raspberry tarafından otomatik okunmaya başlar ve gerekli dosyalar otomatik çalıştırılır. Aslında File System olmadan Kernel, RAM üzerinde çalışır. Biz de kısaca bu durumu kullanmaya çalışabiliriz. Biraz daha detaylara inelim. Şu an uygulamamız File System Partition’da duruyor ve kullanılacağı zaman RAM’e kopyalanarak çalışmaya başlıyor. Yani uygulamamızı çalıştırmak için File System Partition’u bağlamak zorunda kalıyoruz (bu durumun neden olduğu ek işlemler de var) ve bu zaman alan bir işlem. Kernel.img, File System Partition’un kırpılmış, boot süreci için gerekli olan bir kısmının kopyasını içinde barındırıyor. start.elf’in kernel.img’i çalıştırması, kernel.img’in RAM’e kopyalanması demek. Eğer biz uygulamamızı kernel.img’in içine gömersek, start.elf kernel.img’i RAM’e kopyalarken bizim uygulamamız da kopyalanmış olur ve ayrıyetten File System Partition bağlanmasına gerek kalmadan kazanç sağlamış oluruz. Başka bir kazanç da, uygulamamızın direkt RAM üzerinden başlatılacağından dolayı, daha hızlı başlaması olacaktır. Tabiki bunu yapabilmek için uygulamamızın statik derlenmiş olması veya gerekli bütün kütüphanelerin de kernel.img’in içine gömülmesi gerekir. Bu geliştirmenin dezavantajlarından birisi, uygulamamızın RAM’de çalışması halinde Read-Only bir ortamda çalışacak olmasıdır. Tabiki bu problem gerektiğinde aşılabilir.
 
 
 **Kod** : G5 <br>
@@ -229,18 +227,18 @@ Bu kısımda, sonsuz farklı seçenek olsa da, bahsedilecek olan seçenekler, bi
 
 
 **Kod** : G100 <br>
-**Açıklama** : Optimizasyon işleminin temeli olan debugging işleminin daha planlı yapılması gerekiyor. Optimizasyona başlamada önce debugging planı hazırlamak, debugging için gerekli malzemeleri toplamak, derleme, çalıştırma, geliştirme işlemlerinin otomatize edilmesi, stratejinin belirlenmesi gibi işler için daha çok zaman harcanılması gerekiyor.
+**Açıklama** : Optimizasyon işleminin temeli olan debugging işleminin daha planlı yapılması gerekiyor. Optimizasyona başlamada önce debugging planı hazırlamak, debugging için gerekli malzemeleri toplamak, derleme, çalıştırma, geliştirme işlemlerinin otomatize edilmesi, stratejinin belirlenmesi gibi işler için zaman harcamaya çekinmemek gerekiyor.
 
 
 **Kod** : G101 <br>
 **Açıklama** : Fark edildiyse optimizasyona en düşük seviyeden, yani Raspberry’nin kendini boot etmesinden başlayarak yüksek seviyeye doğru, yani Qt uygulamasının optimizasyonuna doğru ilerledik. Bu yöntem, optimizasyon işleminin temeli olan debugging işini zorlaştırıyor. Bunun yerine optimizasyona Qt uygulamasından başlanırsa daha sağlıklı ilerlenebilir diye düşünüyorum.
 
 
-## Sonuç
+## 6. Sonuç
 
-“Normal” ölçümler, Buildroot ile üzerinde ayar yapılmayarak derlenmiş imajın ölçümleridir. Sadece konfigürasyon ayarlarından boot gecikme süresi sıfıra indirilmiştir.
+“Normal” ölçümler, Buildroot ile üzerinde ayar yapılmayarak derlenmiş imajın ölçümleridir. Konfigürasyon ayarlarından boot gecikme süresi sıfıra indirilerek zaman ölçümü yapılmıştır.
 
-“ftDev” ise kendi ayarlarımızı yaptığımız imajın verileridir.
+“ftDev” ise kendi ayarlarımızı yaptığımız imajın ölçümüdür.
 
 
 |           |**K1** |**K2** |**K3** |**K4** |**K5** |**Toplam** |
@@ -248,7 +246,15 @@ Bu kısımda, sonsuz farklı seçenek olsa da, bahsedilecek olan seçenekler, bi
 |**Normal** |1.25sn |2.12sn |5.12sn |0.12sn |1.56sn |10.17sn    |
 |**ftDev**  |1.25sn |0.25sn |0.25sn |0.00sn |1.07sn |2.83sn     |
 
-Not : Ölçümler, cihazın açılışı yüksek hızlı kamera ile çekilerek, daha sonrasında görüntüler yavaşlatılıp izlenerek yapılmıştır.
+Not : Ölçümler, cihazın açılışı yüksek hızlı kamera ile çekilerek, daha sonrasında görüntüler yavaşlatılıp izlenerek yapılmıştır. Dolayısıyla doğruluk payı yüksektir.
+
+
+## 7. Özet : Adım Adım Anlatım
+
+Yukarıda detaylı şekilde anlattığımız süreci burada detaylara değinmeden adım adım nasıl yapmanız gerektiğini aktaracağız.
+
+1. GitLab üzerindeki ilgili repomuzu klonluyoruz
+2. Klonlanmış  make ftdev_rpi3_minimal_defconfig
 
 
 ## Referanslar
@@ -262,7 +268,8 @@ Not : Ölçümler, cihazın açılışı yüksek hızlı kamera ile çekilerek, 
 **7.** [Linking to Static Builds of Qt](http://doc.qt.io/QtForDeviceCreation/qtee-static-linking.html) <br>
 **8.** [Linux System Administrators Guide / Memory Management / The buffer cache](https://www.tldp.org/LDP/sag/html/buffer-cache.html) <br>
 **9.** [Raspberry Pi Boot](http://exileinparadise.com/raspberry_pi_boot) <br>
-**10.** [Raspberry / Linux / Bootp](https://github.com/raspberrypi/linux/tree/rpi-4.14.y/arch/arm/boot/bootp) <br>
+**10.** [Raspberry / Linux / kernel / power / hibernate.c](https://github.com/raspberrypi/linux/blob/46d8169547b49308c459707ab45b18339ff392a2/kernel/power/hibernate.c) <br>
+**11.** [Raspberry / Linux / Bootp](https://github.com/raspberrypi/linux/blob/3667ae0605bfbed9e25bd48365457632cf660d78/fs/drop_caches.c) <br>
 
 [1]: https://thekandyancode.wordpress.com/2013/09/21/how-the-raspberry-pi-boots-up/ 
 [2]: https://github.com/raspberrypi/firmware 
@@ -273,4 +280,5 @@ Not : Ölçümler, cihazın açılışı yüksek hızlı kamera ile çekilerek, 
 [7]: http://doc.qt.io/QtForDeviceCreation/qtee-static-linking.html 
 [8]: https://www.tldp.org/LDP/sag/html/buffer-cache.html 
 [9]: http://exileinparadise.com/raspberry_pi_boot 
-[10]: https://github.com/raspberrypi/linux/tree/rpi-4.14.y/arch/arm/boot/bootp 
+[10]: https://github.com/raspberrypi/linux/blob/46d8169547b49308c459707ab45b18339ff392a2/kernel/power/hibernate.c
+[11]: https://github.com/raspberrypi/linux/blob/3667ae0605bfbed9e25bd48365457632cf660d78/fs/drop_caches.c
