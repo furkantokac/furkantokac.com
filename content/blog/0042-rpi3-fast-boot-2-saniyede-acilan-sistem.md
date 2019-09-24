@@ -1,11 +1,15 @@
 ---
 title: "Raspberry Pi 3 Fastboot - 2 Saniyede Açılan Sistem"
-date: "2050-09-15T20:38:09+03:00"
+date: "2059-09-15T20:38:09+03:00"
 thumbnail: "/img/0042-rpi3-fast-boot-2-saniyede-acilan-sistem.jpg"
 categories: ["Gömülü|Embedded"]
 tags: ["Gömülü Linux", "Raspberry Pi", "Gömülü", "Buildroot"]
 url: "rpi3-fast-boot-2-saniyede-acilan-sistem"
 ---
+
+TODO:
+- Hazır imaj koy.
+- Örnek Qt uygulamasını değiştir.
 
 {{< goEnPost url="/rpi3-fast-boot-less-than-2-seconds" >}} <br>
 
@@ -253,8 +257,12 @@ Not : Ölçümler, cihazın açılışı yüksek hızlı kamera ile çekilerek, 
 
 Yukarıda detaylı şekilde anlattığımız süreci burada detaylara değinmeden adım adım nasıl yapmanız gerektiğini aktaracağız.
 
-1. GitLab üzerindeki ilgili repomuzu klonluyoruz
-2. Klonlanmış  make ftdev_rpi3_minimal_defconfig
+1. `clone git@gitlab.com:furkantokac/buildroot.git`
+2. `cd buildroot`
+3. `make ftdev_rpi3_minimal_defconfig`
+4. `make`
+5. Bu aşamada Raspberry Pi üzerinde çalıştırılmaya hazır imaj, `buildroot/output/images` klasöründe hazır olacak. Bunu SD karta yazdırıp direkt olarak Raspberry Pi'ı boot edebilirsiniz.
+6. Bu konuda detaylara inmek isterseniz şu anahtar kelimeler üzerinden araştırma yapıp tecrübe edinmelisiniz : buildroot, cross compilation, static compilation, qt static compilation
 
 
 ## Referanslar
