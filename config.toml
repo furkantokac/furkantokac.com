@@ -6,6 +6,7 @@ theme = "kodcu"
 disqusShortname = "" # Enable comments by entering your Disqus shortname
 googleAnalytics = "UA-71579891-1" # Enable Google Analytics by entering your tracking id
 summaryLength = 25
+paginate = 10
 
 [Author]
   name = "Furkan Tokaç"

@@ -11,7 +11,7 @@ url: "rpi3-fast-boot-2-saniyede-acilan-sistem"
 
 Bu yazının sonunda, Raspberry Pi 3'ün 1.75 saniyede açılabilmesi için yapılması gerekenleri öğrenmiş olacaksınız. Buna ek olarak Raspberry Pi 3 üzerinde Qt uygulamasını en hızlı şekilde çalıştırabilmek için yapılabilecek optimizasyonlara da değineceğiz. Sonuç olarak, sisteme güç verildiği andan itibaren toplam 1.75 saniyede açılan Linux'a, toplam 2.83 saniyede açılan Qt (QML) uygulamasına sahip olacağız.
 
-Demo imajı [buradan](www.github.com) indirip test edebilirsiniz.
+Demo imajı şuradan indirip test edebilirsiniz :  [YAKINDA](/) 
 
 
 ## İçerik
@@ -20,14 +20,15 @@ Demo imajı [buradan](www.github.com) indirip test edebilirsiniz.
 **2.** Proje Gereksinimleri <br>
 **3.** Raspberry Boot Dosyaları <br>
 **4.** Raspberry Boot Optimizasyonu <br>
-&emsp;&emsp;**K1 -** Raspberry’nin Hazırlık Süreci <br>
-&emsp;&emsp;**K2 -** Linux’un Hazırlık Süreci <br>
-&emsp;&emsp;**K3 -** Linux’un Çalışması <br>
-&emsp;&emsp;**K4 -** InitSystem’in çalışması (BusyBox) <br>
-&emsp;&emsp;**K5 -** Uygulamamızın çalışması (Qt) <br>
+&emsp;&emsp;**K1 -** Raspberry’nin hazırlık süreci <br>
+&emsp;&emsp;**K2 -** Linux’un hazırlık süreci <br>
+&emsp;&emsp;**K3 -** Linux’un çalışması <br>
+&emsp;&emsp;**K4 -** InitSystem’in çalışması <br>
+&emsp;&emsp;**K5 -** Uygulamamızın çalışması <br>
 **5.** Daha Fazla Optimizasyon! <br>
 **6.** Sonuç <br>
 **7.** Kısaca.. <br>
+**8.** Referanslar <br>
 
 
 ## 1. Giriş
@@ -56,8 +57,8 @@ Raspberry’nin boot süreci ile alakalı dosyalar ve amaçları kısaca  şöyl
 * **bootcode.bin** : Bu dosya, Raspberry’nin üzerine üretici tarafından gömülmüş olan 1. Stage Bootloader yazılımının çalıştırdığı 2. Stage Bootloder dosyasıdır. GPU üzerinde çalışır. RAM’i aktif etmek için kullanılır. Amacı, 3. Stage Bootloader olan start.elf’i doğru bir şekilde çalıştırmaktır. 
 * **config.txt** : GPU ayarlarını içinde barındıran dosyadır. start.elf tarafından kullanılır. 
 * **cmdline.txt** : Kernel çalıştırılırken Kernel’e geçirilecek olan parametreleri içinde barındırır. start.elf tarafından kullanılır. 
-* **.dtb** : Derlenmiş Device Tree dosyasıdır. Kart üzerindeki tüm donanımların tanımlamalarını içinde barındırır. start.elf tarafından okunarak Kernel.img dosyasını çalıştırırken kullanılır. 
-* **start.elf** : bootcode.bin tarafından çalıştırılan 3. Stage Bootloader dosyasıdır. İçinde GPU sürücüsünü barındırır. Amacı, RAM’i GPU ile CPU arasında bölüştürmek, config.txt dosyasının içindeki ayarları GPU’ya uygulamak, ilgili .dtb dosyasını okuyarak gerekli ayarlamaları yapmak, cmdline.txt dosyasındaki parametreler ile birlikte Kernel.img’yi çalıştırmaktır. Bu işlemleri yaptıktan sonra kart açık kaldığı sürece GPU sürücüsü olarak çalışmaya devam eder. 
+* **.dtb** : Derlenmiş Device Tree dosyasıdır. Kart üzerindeki donanımların tanımlamalarını içinde barındırır. start.elf tarafından okunarak Kernel.img dosyasını çalıştırırken kullanılır. 
+* **start.elf** : bootcode.bin tarafından çalıştırılan 3. Stage Bootloader dosyasıdır. İçinde GPU sürücüsünü barındırır. Amacı, RAM’i GPU ile CPU arasında bölüştürmek, config.txt dosyasının içindeki ayarları GPU’ya uygulamak, ilgili .dtb dosyasını okuyarak gerekli ayarlamaları yapmak, cmdline.txt dosyasındaki parametreler ile birlikte kernel.img’yi çalıştırmaktır. Bu işlemleri yaptıktan sonra kart açık kaldığı sürece GPU sürücüsü olarak çalışmaya devam eder. 
 * **kernel.img** : Kernel dosyamızdır. start.elf tarafından çalıştırılır. Buradan sonra kontrol tamamen bizim elimizdedir. 
 * **Temel mantık** : Raspberry’e güç verildi -> Raspberry’nin içindeki gömülü yazılım çalıştı -> bootcode.bin çalıştı -> start.elf çalıştı -> config.txt okundu -> .dtb okundu -> cmdline.txt okundu -> kernel.img çalıştı
 
@@ -72,7 +73,7 @@ Raspberry'de, karta güç verildiği andan itibaren bir Qt uygulamasının çal�
 **K5** - Uygulamamızın çalışması (Qt)
 
 
-#### <u>K1 - Raspberry'nin Hazırlık Süreci</u>
+#### <u>K1 - Raspberry'nin hazırlık süreci</u>
 
 Bu kısımda kartın üzerine üretici tarafından gömülmüş bir yazılım, bootcode.bin’i çalıştırıyor. Kartın üzerine gömülü olan kısıma normal yollarla etki etmemiz mümkün olmadığı için o kısım ile ilgili işlem yapamadan bootcode.bin üzerinde çalışmaya başlıyoruz. bootcode.bin kapalı kaynak olduğu için direkt etki edemiyoruz. Geriye 2 yol kalıyor. Ya kapalı kaynak olarak bize sağlanan bootcode.bin’leri deneyerek ilerleme sağlamaya çalışacağız, ya da bootcode.bin bağlantılı olduğu dosyalara etki ederek ilerleme sağlamaya çalışacağız.(tersine mühendislik yolunu hesaba katmıyoruz.)
 
@@ -82,7 +83,7 @@ Start.elf kapalı kaynak olduğu için ona da direkt etki edemiyoruz fakat Raspb
 Arayüz uygulamamız, OpenGL ES üzerinde çalışıyor ve start_cd.elf, OpenGL ES’in ihtiyaç duyduğu kadar GPU hafızası ayırmıyor. Bu sıkıntıyı aşmayı denediysek de başarılı olamadık ama zaman ayırılıp üzerine gidilirse çözülebileceğine inanıyorum.
 
 
-#### <u>K2 - Linux'un Hazırlık Süreci</u>
+#### <u>K2 - Linux'un hazırlık süreci</u>
 
 Bu kısımdaki işleri start.elf dosyası üstleniyor. Device Tree dosyasından donanım özelliklerine göre karttaki gerekli ayarlamaları yaparak, kendi ürettiği ve varsa cmdline.txt dosyasındaki parametreler ile birlikte Kernel imajını boot ediyor. Kernel boot olabilmesi için Device Tree dosyasının içindeki bazı kısımlara ihtiyaç duyuyor. start.elf de kapalı kaynak olduğu için direkt etki edemiyoruz fakat bu dosya ile bağlantılı olan, açık kaynak 2 dosya daha var: bcm2710-rpi-3-b.dtb, kernel.img
 
@@ -104,7 +105,7 @@ Diğer işimiz, Kernel’in boot süresinin yaklaşık 1.0sn uzamasının nedeni
 Sonuç olarak geliştirdiğimiz strateji sayesinde yaklaşık 2.0sn’lik bir kazanç sağladık. K2 için toplam harcanan zaman 0.25sn oldu. Burada geliştirmelerimiz devam edebilir (en basitinden Device Tree optimizasyonu yapılabilir) fakat daha büyük sıkıntılarımızın olduğu yerlere zaman harcamamız, az zamanda daha fazla yol kat etmemizi sağlayacaktır. Bu nedenle bir sonraki adıma geçiyoruz.
 
 
-#### <u>K3 - Linux'un Çalışması</u>
+#### <u>K3 - Linux'un çalışması</u>
 
 Aslında K2’de Kernel optimizasyonumuzun bir kısmını anlattık. Bu kısımda, değiştirdiğimiz ayarları ekleyeceğiz. Bu ayarlar ve etkileri hakkında bilgi almak için lütfen projenin Git sayfasını ziyaret ediniz (bkz. [5][5]) ve gerektiğinde internet üzerinden detaylı araştırma yapınız.
 
@@ -157,7 +158,7 @@ HID_ASUS
 ```
 
 
-#### <u>K4 - InitSystem'in çalışması (BusyBox)</u>
+#### <u>K4 - InitSystem'in çalışması</u>
 
 InitSystem aslında ciddi bir zaman harcamıyor fakat en hızlı çalışan kod, çalışmayan koddur. :) Bu nedenle BusyBox’ı aradan çıkardık. Burada yapılan ve bizim için gerekli olan tek işlemi, “File System Mounting” işlemidir. Bu işlemi basit bir şekilde kendi uygulamamıza gömdük.
 
@@ -169,7 +170,7 @@ Tabiki kullanıcıya arayüzün yansıtılmasını yavaşlatmayacak şekilde do�
 Kernel, Userspace’i yüklediğinde her şeyden önce /sbin/init dosyasını otomatik olarak çalıştırır. Dolayısıyla uygulamamız her şeyden önce çalışmış olacak.
 
 
-#### <u>K5 - Uygulamamızın çalışması (Qt)</u>
+#### <u>K5 - Uygulamamızın çalışması</u>
 
 Qt Creator bize detaylı hata ayıklama araçları sunuyor. Bu araçları kullanarak Qt uygulamamızın açılmasını en çok yavaşlatan unsurun ne olduğunu tespit edebiliyoruz.
 
@@ -240,7 +241,6 @@ Bu kısımda, sonsuz farklı seçenek olsa da, bahsedilecek olan seçenekler, bi
 
 “ftDev” ise kendi ayarlarımızı yaptığımız imajın ölçümüdür.
 
-
 |           |**K1** |**K2** |**K3** |**K4** |**K5** |**Toplam** |
 |---:       |---    |---    |---    |---    |---    |---        |
 |**Normal** |1.25sn |2.12sn |5.12sn |0.12sn |1.56sn |10.17sn    |
@@ -261,7 +261,7 @@ Yukarıda detaylı şekilde anlattığımız süreci detaylara girmeden yapmak i
 6. Bu konuda detaylara inmek isterseniz şu anahtar kelimeler üzerinden araştırma yapıp tecrübe edinmelisiniz : buildroot, cross compilation, static compilation, qt static compilation
 
 
-## Referanslar
+## 8. Referanslar 
 
 **1.** [How the Raspberry Pi boots up](https://thekandyancode.wordpress.com/2013/09/21/how-the-raspberry-pi-boots-up/) <br>
 **2.** [Raspberry Pi Firmware](https://github.com/raspberrypi/firmware) <br>

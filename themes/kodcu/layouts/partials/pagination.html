@@ -1,11 +1,41 @@
-{{ if or (.Paginator.HasPrev) (.Paginator.HasNext) }}
-<div class="pagination">
-	{{- if .Paginator.HasPrev }}
-	<a class="pagination__item pagination__item--prev btn" href="{{ .Paginator.Prev.URL }}">«</a>
-	{{- end }}
-	<span class="pagination__item pagination__item--current">{{ .Paginator.PageNumber }}/{{ .Paginator.TotalPages }}</span>
-	{{- if .Paginator.HasNext }}
-	<a class="pagination__item pagination__item--next btn" href="{{ .Paginator.Next.URL }}">»</a>
-	{{- end }}
-</div>
+{{ if gt .Paginator.TotalPages 1 }}
+
+	<!-- Paginator global definition -->
+	{{ $paginator := .Paginator }}
+
+	<!-- Number of pages left/right side of the current page, without the first/last page -->
+	{{ $adjacentPages := 3 }}
+
+	<!-- lowerLimit = currentPage - adjacentPages -->
+	{{ $lowerLimit := (sub $paginator.PageNumber $adjacentPages) }}
+	
+	<!-- upperLimit = currentPage + adjacentPages + lowerExceed -->
+	{{ $upperLimit := (add $paginator.PageNumber $adjacentPages) }}
+	
+	<!-- TODO: Balance the limits. Implement a parameter like totalShownPages -->
+	
+	<div class="pagination">
+		{{ range $paginator.Pagers }}
+		
+			<!-- If isShown is true at the end, the page will be shown -->
+			{{ $.Scratch.Set "isShown" false }}
+			
+			<!-- Check if the page is between lowerLimit and upperLimit -->
+			{{ if and (ge .PageNumber $lowerLimit) (le .PageNumber $upperLimit) }}
+				{{ $.Scratch.Set "isShown" true }}
+				
+			<!-- If the page is the first or the last, just show it -->
+			{{ else if or (eq .PageNumber $paginator.First.PageNumber) (eq .PageNumber $paginator.Last.PageNumber) }}
+				{{ $.Scratch.Set "isShown" true }}
+			
+			{{ end }}
+			
+			<!-- Show the page if the isShown flag is true -->
+			{{ if eq ($.Scratch.Get "isShown") true }}
+				<a class="pagination__item {{ if eq . $paginator }}pagination__item--current{{ end }} btn" href="{{ .URL }}">{{ .PageNumber }}</a>
+			{{ end }}
+			
+		{{ end }}
+	</div>
+
 {{ end }}
