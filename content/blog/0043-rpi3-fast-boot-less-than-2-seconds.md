@@ -9,7 +9,7 @@ url: "rpi3-fast-boot-less-than-2-seconds"
 
 {{< goTrPost url="/rpi3-fast-boot-2-saniyede-acilan-sistem" >}} <br>
 
-This post explains how to boot Raspberry Pi 3 (RPI) in 1.75 seconds. In addition to that, we'll discuss optimizations that can be applied to run Qt application as fast as possible. At the end, we will have a RPI that boots from power-up to Linux shell in 1.75 seconds, power-up to Qt GUI (QML) application in 2.83 seconds.
+This post shows how to boot Raspberry Pi 3 (RPI) in 1.75 seconds, in details. In addition to that, we'll discuss optimizations that can be applied to Qt application. At the end, we will have a RPI that boots from power-up to Linux shell in 1.75 seconds, power-up to Qt GUI (QML) application in 2.82 seconds.
 
 You can download and test the demo image : [COMING SOON](/)
 
@@ -26,26 +26,26 @@ You can download and test the demo image : [COMING SOON](/)
 &emsp;&emsp;**K4 -** Init system <br>
 &emsp;&emsp;**K5 -** Application <br>
 **5.** More Optimization! <br>
-**6.** Result <br>
-**7.** In A Nutshell.. <br>
+**6.** In A Nutshell.. <br>
+**7.** Result <br>
 **8.** References <br>
 
 
 ## 1. Introduction
 
-First of all, we should know the target device well since some critical stages of boot optimization process are low-level (hardware dependent). We need to be able to answers questions such as what is the boot sequence of the device, which files are running in which order to boot the device, which files are 100% required etc. Besides that, optimizations should be done and tested one by one, so that the optimization's effect can be clearly observed.
+First of all, we should know the target device well since some critical stages of boot optimization process are low-level (hardware dependent). We need to be able to answers questions such as what is the boot sequence of the device, which files are running in which order to boot the device, which files are 100% required etc. Besides that, optimizations should be done and tested one by one, so that the optimizations' effect can be clearly observed.
 
-The boot process of the RPI is somewhat different than the other traditional devices. RPI's boot process is based on GPU rather than CPU. I recommend that you dig into more on this topic on the internet. (see [1][1], [9][9])
+The boot process of the RPI is kind of different than the other, traditional devices. RPI's boot process is based on GPU rather than CPU. I recommend that you dig into more on this topic on the internet. (see [1][1], [9][9])
 
-RPI uses Qualcomm's closed-source chip as System on Chip (SoC). Therefore, SoC-related softwares are provided to us as binary by RPI. (see [2][2]) so we cannot customize them without reverse-engineering. That is why the most difficult parts of the RPI boot optimization process are low-level, SoC related parts.
+RPI uses Qualcomm's closed-source chip as System on Chip (SoC). Therefore, SoC-related softwares are provided to us as binary by RPI. (see [2][2]) So we cannot customize them without reverse-engineering. That is why the most difficult parts of the RPI boot optimization process are SoC related parts.
 
 
 ## 2. Project Requirements
 
 - RPI shall be used as a device.
 - Buildroot shall be used for Linux customization.
-- RPI's GPIO, UART features shall be enabled.
-- GPIO, UART features shall be available to use on Qt.
+- RPI's GPIO, UART shall be usable.
+- GPIO, UART shall be usable on Qt.
 - Qt (QML) application shall automatically be started.
 
 
@@ -76,9 +76,9 @@ RPI boot process from power-up to Qt application is as follows; <br>
 
 In this part, the software embedded on the device by the manufacturer runs the bootcode.bin. Because bootcode.bin is a closed-source, we can't configure it directly so there are 2 things we can do. We either try different versions of the bootcode.bin files, or we'll try to change the files that are run by bootcode.bin. (we ignore the reverse-engineering).
 
-We go to RPI's Git page (see [12][12]) and check if different versions of bootcode.bin available. There is no. We go to the old Commits of bootcode.bin and try the old versions, we see that there is no change in speed. We can move on to the other option.
+We go to RPI's Git page (see [12][12]) and see that there is no different versions of bootcode.bin available. We go to the old Commits of bootcode.bin and try the old versions, we see that there is no change in speed. We can move on to the other option.
 
-We can work on start.elf because it should have an effect on bootcode.bin. On the RPI’s Git page, we see that there are different versions of start.elf files: start_cd.elf, start_db.elf, start_x.elf. We check the differences of the files and see that start_cd.elf is a simplified version of start.elf. In the start_cd.elf, GPU features are cropped, this may cause problem but lets try it. When we change our start.elf by start_cd.elf and observe the difference, we can see boot process is accelerated by 0.5sec. However, when we run the Qt app, it fails. So why it fails, can we fix it ?
+We can work on start.elf because it might have an effect on bootcode.bin. On the RPI’s Git page, we see that there are different versions of start.elf files: start_cd.elf, start_db.elf, start_x.elf. We check the differences of the files and see that start_cd.elf is a simplified version of start.elf. In the start_cd.elf, GPU features are cropped, this may cause problem but lets try it. When we change our start.elf by start_cd.elf and observe the difference, we can see boot process is accelerated by 0.5sec. However, when we run the Qt app, it fails. So why it fails, can we fix it ?
 Our interface application runs on OpenGL ES and start_cd.elf does not allocate as much GPU memory as OpenGL ES needs. Although we have tried to overcome this difficulty, we have not succeeded, but I believe that it can be solved if more time is spend on it.
 
 
@@ -232,21 +232,7 @@ Although there are infinitely different options in this section, the options to 
 **Explanation**: If noticed, we have moved from optimization to the lowest level, that is, from Raspberry's self-boot to high level, that is, to the optimization of the Qt application. This makes debugging difficult, which is the basis of the optimization process. Instead, I think that optimization can be improved if Qt is started.
 
 
-## 6. Result
-
-"Normal" section has the measurements of the image that is compiled with default settings on Buildroot. Only the boot delay time is reduced to 0.
-
-"ftDev" section has the measurements of the optimized image.
-
-|           |**K1** |**K2** |**K3** |**K4** |**K5** |**Toplam** |
-|---:       |---    |---    |---    |---    |---    |---        |
-|**Normal** |1.25sn |2.12sn |5.12sn |0.12sn |1.56sn |10.17sn    |
-|**ftDev**  |1.25sn |0.25sn |0.25sn |0.00sn |1.07sn |2.83sn     |
-
-Note: Measurements are done by recording the boot process with high-speed camera. Therefore, the accuracy is high.
-
-
-## 7. In A Nutshell..
+## 6. In A Nutshell..
 
 If you want to just have a fast-boot image for your RPI without going into the details, follow these steps;
 
@@ -256,6 +242,20 @@ If you want to just have a fast-boot image for your RPI without going into the d
 4. `make`
 5. At this stage, the ready-to-run image on Raspberry Pi will be available in the `buildroot/output/images` folder. You can print it to the SD device and boot Raspberry Pi directly. When the system is turned on, the sample Qt application will be displayed directly on the screen.
 6. If you want to go into details on this topic, you should research and gain experience with the following keywords: buildroot, cross compilation, static compilation, qt static compilation
+
+
+## 7. Result
+
+"Normal" section has the measurements of the image that is compiled with default settings on Buildroot. Only the boot delay time is reduced to 0.
+
+"ftDev" section has the measurements of the optimized image.
+
+|           |**K1** |**K2** |**K3** |**K4** |**K5** |**Toplam** |
+|---:       |---    |---    |---    |---    |---    |---        |
+|**Normal** |1.25sn |2.12sn |5.12sn |0.12sn |1.56sn |10.17sn    |
+|**ftDev**  |1.25sn |0.25sn |0.25sn |0.00sn |1.07sn |2.82sn     |
+
+Note: Measurements are done by recording the boot process with high-speed camera. Therefore, the accuracy is high.
 
 
 ## 8. References
@@ -273,6 +273,7 @@ If you want to just have a fast-boot image for your RPI without going into the d
 **11.** [Raspberry / Linux / Bootp](https://github.com/raspberrypi/linux/blob/3667ae0605bfbed9e25bd48365457632cf660d78/fs/drop_caches.c) <br>
 **12.** [Raspberry / Firmware / Boot](https://github.com/raspberrypi/firmware/tree/master/boot) <br>
 **13.** [Raspberry Pi 3 Baremetal](https://github.com/furkantokac/raspberrypi3-tutorials) <br>
+
 
 [1]: https://thekandyancode.wordpress.com/2013/09/21/how-the-raspberry-pi-boots-up/ 
 [2]: https://github.com/raspberrypi/firmware 
