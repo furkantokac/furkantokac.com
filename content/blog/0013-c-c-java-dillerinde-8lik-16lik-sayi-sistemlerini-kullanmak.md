@@ -2,7 +2,7 @@
 title: "C C++ Java Dillerinde 8lik 16lık Sayı Sistemlerini Kullanmak"
 date: "2013-08-21T23:05:58+03:00"
 thumbnail: "/img/matrix-like-binary.jpg"
-categories: ["Yazılar|Posts"]
+categories: ["Yazılar|Writings"]
 tags: ["Yazı"]
 url: "c-c-java-dillerinde-8lik-16lik-sayi-sistemlerini-kullanmak"
 ---

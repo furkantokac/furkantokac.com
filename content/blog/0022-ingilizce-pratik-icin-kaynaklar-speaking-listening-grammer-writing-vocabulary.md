@@ -3,7 +3,7 @@ title: "Ingilizce Pratik İçin Kaynaklar (Speaking, Listening, Grammar, Writing
 date: "2015-01-06T00:42:02+03:00"
 lastmod: "2019-09-02T04:02:09+03:00"
 thumbnail: "/img/practice-makes-perfect-transparent.png"
-categories: ["Yazılar|Posts"]
+categories: ["Yazılar|Writings"]
 tags: ["Yazı", "İngilizce Öğren"]
 url: "ingilizce-pratik-icin-kaynaklar-speaking-listening-grammer-writing-vocabulary"
 ---

@@ -390,10 +390,10 @@ Zıplamak için biraz fizik uygulamamız gerekiyor. Gerçek hayatta nasıl oluyo
 **İp ucu :** (kodun tamamı değildir. Mantığı anlayarak siz uygulamaya çalışın. Uygularken karşılaştığınız sorunların nedenini anlayarak düzeltmeye çalışın)
 ```
 if pressed SPACE: maryo.down_speed = -20
-maryo.move_down(self.down_speed)
+maryo.move_down(maryo.down_speed)
 maryo.down_speed += 5
 if pygame.sprite.collide_rect(karakterimiz, zemin):
-    self.down_speed = 0
+    maryo.down_speed = 0
 ```
 
 

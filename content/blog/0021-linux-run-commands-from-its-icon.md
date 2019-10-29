@@ -2,8 +2,8 @@
 title: "Linux - Run Commands From It's Icon"
 date: "2014-08-26T07:37:40+03:00"
 thumbnail: "/img/linux-orange-gradient.jpg"
-categories: ["Yazılar|Posts"]
-tags: ["Linux", "English", "Post"]
+categories: ["Yazılar|Writings"]
+tags: ["Linux", "English", "Writing"]
 url: "linux-run-commands-from-its-icon"
 summary: "Thanks to this file, we can start our programs without terminal even if it needs to get command on terminal to start (like Python programs) with double click to its icon (really .png icon :) ) or we can write commands to facilitate our works."
 ---

@@ -3,7 +3,7 @@ title: "OpenGL On Linux 1 - IDE Setup : Qt Creator, CMake, OpenGL, Ubuntu"
 date: "2019-08-23T23:38:09+03:00"
 lastmod: "2019-08-30T23:38:09+03:00"
 thumbnail: "/img/opengl-logo.jpg"
-categories: ["Yazılar|Posts"]
+categories: ["Yazılar|Writings"]
 tags: ["OpenGL", "English", "C++", "C"]
 url: "opengl-on-linux-1-ide-setup"
 summary: "By this post, you'll have a ready-to-work development environment for OpenGL development. The OpenGL libraries will be automatically in your libs folder so no need to worry about importing them. Just #include &lt;libraryYouWant.h>."

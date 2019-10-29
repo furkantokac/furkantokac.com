@@ -2,7 +2,7 @@
 title: "IOS, Android'ten Daha Mı Stabil ?"
 date: "2016-03-01T00:56:08+03:00"
 thumbnail: "/img/android-ios-logo.png"
-categories: ["Yazılar|Posts"]
+categories: ["Yazılar|Writings"]
 tags: ["Yazı", "Android", "iOS"]
 url: "ios-androidten-daha-mi-stabil"
 ---

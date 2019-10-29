@@ -3,7 +3,7 @@ title: "Windows'un yanına Linux (Ubuntu) Kurmak - Dualboot"
 date: "2016-03-04T03:51:46+03:00"
 lastmod: "2019-09-02T03:14:09+03:00"
 thumbnail: "/img/ubuntu-windows-logo.jpg"
-categories: ["Yazılar|Posts"]
+categories: ["Yazılar|Writings"]
 tags: ["Yazı", "Linux"]
 url: "windowsun-yanina-linux-ubuntu-kurmak-dualboot"
 summary: "Adım Adım : Bu rehber Legacy Bios için geçerlidir. 1. Ubuntu'yu indiriyoruz. Stabilite için en son çıkan LTS sürümünü kurmanızı öneririm. 2. Ubuntu'yu USB'ye yazdırma 3. Ubuntu için diskte bölüm oluşturma"

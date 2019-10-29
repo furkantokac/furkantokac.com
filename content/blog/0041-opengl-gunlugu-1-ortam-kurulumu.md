@@ -2,7 +2,7 @@
 title: "OpenGL Günlüğü 1 - Ortam Kurulumu, İlk Proje \"SA World!\""
 date: "2019-09-07T12:49:09+03:00"
 thumbnail: "/img/opengl-logo.jpg"
-categories: ["Yazılar|Posts"]
+categories: ["Yazılar|Writings"]
 tags: ["OpenGL", "C++", "C", "Başlangıç"]
 url: "opengl-gunlugu-1-ortam-kurulumu"
 summary: GPU'nun gücünden faydalanarak grafikleri kodlamak istiyorsanız doğru yerdesiniz. Bu yazıda, OpenGL ile ilk projenizi kodlayabilecek duruma gelene kadar yapılması gerekenleri adım adım yapacağız. OpenGL kütüphanesini kullanmak için tek yapmanız gereken

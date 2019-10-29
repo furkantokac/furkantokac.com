@@ -2,7 +2,7 @@
 title: "Qt Framework Genel Bakış"
 date: "2016-05-23T07:25:21+03:00"
 thumbnail: "/img/qt-logo.png"
-categories: ["Yazılar|Posts"]
+categories: ["Yazılar|Writings"]
 tags: ["Qt", "İnceleme", "C++"]
 url: "qt-framework-genel-bakis"
 ---

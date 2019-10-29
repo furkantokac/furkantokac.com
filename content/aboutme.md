@@ -21,5 +21,6 @@ Computer Graphics, Decentralization, Scalable Data Systems, Cyber-Security, 3D S
 Özellikle KDE ve LibreOffice projelerinde aktif yer almaktayım. Maddiyatı insanlığın önünde tutmayan her türlü projeyi gönülden desteklerim.<br>
 ***[ENG]*** I'm mostly active in KDE and LibreOffice projects.
 
-**İlgili Anahtar Kelimeler|Keywords About Me** <br>
-KDE, LibreOffice, libinput, Wayland, Linux Kernel, GNOME
+**Öneri/İstek|Recommendations For Me** <br>
+Site ve yazılar hakkındaki her türlü öneri ve isteklerinizi, teknik problemleri [GitLab üzerinden Issue](https://gitlab.com/furkantokac/furkantokac.gitlab.io) oluşturarak veya e-posta aracılığıyla iletebilirsiniz. <br>
+***[ENG]*** You can help me to improve my blog/posts by expressing your ideas by creating an [Issue on GitLab](https://gitlab.com/furkantokac/furkantokac.gitlab.io) or by sending an e-mail.

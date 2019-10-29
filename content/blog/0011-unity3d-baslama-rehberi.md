@@ -2,7 +2,7 @@
 title: "Unity3D Başlama Rehberi"
 date: "2013-07-04T21:55:18+03:00"
 thumbnail: "/img/unity3d-logo.jpg"
-categories: ["Yazılar|Posts"]
+categories: ["Yazılar|Writings"]
 tags: ["Oyun Geliştirme", "Unity3D", "Başlangıç"]
 url: "unity3d-baslama-rehberi"
 ---

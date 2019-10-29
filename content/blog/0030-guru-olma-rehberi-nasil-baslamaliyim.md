@@ -2,7 +2,7 @@
 title: "Guru Olma Rehberi / Nasıl Başlamalıyım ?"
 date: "2016-03-16T02:22:15+03:00"
 thumbnail: "/img/linus-torvalds-smiling.jpg"
-categories: ["Yazılar|Posts"]
+categories: ["Yazılar|Writings"]
 tags: ["Yazı", "Başlangıç"]
 url: "guru-olma-rehberi-nasil-baslamaliyim"
 ---
