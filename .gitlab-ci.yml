@@ -1,6 +1,6 @@
 # Available versions : https://gitlab.com/pages/hugo/container_registry
 image:
-    registry.gitlab.com/pages/hugo/hugo:latest
+    registry.gitlab.com/pages/hugo:0.59.1
 
 variables:
     GIT_SUBMODULE_STRATEGY: recursive
