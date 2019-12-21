@@ -1,7 +1,7 @@
 ---
 title: "2lik Sayı Sistemini 10luk Sisteme Çevirme"
 date: "2013-07-03T02:17:10+03:00"
-lastmod: "2019-09-15T15:41:09+03:00"
+lastmod: "2019-12-22T00:04:09+03:00"
 thumbnail: "/img/0002-2lik-sayi-sistemini-10luk-sisteme-cevirme.png"
 categories: ["C"]
 tags: ["C"]
@@ -24,6 +24,18 @@ Bildiğiniz gibi 2lik bir sayıyı 10luk sisteme çevirirken, ikilik sayının i
 Yukarıda gördüğümüz gibi, aslında kod yazarken bize temel olarak gerekecek şeyler; <br>
 **1.** Girilen sayının tek tek basamak değerleri. Örnekte basamak değerleri soldan sırayla : 1,1,0,0,1 <br>
 **2.** 2 ^ basamakSayısı - 1. Mesela 3. basamaktaysak 2 ^ (3-1) lazım ki 2^2 * basamakDegeri işlemini yapabilelim.
+
+**Ciddi bir projede burada anlatılan yöntemi kullanmam doğru olur mu ?** <br>
+Kısaca; Programlama alıştırması olarak üzerinde uğraşmak haricinde buradaki yöntem hiç bir durumda kullanılmamalı. Açıklama; Bu örnek aslında tam olarak *2lik sayı sisteminde girilen değeri int (integer, yani tam sayı) olarak alıp 10luk sisteme çevirmek* tir. Dolayısıyla girilen 2lik sayı int'in limitlerine tâbidir. Ciddi bir projede 2lik sayılar ile uğraşmanız gerekiyorsa, aşırı verimsiz ve esnek olmadığından dolayı bu yöntem asla kullanılmamalıdır.
+
+**Bu yöntem neden verimsiz, esnek değil ?** <br>
+Bir int değer (çoğu durumda) 4byte'tır, limiti -2147483648 ile +2147483647 arasındadır. Yani int olarak tutabileceğiniz en büyük 2lik sayı 10 haneli(digit) 1111111111'dir. 2lik sayının tek hanesi 1bit'tir yani 10 haneli bir 2lik sayı aslında 10bit hafızaya ihtiyaç duyar fakat biz int kullanarak 10bit'lik sayı için 4byte\*8=32bit harcıyoruz. Bu hafıza anlamındaki eksikliği, performansına hiç değinmeyelim bile. int olarak tutulan 2lik sayılar ile işlem yapmayı, bit karşılaştırması yapmayı vs. deneyin araya ne kadar gereksiz dönüştürmeler gireceğini göreceksiniz. Halbuki bilgisayar 2lik tabanda çalışıyor, bu işlemler bu kadar zor olmasa gerek :) Bu durum biraz şuna benziyor: Ali (programcı) ile Ayşe (bilgisayar) adında 2 kişi var. Ali, hem İngilizce hem Türkçe biliyor, Ayşe sadece Türkçe biliyor. Ali ile Ayşe Türkçe konuşsalar ne güzel anlaşabilirler fakat Ali İngilizce konuşuyor, (int olarak alınan girdi(input)) Ayşe Ali'nin söylediğini çeviri programına (aşağıdaki program) yazarak anlıyor, sonra Ali'ye Türkçe cevap (çıktı(output)) veriyor. Daha verimsiz olamazdı herhalde.
+
+**"Teklifsiz tenkit tahriple sonuçlanır", peki ne yapmalı ?** <br>
+Projenin yapısına, amaca göre karar verilmesi en doğrusu olur. "c bit array" anahtar kelimesi üzerinden araştırma yapabilirsiniz. Mesela C++/Qt üzerindeki bir projede QBitArray kullanıyordum ve işlemleri bitdüzeyi(bitwise) operatörleriyle yapıyordum. Python üzerindeki bir başka projede bytearray kullanıyordum, işlem gerekmiyordu fakat bit okumak, değiştirmek için bitdüzeyi(bitwise) operatörlerini kullanıyordum. Bunun yanında sayıyı direkt int olarak tutup bitdüzeyi(bitwise) operatörler ile de kullanabilirsiniz. Tavsiye için e-posta atarsanız yardımcı olmaya çalışırım.
+
+**Peki girdi(input) alırken illa ki int kullanmak zorunda değil miyim ? 2lik girdi nasıl alınır ?** <br>
+Ciddi bir proje yapıyorsanız girdi meselesini dikkate almalısınız. Direkt scanf ile girdi okumamalısınız. Bu iş projeye göre değerlendirilmeli. "c secure input" anahtar kelimesi üzerinden araştırma yapabilirsiniz. Tavsiye için e-posta atarsanız yardımcı olmaya çalışırım.
 
 
 ### Kaynak Kod
