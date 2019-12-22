@@ -7,11 +7,13 @@ tags: ["C"]
 url: "2-bilinmeyenli-denklem-kok-bulma"
 ---
 
-<h3>Açıklama :</h3>
+### Açıklama :
 İstenilen formatta denkleminizi girin ve sonucu size versin.
 Kodlamada sadece matematik mantığı kullanılmıştır. Program ilk olarak Y bilinmeyenini buluyor. Daha sonra Y'yi yerine koyarak X'i buluyor ve ekrana yazdırıyor.
-<h3>Kaynak Kod :</h3>
-<pre>
+
+### Kaynak Kod :
+
+```c
 #include <stdio.h>
 
 int main(int argc, char *argv[])
@@ -54,5 +56,4 @@ int main(int argc, char *argv[])
     printf("\n\n");
     return 0;
 }
-
-</pre>
+```

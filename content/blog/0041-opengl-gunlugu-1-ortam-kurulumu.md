@@ -91,7 +91,8 @@ Aşağıda teknoloji ve bu teknolojinin bağımlılıklarını kurabilmek için 
 
 ### 4. İlk Proje, "SA World!"
 
-**a.** Github üzerindeki dosyaları yinelemeli (recursive) olarak klonluyoruz (clone) : <br>`git clone --recursive git@github.com:furkantokac/opengl-dev-qtcreator.git` <br>
+**a.** Github üzerindeki dosyaları yinelemeli (recursive) olarak klonluyoruz (clone) :
+<br>`git clone --recursive git@github.com:furkantokac/opengl-dev-qtcreator.git` <br>
 **b.** Qt Creator'u açıyoruz.<br>
 **c.** Proje Aç'a (Open Project) tıklıyoruz. <br>
 **d.** Github'tan klonladığımız opengl-dev-creator klasörüne gidip CMakeLists.txt'u seçiyoruz. <br>

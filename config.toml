@@ -45,3 +45,6 @@ paginate = 10
   github = "furkantokac"
   gitlab = "furkantokac"
   email = "furkan.tokac[at]kdemail.net"
+
+[markup.goldmark.renderer]
+  hardWraps = true

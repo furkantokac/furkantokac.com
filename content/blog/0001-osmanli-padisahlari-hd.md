@@ -7,11 +7,11 @@ tags: ["Design", "Tasarim"]
 url: "osmanli-padisahlari-hd"
 ---
 
-<p style="text-align: center;">Osmanlı Arması Ortalanmış</p>
+{{< centerText >}} Osmanlı Arması Ortalanmış {{< /centerText >}}
 
 ![ ](/img/osmanli-padisahlari-hd-buyuk.jpg)
 
-<p style="text-align: center;">Osmanlı Arması Yayılmış</p>
+{{< centerText >}} Osmanlı Arması Yayılmış {{< /centerText >}}
 
 Osmanlı Padişahları çalışmam. İnternette yüksek çözünürlüklü, duvara asmak için bir resim arayıp bulamayınca kendim yapmaya karar verdim. Daha sonra çerçeveletip duvara astık. Gayet hoş ve kaliteli oldu. Siz de duvarınızda bu fotoğrafın olmasını istiyorsanız “büyütünce bozulur mu” diye düşünmeden gönül rahatlığıyla çerçeveletip duvarınıza asabilirsiniz. 🙂
 

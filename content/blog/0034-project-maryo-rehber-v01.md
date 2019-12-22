@@ -43,6 +43,7 @@ PyGame hakkında dökümantasyona [buradan][pygamedocs] ulaşabilirsiniz.
 
 Aşağıdaki kodun iyi incelenerek her satırının anlamaya çalışılması gerekiyor. “`print (event)`” kısmına dikkat edin ve event’in ne olduğunu kavramaya çalışın. Farklı şeyler denemekten, kodu değiştirmekten korkmayın! Örnek kodları mümkün olduğunca basit yazmaya çalıştım. Kodu fonksiyonlara, hatta objelere bölerek çok daha güzel bir program elde edebilirsiniz.
 
+<!-- BEGIN CODING -->
 {{< highlight python >}}
 import pygame, sys
 import maryolib
@@ -108,14 +109,16 @@ while True:
 
     # Belli bir sure bekleyecegiz
     clock.tick(FPS)
-{{< /highlight >}} <!-- END CODING -->
+{{< /highlight >}}
+<!-- END CODING -->
 
 
 ##### [01] Grafik oluşturmak ve kullanmak
 
 Oyunu yaparken ekrandaki her şey bu aşamada yaptığımız şekilde resimlerden oluşacak.
 
-<!-- BEGIN CODING --> {{< highlight python >}}
+<!-- BEGIN CODING -->
+{{< highlight python >}}
 import pygame, sys
 import maryolib
 
@@ -187,14 +190,16 @@ while True:
 
     # Belli bir sure bekleyecegiz
     clock.tick(FPS)
-{{< /highlight >}} <!-- END CODING -->
+{{< /highlight >}}
+<!-- END CODING -->
 
 
 ##### [02] Resmi hareket ettirme
 
 Aşağıdaki kodda oluşturduğumuz "maryo", sağ ok tuşu ile sağa hareket ediyor. Siz de sol tuşa basıldığında sola gidecek şekilde kodu tamamlayın.
 
-<!-- BEGIN CODING --> {{< highlight python >}}
+<!-- BEGIN CODING -->
+{{< highlight python >}}
 import pygame, sys
 import maryolib
 
@@ -265,14 +270,16 @@ while True:
 
     # Belli bir sure bekleyecegiz
     clock.tick(FPS)
-{{< /highlight >}} <!-- END CODING -->
+{{< /highlight >}}
+<!-- END CODING -->
 
 
 ##### [03] Temas algılama (collision detection)
 
 Mesela bir resmi sağa doğru hareket ettirirken önünüze duvar çıktı. Ne yapmanız gerek ? Durmanız gerek. Peki nasıl ? Temas algılayarak. Aşağıdaki kodda Maryo ve duvar oluşturuluyor. Maryo’muz sağa doğru hareket ediyor fakat duvara temas ettiğinde daha ilerleyemiyor.
 
-<!-- BEGIN CODING --> {{< highlight python >}}
+<!-- BEGIN CODING -->
+{{< highlight python >}}
 import pygame, sys
 import maryolib
 
@@ -351,7 +358,8 @@ while True:
 
     # Belli bir sure bekleyecegiz
     clock.tick(FPS)
-{{< /highlight >}} <!-- END CODING -->
+{{< /highlight >}}
+<!-- END CODING -->
 
 
 ##### [04] Checkpoint !

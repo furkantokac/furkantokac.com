@@ -14,9 +14,10 @@ eYaz() fonksiyonu, bulunan karelere kaç şekilde erişebileceğimizi tutan dizi
 
 Ekran görüntüsünde gördüğünüz dizilerden üstteki atın hamlelerinin yazıldığı dizi. Mesela oradaki 1 sayısı atın ilk başta bulunduğu konum(random bir şekilde ayarlanıyor o konum). Altındaki dizi ise o anda tahtadaki gidilmemiş yerlere kaç farklı yerden ulaşılabilir bilgisini tutuyor. Mesela oradaki bir konumda 2 sayısı varsa o konuma 2 farklı yerden erişilebiliyor demektir.
 
-<span style="background-color: yellow;">Edit 04.07.2013</span> : Kodları temizledim. Şuan sayfada bulunan kodlar temiz kodlardır. 
+**Edit 04.07.2013** : Kodları temizledim. Şu an sayfada bulunan kodlar temiz kodlardır. 
 
 ### Kaynak Kod :
+
 {{< highlight c >}}
 #include <stdio.h>
 #include <stdlib.h>

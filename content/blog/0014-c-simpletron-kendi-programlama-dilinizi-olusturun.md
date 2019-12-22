@@ -73,56 +73,58 @@ Peki neden direk "1. sayı ile 2. sayıyı topla" demedik ? Çünkü yazacağım
 
 Şimdi gerekli bilgileri öğrendiğinize göre tüm komutları inceleyebilir, istediğiniz gibi komut ekleyip, çıkartarak dilinizi daha da geliştirebilirsiniz.
 
-10 //Belirtilen konuma kullanıcıdan alınan değeri ata </br>
+```
+10 //Belirtilen konuma kullanıcıdan alınan değeri ata
 1052 : 52 konumuna kullanıcıdan aldığı değeri depolar.
 
-11 //Belirtilen konumdaki değişkeni ekrana yaz </br>
+11 //Belirtilen konumdaki değişkeni ekrana yaz
 1152 : 52 konumundaki değeri ekrana yazdırır.
 
-12 //Belirtilen konuma bir değer ata </br>
+12 //Belirtilen konuma bir değer ata
 1240 : 40 konumuna bir değer ata. int konum = 20; gibi.
 
-20 //Akümülatör = belirtilenKonumdakiDeğer </br>
+20 //Akümülatör = belirtilenKonumdakiDeğer
 2052 : Akümülatöre 52 konumundaki değeri yükler.
 
-21 //Akümülatördeki değeri belirtilen konumda sakla </br>
+21 //Akümülatördeki değeri belirtilen konumda sakla
 2125 : Akümülatördeki değeri 25 konumuna yazar.
 
-30 //akümülatör = akümülatördekiDeğer + belirtilenKonumdakiDeğer </br>
+30 //akümülatör = akümülatördekiDeğer + belirtilenKonumdakiDeğer
 3015 : 15 Konumundaki değer ile yukarıdaki işlemi yapar ve sonucu akümülatöre yazar.
 
-31 //akümülatör = akümülatördekiDeğer – belirtilenKonumdakiDeğer </br>
+31 //akümülatör = akümülatördekiDeğer – belirtilenKonumdakiDeğer
 3115 : 15 Konumundaki değer ile yukarıdaki işlemi yapar ve sonucu akümülatöre yazar.
 
-32 //akümülatör = akümülatördekiDeğer / belirtilenKonumdakiDeğer </br>
+32 //akümülatör = akümülatördekiDeğer / belirtilenKonumdakiDeğer
 3215 : 15 Konumundaki değer ile yukarıdaki işlemi yapar ve sonucu akümülatöre yazar.
 
-33 //akümülatör = akümülatördekiDeğer * belirtilenKonumdakiDeğer </br>
+33 //akümülatör = akümülatördekiDeğer * belirtilenKonumdakiDeğer
 3315 : 15 Konumundaki değer ile yukarıdaki işlemi yapar ve sonucu akümülatöre yazar.
 
-34 //akümülatör = akümülatördekiDeğer % belirtilenKonumdakiDeğer </br>
+34 //akümülatör = akümülatördekiDeğer % belirtilenKonumdakiDeğer
 3422 : 22 Konumundaki değer ile yukarıdaki işlemi yapar ve sonucu akümülatöre yazar.
 
-35 //akumulatör = akümülatör^belirtilenKonumdakiDeğer </br>
+35 //akumulatör = akümülatör^belirtilenKonumdakiDeğer
 3536 : 36 konumundaki değeri üs, akümülatörü iste taban yaparak üs alır ve sonucu akümülatöre yazar.
 
-38 //belirtilenKonumundakiDeger-- </br>
+38 //belirtilenKonumundakiDeger--
 3821 : 21 konumundaki değeri 1 azaltır.
 
-39 //belirtilenKonumundakiDeger++ </br>
+39 //belirtilenKonumundakiDeger++
 3920 : 20 konumundaki değeri 1 arttırır.
 
-40 //Belirtilen konuma git/dallan </br>
+40 //Belirtilen konuma git/dallan
 4012 : 12 konumunu gider.
 
-41 //Akümülatör negatifse belirtilen konuma dallan </br>
+41 //Akümülatör negatifse belirtilen konuma dallan
 4130 : Akümülatör negatifse 30 konumuna gider.
 
-42 //Akümülatör pozitifse belirtilen konuma dallan </br>
+42 //Akümülatör pozitifse belirtilen konuma dallan
 4230 : Akümülatör pozitifse 30 konumuna gider.
 
-43 //Akümülatör sıfır ise belirtilen konuma dallan </br>
+43 //Akümülatör sıfır ise belirtilen konuma dallan
 4330 : Akümülatör sıfır ise 30 konumuna gider.
 
-99 //Programı bitir </br>
+99 //Programı bitir
 9900
+```

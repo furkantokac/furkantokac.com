@@ -16,7 +16,9 @@ The previous days were full with discussions since the changes I'm working on wi
 
 **New Touchpad KCM**
 ![](https://phabricator.kde.org/file/data/eygmifg26ze6m7pkw6r7/PHID-FILE-m4hjo763mal3uzwxuu6l/image.png)
-</br></br><!----------------------CHEAP TALK-->
+<br>
+<br>
+<!----------------------CHEAP TALK-->
 
 
 ### Show me the code
