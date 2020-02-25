@@ -10,7 +10,8 @@ summary: Bu yazının sonunda, 1.75 saniyede açılan Linux'a, 2.82 saniyede aç
 
 Bu yazının sonunda, Raspberry Pi 3'ün (RPI3) 1.75 saniyede açılabilmesi için yapılması gerekenleri öğrenmiş olacaksınız. Buna ek olarak RPI3 üzerinde Qt uygulamasını en hızlı şekilde çalıştırabilmek için yapılabilecek optimizasyonlara da değineceğiz. Sonuç olarak, sisteme güç verildiği andan itibaren toplam 1.75 saniyede açılan Linux'a, toplam 2.82 saniyede açılan Qt (QML) uygulamasına sahip olacağız.
 
-Demo imajı şuradan indirip test edebilirsiniz :  [ftDev / RPI3 Demo Image][14]
+[Şuradan][14] demo imajı indirip test edebilirsiniz. Demo ile ilgili detaylı bilgi için 6. kısma bakınız.
+[Şuradan][16] çalışmanın örnek videosunu izleyebilirsiniz.
 
 
 ## İçerik
@@ -241,7 +242,9 @@ Yukarıda detaylı şekilde anlattığımız süreci detaylara girmeden yapmak i
 2. `cd buildroot`
 3. `make ftdev_rpi3_fastboot_defconfig`
 4. `make`
-5. Bu aşamada RPI3 üzerinde çalıştırılmaya hazır imaj, `buildroot/output/images` klasöründe hazır olacak. Bunu SD karta yazdırıp direkt olarak RPI3'ü boot edebilirsiniz. Sistem açıldığında direkt konsola düşeceksiniz. Overclock ayarlarıyla oynayıp sistemi hızlandırabilir, sbin/init yerine statik derlenmiş Qt uygulamanızı koyarak başlangıçta direkt olarak Qt uygulamanızın açılmasını sağlayabilirsiniz. USB sürücüleri silindiği için dışarıdan erişim haricinde USB klavye, fare vs. takamayacağınızı unutmayın.
+5. Bu aşamada RPI3 üzerinde çalıştırılmaya hazır imaj, `buildroot/output/images` klasöründe hazır olacak. Bunu SD karta yazdırıp direkt olarak RPI3'ü boot edebilirsiniz. Sistem açıldığında direkt konsola düşeceksiniz.
+
+Sahip olacağınız imajın overclock ayarlarıyla oynayıp sistemi hızlandırabilir, sbin/init yerine statik derlenmiş Qt uygulamanızı koyarak başlangıçta direkt olarak Qt uygulamanızın açılmasını sağlayabilirsiniz. Bu ayarlar duruma göre değişebileceği için varsayılan olarak imajınızda olmayacak. USB sürücüleri silindiği için dışarıdan erişim haricinde USB klavye, fare vs. takamayacağınızı unutmayın.
 
 
 ## 7. Sonuç
@@ -275,6 +278,7 @@ Not : Ölçümler, cihazın açılışı yüksek hızlı kamera ile çekilerek, 
 **13.** [ftDev / Raspberry Pi 3 Baremetal][13]
 **14.** [ftDev / RPI3 Demo Image][14]
 **15.** [ftDev / Buildroot][15]
+**16.** [BMS Demo Video][16]
 
 
 [1]: https://thekandyancode.wordpress.com/2013/09/21/how-the-raspberry-pi-boots-up/ 
@@ -292,3 +296,4 @@ Not : Ölçümler, cihazın açılışı yüksek hızlı kamera ile çekilerek, 
 [13]: https://github.com/furkantokac/raspberrypi3-tutorials
 [14]: https://github.com/furkantokac/buildroot/releases/download/v1.0/rpi3-fastboot-sdcard.img
 [15]: https://github.com/furkantokac/buildroot
+[16]: https://www.youtube.com/watch?v=eQW0QNUPb2o
