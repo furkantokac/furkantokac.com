@@ -8,8 +8,6 @@ url: "rpi3-fast-boot-2-saniyede-acilan-sistem"
 summary: Bu yazının sonunda, 1.75 saniyede açılan Linux'a, 2.82 saniyede açılan Qt (QML) uygulamasına sahip bir Raspberry Pi 3'ün nasıl oluşturalacağını öğrenmiş olacaksınız. Buna ek olarak Raspberry Pi 3 üzerinde Qt uygulamasını en hızlı şekilde çalıştırabilmek için yapılabilecek optimizasyonlara da değineceğiz.
 ---
 
-{{< goEnPost url="/rpi3-fast-boot-less-than-2-seconds" >}} <br>
-
 Bu yazının sonunda, Raspberry Pi 3'ün (RPI3) 1.75 saniyede açılabilmesi için yapılması gerekenleri öğrenmiş olacaksınız. Buna ek olarak RPI3 üzerinde Qt uygulamasını en hızlı şekilde çalıştırabilmek için yapılabilecek optimizasyonlara da değineceğiz. Sonuç olarak, sisteme güç verildiği andan itibaren toplam 1.75 saniyede açılan Linux'a, toplam 2.82 saniyede açılan Qt (QML) uygulamasına sahip olacağız.
 
 Demo imajı şuradan indirip test edebilirsiniz :  [ftDev / RPI3 Demo Image][14]
