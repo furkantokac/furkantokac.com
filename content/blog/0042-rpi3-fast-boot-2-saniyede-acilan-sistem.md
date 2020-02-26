@@ -1,6 +1,7 @@
 ---
 title: "Raspberry Pi 3 Fastboot - 2 Saniyede Açılan Sistem"
 date: "2020-02-25T07:01:09+03:00"
+lastmod: "2020-02-26T03:11:09+03:00"
 thumbnail: "/img/0042-rpi3-fast-boot-2-saniyede-acilan-sistem.jpg"
 categories: ["Gömülü|Embedded"]
 tags: ["Gömülü Linux", "Raspberry Pi", "Gömülü", "Buildroot"]
@@ -8,11 +9,16 @@ url: "rpi3-fast-boot-2-saniyede-acilan-sistem"
 summary: Bu yazının sonunda, 1.75 saniyede açılan Linux'a, 2.82 saniyede açılan Qt (QML) uygulamasına sahip bir Raspberry Pi 3'ün nasıl oluşturalacağını öğrenmiş olacaksınız. Buna ek olarak Raspberry Pi 3 üzerinde Qt uygulamasını en hızlı şekilde çalıştırabilmek için yapılabilecek optimizasyonlara da değineceğiz.
 ---
 
+{{< goEnPost url="/rpi3-fast-boot-less-than-2-seconds" >}} <br>
+
 Bu yazının sonunda, Raspberry Pi 3'ün (RPI3) 1.75 saniyede açılabilmesi için yapılması gerekenleri öğrenmiş olacaksınız. Buna ek olarak RPI3 üzerinde Qt uygulamasını en hızlı şekilde çalıştırabilmek için yapılabilecek optimizasyonlara da değineceğiz. Sonuç olarak, sisteme güç verildiği andan itibaren toplam 1.75 saniyede açılan Linux'a, toplam 2.82 saniyede açılan Qt (QML) uygulamasına sahip olacağız.
 
-[Şuradan][14] demo imajı indirip test edebilirsiniz. Demo ile ilgili detaylı bilgi için 6. kısma bakınız.
-[Şuradan][16] çalışmanın örnek videosunu izleyebilirsiniz.
+**Demo imaj indirin** : [github.com/furkantokac/rpi3-fastboot-sdcard.img][14]
+Demo ile ilgili detaylı bilgi için 6. kısma bakınız.
 
+{{< youtube eQW0QNUPb2o >}}
+
+>
 
 ## İçerik
 
@@ -86,7 +92,7 @@ Start.elf kapalı kaynak olduğu için ona da direkt etki edemiyoruz fakat RPI3�
 
 Bu kısımdaki işleri start.elf dosyası üstleniyor. Device Tree dosyasından donanım özelliklerine göre karttaki gerekli ayarlamaları yaparak, kendi ürettiği ve varsa cmdline.txt dosyasındaki parametreler ile birlikte Kernel imajını boot ediyor. Kernel boot olabilmesi için Device Tree dosyasının içindeki bazı kısımlara ihtiyaç duyuyor. start.elf de kapalı kaynak olduğu için direkt etki edemiyoruz fakat bu dosya ile bağlantılı olan, açık kaynak 2 dosya daha var: bcm2710-rpi-3-b.dtb, kernel.img
 
-İlk olarak yapabileceğimiz iş, bu dosyalardan herhangi biri start.elf’yi yavaşlatıyor mu diye bakmak olabilir. Device Tree dosyasını sildiğimizde Kernel boot olmuyor. Burada önemli bir soru sorabiliriz, çalışmayan kısım start.elf mi yoksa Kernel mi ? Device Tree’ye ihtiyaç duymadan çalışabilen bir uygulama bulabilirsek bu durumu test edebiliriz. Peki bu ne olabilir ? Aslında RPI3 sadece Kernel çalıştırmak için tasarlanmış bir kart değil. (lakin öyle olsa bile sıkıntı olmazdı) Bu nedenle direkt olarak SoC’u programlayabilmemiz mümkün. Ufak bir led yakma uygulaması yapıp, start.elf’in Kernel yerine bu uygulamayı çalıştırmasını sağlarsak Device Tree’yi silmemizin herhangi bir hız değişimi veya problem oluşturup oluşturmadığını gözlemleyebiliriz. Bu aşamada U-Boot derleyip Kernel yerine U-Boot’u çalıştırarak da deneme yapabilirdik fakat biz ilk seçeneği uygulayacağız. LED yakma uygulamasını yazıp çalıştırdığımızda (bkz. [13][13]) görüyoruz ki, Device Tree’yi silmemiz bize 1.0sn kazanç sağlamış. Bir de Device Tree’nin varsayılan ismini (bcm2710-rpi-3-b.dtb) değiştirip deniyoruz. Hızlanma yine işe yarıyor. Buradan şu çıkarımları yapıyoruz; 1. Kernel boot etmesek bile Device Tree start.elf tarafından işleniyor. 2. start.elf, öntanımlı olarak direkt “bcm2710-rpi-3-b.dtb” ismi ile dosyayı aramakta. Sonuç olarak gelişme gösterebilmek için Device Tree dosyasını bir şekilde yok etmemiz veya ismi değişmiş bir şekilde kullanmamız gerekiyor.
+İlk olarak yapabileceğimiz iş, bu dosyalardan herhangi biri start.elf’yi yavaşlatıyor mu diye bakmak olabilir. Device Tree dosyasını sildiğimizde Kernel boot olmuyor. Burada şu soruyu sorabiliriz, çalışmayan kısım start.elf mi yoksa Kernel mi ? Device Tree’ye ihtiyaç duymadan çalışabilen bir uygulama bulabilirsek bu durumu test edebiliriz. Peki bu ne olabilir ? Aslında RPI3 sadece Kernel çalıştırmak için tasarlanmış bir kart değil. (lakin öyle olsa bile sıkıntı olmazdı) Bu nedenle direkt olarak SoC’u programlayabilmemiz mümkün. Ufak bir led yakma uygulaması yapıp, start.elf’in Kernel yerine bu uygulamayı çalıştırmasını sağlarsak Device Tree’yi silmemizin herhangi bir hız değişimi veya problem oluşturup oluşturmadığını gözlemleyebiliriz. Bu aşamada U-Boot derleyip Kernel yerine U-Boot’u çalıştırarak da deneme yapabilirdik fakat biz ilk seçeneği uygulayacağız. LED yakma uygulamasını yazıp çalıştırdığımızda (bkz. [13][13]) görüyoruz ki, Device Tree’yi silmemiz bize 1.0sn kazanç sağlamış. Bir de Device Tree’nin varsayılan ismini (bcm2710-rpi-3-b.dtb) değiştirip deniyoruz. Hızlanma yine işe yarıyor. Buradan şu çıkarımları yapıyoruz; 1. Kernel boot etmesek bile Device Tree start.elf tarafından işleniyor. 2. start.elf, öntanımlı olarak direkt “bcm2710-rpi-3-b.dtb” ismi ile dosyayı aramakta. Sonuç olarak gelişme gösterebilmek için Device Tree dosyasını bir şekilde yok etmemiz veya ismi değişmiş bir şekilde kullanmamız gerekiyor.
 
 Device Tree dosyasının ismini değiştireceğimiz ilk yöntem için şöyle bir yol uygulayabiliriz; start.elf tarafından çalıştırılacak bir yazılım yazabiliriz. Bu yazılım, bir nevi LED yakmak yerine Device Tree ile beraber Kernel’i boot edebilecek bir yazılım olur. start.elf, bizim yazdığımız yazılımı çalıştırır, bizim yazdığımız yazılım da ismi değiştirilmiş Device Tree dosyası ile birlikte Kernel’i boot eder. Burada kod çalıştırmamız gerektiği için az da olsa hız kaybı olacaktır. Dolayısıyla bu yönteme başlamadan önce diğer yöntemi de gözden geçirip arasında seçim yapmak daha doğru olacaktır.
 
@@ -97,7 +103,7 @@ Testlerden sonraki durum aşağıdaki gibi oluyor; <br>
 - UART’ı test ettiğimizde çalışmadığını görüyoruz. <br>
 - Kernel’in boot olma süresinin 0.8sn kadar uzadığını görüyoruz.
 
-İlk olarak UART ile ilgili sıkıntının ne olduğunu bulmamız gerekiyor. UART’ın sıkıntısız çalıştığı bir Kernel’i boot edip, boot loglarını kaydediyoruz. Sonra UART’ın sıkıntılı olduğu, Device Tree gömülmüş olan Kernel’imizi de boot edip loglarını kaydediyoruz. (Bu loglara “dmesg” komutu ile ulaşılabiliyor.) Farklarını inceliyoruz. Özellikle “Kernel command line:” ile başlayan satırda, UART’ın çalıştığı sistemde olup da çalışmadığı sistemde olmayan bir farkı görüyoruz. UART’ın çalıştığı sistemde “8250.nr_uarts=1” şeklinde bir parametre Kernel’e geçiriliyor. Biz de cmdline.txt dosyasına bu parametreyi koyarak UART’ın çalışmadığı sistemi boot ettiğimizde UART’ın artık çalıştığını görüyoruz. Bu problemi çözdük.
+İlk olarak UART ile ilgili sıkıntının ne olduğunu bulmamız gerekiyor. UART’ın sıkıntısız çalıştığı bir Kernel’i boot edip, boot loglarını kaydediyoruz. Sonra UART’ın sıkıntılı olduğu, Device Tree gömülmüş olan Kernel’imizi de boot edip loglarını kaydediyoruz. (Bu loglara “dmesg” komutu ile ulaşılabiliyor.) Farklarını inceliyoruz. Özellikle "Kernel command line:" ile başlayan satırda, UART’ın çalıştığı sistemde olup da çalışmadığı sistemde olmayan bir farkı görüyoruz. UART’ın çalıştığı sistemde “8250.nr_uarts=1” şeklinde bir parametre Kernel’e geçiriliyor. Biz de cmdline.txt dosyasına bu parametreyi koyarak UART’ın çalışmadığı sistemi boot ettiğimizde UART’ın artık çalıştığını görüyoruz. Bu problemi çözdük.
 
 Diğer işimiz, Kernel’in boot süresinin yaklaşık 1.0sn uzamasının nedenini araştırmak. Yine loglardan faydalanacağız. Logları incelediğimizde görüyoruz ki normal çalışan sistemde olmayıp da geliştirdiğimiz sistemde olan, “random” kelimesini içeren bir log var ve gecikme orada oluyor. Kernel’den "random" ile ilgili ayarları tek tek kapayıp deneyince sıkıntılı ayarı buluyoruz. (K3'te bu ayarlama hakkında bilgi bulunuyor) Ayarı kapattığımızda her şeyin normale döndüğünü görüyoruz. Bu problemi de çözdük.
 
@@ -244,7 +250,7 @@ Yukarıda detaylı şekilde anlattığımız süreci detaylara girmeden yapmak i
 4. `make`
 5. Bu aşamada RPI3 üzerinde çalıştırılmaya hazır imaj, `buildroot/output/images` klasöründe hazır olacak. Bunu SD karta yazdırıp direkt olarak RPI3'ü boot edebilirsiniz. Sistem açıldığında direkt konsola düşeceksiniz.
 
-Sahip olacağınız imajın overclock ayarlarıyla oynayıp sistemi hızlandırabilir, sbin/init yerine statik derlenmiş Qt uygulamanızı koyarak başlangıçta direkt olarak Qt uygulamanızın açılmasını sağlayabilirsiniz. Bu ayarlar duruma göre değişebileceği için varsayılan olarak imajınızda olmayacak. USB sürücüleri silindiği için dışarıdan erişim haricinde USB klavye, fare vs. takamayacağınızı unutmayın.
+Sahip olacağınız imajın overclock ayarlarıyla oynayıp sistemi hızlandırabilir, `sbin/init` yerine statik derlenmiş Qt uygulamanızı koyarak başlangıçta direkt olarak Qt uygulamanızın açılmasını sağlayabilirsiniz. Bu ayarlar duruma göre değişebileceği için varsayılan olarak imajınızda olmayacak. USB sürücüleri silindiği için dışarıdan erişim haricinde USB klavye, fare vs. takamayacağınızı unutmayın.
 
 
 ## 7. Sonuç
