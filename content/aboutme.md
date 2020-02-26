@@ -22,5 +22,5 @@ Software Architecture Design, CGI, Game Development, Decentralization, Cyber-Sec
 ***[ENG]*** I'm mostly active in KDE and LibreOffice projects. I have contribution to various projects.
 
 **Öneri/İstek|Recommendations For Me** <br>
-Site ve yazılar hakkındaki her türlü öneri ve isteklerinizi, teknik problemleri [GitLab üzerinden Issue](https://gitlab.com/furkantokac/furkantokac.gitlab.io) oluşturarak veya e-posta aracılığıyla iletebilirsiniz. <br>
-***[ENG]*** You can help me to improve my blog/posts by expressing your ideas by creating an [Issue on GitLab](https://gitlab.com/furkantokac/furkantokac.gitlab.io) or by sending an e-mail.
+Site ve yazılar hakkındaki her türlü öneri ve isteklerinizi, teknik problemleri [GitHub üzerinden Issue](https://github.com/furkantokac/furkantokac.com/issues) oluşturarak veya e-posta aracılığıyla iletebilirsiniz. <br>
+***[ENG]*** You can help me to improve my blog/posts by expressing your ideas by creating an [Issue on GitHub](https://github.com/furkantokac/furkantokac.com/issues) or by sending an e-mail.
