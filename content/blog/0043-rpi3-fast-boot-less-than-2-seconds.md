@@ -5,15 +5,15 @@ thumbnail: "/img/0042-rpi3-fast-boot-2-saniyede-acilan-sistem.jpg"
 categories: ["Gömülü|Embedded"]
 tags: ["Embedded Linux", "Raspberry Pi", "Embedded", "English"]
 url: "rpi3-fast-boot-less-than-2-seconds"
-summary: This post shows how to boot Raspberry Pi 3 (RPI) in 1.75 seconds, in details. In addition to that, it is discussed optimizations that can be applied to a Qt application. At the end, we will have a RPI that boots from power-up to Linux shell in 1.75 seconds, power-up to Qt GUI (QML) application in 2.82 seconds.
+summary: This post tells about my journey on fast-booting a Raspberry Pi 3 (RPI). In addition to that, some optimizations are discussed that can be applied to a Qt (QML) application. At the end, we will have a RPI that boots from power-up to Linux shell in 1.75 seconds, power-up to Qt GUI (QML) application in 2.82 seconds.
 ---
 
 {{< goTrPost url="/rpi3-fast-boot-2-saniyede-acilan-sistem" >}} <br>
 
-This post tells about my journey on fast-booting a Raspberry Pi 3 (RPI). At the end, we will have a RPI that boots from power-up to Linux shell in 1.75 seconds, power-up to Qt GUI (QML) application in 2.82 seconds.
+This post tells about my journey on fast-booting a Raspberry Pi 3 (RPI). In addition to that, some optimizations are discussed that can be applied to a Qt (QML) application. At the end, we will have a RPI that boots from power-up to Linux shell in 1.75 seconds, power-up to Qt GUI (QML) application in 2.82 seconds.
 
 **Download demo image** : [github.com/furkantokac/rpi3-fastboot-sdcard.img][14]
-You can see the details about the demo image on part 6.
+You can see the details of the demo image on part 6.
 
 {{< youtube eQW0QNUPb2o >}}
 
@@ -38,11 +38,11 @@ You can see the details about the demo image on part 6.
 
 ## 1. Introduction
 
-First of all, we should know the target device well since some critical stages of boot optimization process are low-level (hardware dependent). We need to be able to answers questions such as what is the boot sequence of the device, which files are running in which order to boot the device, which files are 100% required etc. Besides that, optimizations should be done and tested one by one, so that the effect can be clearly observed.
+First of all, we should know the target device well since some critical stages of boot optimization process are low-level (hardware dependent). We need to be able to answers questions such as what is the boot sequence of the device, which files are running in which order to boot the device, which files are 100% required etc. Besides that, optimizations should be done and tested one by one, so that the effect can be clearly seen.
 
-The boot process of the RPI is kind of different than the other, traditional devices. RPI's boot process is based on GPU rather than CPU. I recommend that you dig into more on this topic on the internet. (see [1][1], [9][9])
+Boot process of a RPI is kind of different than the other, traditional devices. RPI's boot process is based on GPU rather than CPU. I recommend that you dig into more on this topic on the internet. (see [1][1], [9][9])
 
-RPI uses Qualcomm's closed-source chip as System on Chip (SoC). Therefore, SoC-related softwares are provided to us as binary by RPI. (see [2][2]) So we cannot customize them without reverse-engineering. That is why the most difficult parts of the RPI boot optimization process are SoC related parts.
+RPI uses Qualcomm's closed-source chip as System on Chip (SoC). Therefore, SoC-related softwares are provided to us as binary. (see [2][2]) So we cannot customize them without reverse-engineering. That is why the most difficult parts of the RPI boot optimization process are SoC related parts.
 
 
 ## 2. Project Requirements
@@ -211,7 +211,7 @@ Although there are infinitely different possibilities in this section, there are
 **Related section**: K3 (kernel.img), K5 (Qt)
 **Estimated effect**: 1.0sec
 **Available Tools / Methods**: Hibernete
-**Explanation**: By hibernete, we can have a major gain for the K3 and K5 stages. To implement hibernate, we need a total control on it since it may cause an unstable system if it is not implemented correctly.
+**Description**: By hibernete, we can have a major gain for the K3 and K5 stages. To implement hibernate, we need a total control on it since it may cause an unstable system if it is not implemented correctly.
 
 
 **Code**: G4
@@ -229,11 +229,11 @@ Although there are infinitely different possibilities in this section, there are
 
 
 **Code**: G100
-**Explanation**: Debugging, which is the basis of the optimization process, needs to be planned. Before starting the optimization process, you should not hesitate to share time for a debugging plan, collect the necessary materials for debugging, compile, run, automate the development processes.
+**Description**: Debugging, which is the basis of the optimization process, needs to be planned. Before starting the optimization process, you should not hesitate to share time for a debugging plan, collect the necessary materials for debugging, compile, run, automate the development processes.
 
 
 **Code**: G101
-**Explanation**: If noticed, we start optimizations from the lowest level, that is, from Raspberry's self-boot to the highest level, that is, the optimization of the Qt application. This makes debugging difficult, which is the basis of the optimization process. Instead, I think that starting from the highest level may make the debugging easier.
+**Description**: If noticed, we start optimizations from the lowest level, that is, from Raspberry's self-boot to the highest level, that is, the optimization of the Qt application. This makes debugging difficult, which is the basis of the optimization process. Instead, I think that starting from the highest level may make the debugging easier.
 
 
 ## 6. In A Nutshell..

@@ -8,18 +8,18 @@ menu:
 ---
 
 **İletişim|Contact** <br>
-Sağ taraftan farklı platformlardaki hesaplarıma ve e-posta adresime ulaşabilirsiniz. <br>
-***[ENG]*** You can find my social accounts from the social widget at the right panel.
+"Hesap|Social" panelinden farklı platformlardaki hesaplarıma ve e-posta adresime ulaşabilirsiniz.
+***[ENG]*** You can find my social accounts and e-mail address from the "Hesap|Social" widget.
 
 **Birincil İlgi Alanı|Main Interest** <br>
 Embedded Systems, Embedded Linux Systems
 
 **Hobilerim|Hobbies** <br>
-Computer Graphics, Decentralization, Scalable Data Systems, Cyber-Security, 3D Simulation, Artificial Intelligence
+Software Architecture Design, CGI, Game Development, Decentralization, Cyber-Security, Artificial Intelligence
 
 **Özgür Yazılım Destekçisi & Geliştiricisi|Free Software Supporter & Developer** <br>
-Özellikle KDE ve LibreOffice projelerinde aktif yer almaktayım. Maddiyatı insanlığın önünde tutmayan her türlü projeyi gönülden desteklerim.<br>
-***[ENG]*** I'm mostly active in KDE and LibreOffice projects.
+Çoğunlukla KDE ve LibreOffice projelerinde aktifim. Maddiyatı insanlığın önünde tutmayan her türlü projeyi gönülden desteklerim.<br>
+***[ENG]*** I'm mostly active in KDE and LibreOffice projects. I have contribution to various projects.
 
 **Öneri/İstek|Recommendations For Me** <br>
 Site ve yazılar hakkındaki her türlü öneri ve isteklerinizi, teknik problemleri [GitLab üzerinden Issue](https://gitlab.com/furkantokac/furkantokac.gitlab.io) oluşturarak veya e-posta aracılığıyla iletebilirsiniz. <br>
