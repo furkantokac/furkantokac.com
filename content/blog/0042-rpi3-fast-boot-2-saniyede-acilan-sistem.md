@@ -43,7 +43,7 @@ Her şeyden önce boot optimizasyonunun kritik bazı aşamaları düşük seviye
 
 Bu çalışmada kullanacağımız kart olan RPI3’ün boot süreci diğer kartlardan biraz farklı. Boot sürecinde geleneksel yapının aksine, CPU’dan ziyade GPU görev alıyor. Bu dökümantasyonu okumadan önce internet üzerinden konu hakkında temel bilgi edinmenizi tavsiye ederim. (bkz. [1][1], [9][9])
 
-RPI3, System on Chip (SoC) olarak Qualcomm'un kapalı kaynak bir çipini kullanmaktadır. Dolayısıyla SoC ile alakalı yazılımlar, RPI3 tarafından bize sağlanmakta. (bkz. [2][2]) Kapalı kaynak olduğu için bu yazılımlara normal yollarla etki edilememektedir. Bu nedenle RPI3 ile boot optimizasyonu aşamalarında en fazla sıkıntı yaşanılan kısımlar bize sağlanan SoC dosyalarının üstlendiği kısımlarıdır. 
+RPI3, System on Chip (SoC) olarak Broadcom'un kapalı kaynak bir çipini kullanmaktadır. Dolayısıyla SoC ile alakalı yazılımlar, RPI3 tarafından bize sağlanmakta. (bkz. [2][2]) Kapalı kaynak olduğu için bu yazılımlara normal yollarla etki edilememektedir. Bu nedenle RPI3 ile boot optimizasyonu aşamalarında en fazla sıkıntı yaşanılan kısımlar bize sağlanan SoC dosyalarının üstlendiği kısımlarıdır. 
 
 
 ## 2. Proje Gereksinimleri

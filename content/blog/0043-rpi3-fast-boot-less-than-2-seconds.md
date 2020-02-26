@@ -42,7 +42,7 @@ First of all, we should know the target device well since some critical stages o
 
 Boot process of a RPI is kind of different than the other, traditional devices. RPI's boot process is based on GPU rather than CPU. I recommend that you dig into more on this topic on the internet. (see [1][1], [9][9])
 
-RPI uses Qualcomm's closed-source chip as System on Chip (SoC). Therefore, SoC-related softwares are provided to us as binary. (see [2][2]) So we cannot customize them without reverse-engineering. That is why the most difficult parts of the RPI boot optimization process are SoC related parts.
+RPI uses Broadcom's closed-source chip as System on Chip (SoC). Therefore, SoC-related softwares are provided to us as binary. (see [2][2]) So we cannot customize them without reverse-engineering. That is why the most difficult parts of the RPI boot optimization process are SoC related parts.
 
 
 ## 2. Project Requirements
