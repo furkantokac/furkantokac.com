@@ -1,7 +1,7 @@
 ---
 title: "Raspberry Pi 3 Fastboot - 2 Saniyede Açılan Sistem"
 date: "2020-02-25T07:01:09+03:00"
-lastmod: "2020-02-26T03:11:09+03:00"
+lastmod: "2020-02-26T14:50:09+03:00"
 thumbnail: "/img/0042-rpi3-fast-boot-2-saniyede-acilan-sistem.jpg"
 categories: ["Gömülü|Embedded"]
 tags: ["Gömülü Linux", "Raspberry Pi", "Gömülü", "Buildroot"]
@@ -22,19 +22,19 @@ Demo ile ilgili detaylı bilgi için 6. kısma bakınız.
 
 ## İçerik
 
-**1.** Giriş <br>
-**2.** Proje Gereksinimleri <br>
-**3.** Raspberry Boot Dosyaları <br>
-**4.** Raspberry Boot Optimizasyonu <br>
-&emsp;&emsp;**K1 -** Raspberry’nin hazırlık süreci <br>
-&emsp;&emsp;**K2 -** Linux’un hazırlık süreci <br>
-&emsp;&emsp;**K3 -** Linux’un çalışması <br>
-&emsp;&emsp;**K4 -** InitSystem’in çalışması <br>
-&emsp;&emsp;**K5 -** Uygulamamızın çalışması <br>
-**5.** Daha Fazla Optimizasyon! <br>
-**6.** Kısaca.. <br>
-**7.** Sonuç <br>
-**8.** Referanslar <br>
+**1.** Giriş
+**2.** Proje Gereksinimleri
+**3.** Raspberry Boot Dosyaları
+**4.** Raspberry Boot Optimizasyonu
+&emsp;&emsp;**K1 -** Raspberry’nin hazırlık süreci
+&emsp;&emsp;**K2 -** Linux’un hazırlık süreci
+&emsp;&emsp;**K3 -** Linux’un çalışması
+&emsp;&emsp;**K4 -** InitSystem’in çalışması
+&emsp;&emsp;**K5 -** Uygulamamızın çalışması
+**5.** Daha Fazla Optimizasyon!
+**6.** Kısaca..
+**7.** Sonuç
+**8.** Referanslar
 
 
 ## 1. Giriş
@@ -71,11 +71,11 @@ RPI3’ün boot süreci ile alakalı dosyalar ve amaçları kısaca  şöyledir;
 
 ## 4. Raspberry Boot Optimizasyonu
 
-Raspberry'de, karta güç verildiği andan itibaren bir Qt uygulamasının çalışmasına kadarki süreç sırasıyla şu şekildedir;  <br>
-**K1** - Raspberry'nin hazırlık süreci (1. & 2. Stage Bootloader) (bootcode.bin) <br>
-**K2** - Linux'un hazırlık süreci (3. Stage Bootloader) (start.elf, bcm2710-rpi-3-b.dtb) <br>
-**K3** - Linux'un çalışması (kernel.img) <br>
-**K4** - InitSystem'in çalışması (BusyBox) <br>
+Raspberry'de, karta güç verildiği andan itibaren bir Qt uygulamasının çalışmasına kadarki süreç sırasıyla şu şekildedir; 
+**K1** - Raspberry'nin hazırlık süreci (1. & 2. Stage Bootloader) (bootcode.bin)
+**K2** - Linux'un hazırlık süreci (3. Stage Bootloader) (start.elf, bcm2710-rpi-3-b.dtb)
+**K3** - Linux'un çalışması (kernel.img)
+**K4** - InitSystem'in çalışması (BusyBox)
 **K5** - Uygulamamızın çalışması (Qt)
 
 
@@ -98,9 +98,9 @@ Device Tree dosyasının ismini değiştireceğimiz ilk yöntem için şöyle bi
 
 Diğer yöntemde Device Tree’yi bir şekilde iptal etmemiz lazım. Device Tree’nin, Kernel’i boot ederken zaruri olarak gerektiğini, start.elf için ise kesin olarak gerekmediğini testimizde gördük. Device Tree Kernel ile alakalıysa, bir şekilde Device Tree konfigürasyonlarını Kernel’e gömmeyi deneyebiliriz. Yani Device Tree’yi Kernel’e gömebiliriz. Device Tree hakkında detaylı bilgi edinirken Kernel için buna benzer bir seçeneğin halihazırda olduğunu görüyoruz. (bkz. [3][3] sayfa 11) Gerekli ayarları yapıp (K3'te bu ayarlama hakkında bilgi bulunuyor) test ettiğimizde görüyoruz ki Kernel boot olabiliyor. Şimdi durum analizi yapıp her şey yolunda mı diye bakmamız lazım.
 
-Testlerden sonraki durum aşağıdaki gibi oluyor; <br>
-- Qt uygulamamız sıkıntısız çalışıyor. <br>
-- UART’ı test ettiğimizde çalışmadığını görüyoruz. <br>
+Testlerden sonraki durum aşağıdaki gibi oluyor;
+- Qt uygulamamız sıkıntısız çalışıyor.
+- UART’ı test ettiğimizde çalışmadığını görüyoruz.
 - Kernel’in boot olma süresinin 0.8sn kadar uzadığını görüyoruz.
 
 İlk olarak UART ile ilgili sıkıntının ne olduğunu bulmamız gerekiyor. UART’ın sıkıntısız çalıştığı bir Kernel’i boot edip, boot loglarını kaydediyoruz. Sonra UART’ın sıkıntılı olduğu, Device Tree gömülmüş olan Kernel’imizi de boot edip loglarını kaydediyoruz. (Bu loglara “dmesg” komutu ile ulaşılabiliyor.) Farklarını inceliyoruz. Özellikle "Kernel command line:" ile başlayan satırda, UART’ın çalıştığı sistemde olup da çalışmadığı sistemde olmayan bir farkı görüyoruz. UART’ın çalıştığı sistemde “8250.nr_uarts=1” şeklinde bir parametre Kernel’e geçiriliyor. Biz de cmdline.txt dosyasına bu parametreyi koyarak UART’ın çalışmadığı sistemi boot ettiğimizde UART’ın artık çalıştığını görüyoruz. Bu problemi çözdük.
@@ -124,13 +124,17 @@ ARM_ATAG_DTB_COMPAT
 ```
 NET
 SOUND
-HW_RANDOM
-ALLOW_DEV_COREDUMP
-STRICT_KERNEL_RWX
-STRICT_MODULE_RWX
-NAMESPACES
-FTRACE
+HW_RANDOM         #---> 0.7sn
+ALLOW_DEV_COREDUMP#---> 0.2sn (Core Release: 2.80a)
+STRICT_KERNEL_RWX #===\ 0.1sn
+STRICT_MODULE_RWX #===/
+NAMESPACES #----------> 0.1sn
+FTRACE     #----------> 0.5sn
+
+# Disable USB support
 USB_SUPPORT
+
+# Disable debugging
 BLK_DEBUG_FS
 DEBUG_BUGVERBOSE
 DEBUG_FS
@@ -143,6 +147,8 @@ ELF_CORE
 KGDB
 PRINT_QUOTA_WARNING
 AUTOFS4_FS
+
+# Followings are mostly affects the size
 MEDIA_DIGITAL_TV_SUPPORT
 MEDIA_ANALOG_TV_SUPPORT
 MEDIA_CAMERA_SUPPORT
@@ -167,7 +173,7 @@ HID_ASUS
 
 InitSystem aslında ciddi bir zaman harcamıyor fakat en hızlı çalışan kod, çalışmayan koddur. :) Bu nedenle BusyBox’ı aradan çıkardık. Burada yapılan ve bizim için gerekli olan tek işlemi, “File System Mounting” işlemidir. Bu işlemi basit bir şekilde kendi uygulamamıza gömdük.
 
-Tek yapmamız gereken şu kod parçasını Qt programımızın herhangi bir yerinde çalıştırmak: <br>
+Tek yapmamız gereken şu kod parçasını Qt programımızın herhangi bir yerinde çalıştırmak:
 `QProcess::execute("/bin/mount -a");`
 
 Tabiki kullanıcıya arayüzün yansıtılmasını yavaşlatmayacak şekilde doğru bir yere gömmek bizim için en verimlisi olacaktır zira Mounting işlemi zaman alan bir işlemdir. Bu işlemi yaptıktan sonra uygulamamızı “init” ismi ile birlikte “/sbin/” klasörü içine koyduğumuzda işlem tamamdır.
@@ -179,16 +185,16 @@ Kernel, Userspace’i yüklediğinde her şeyden önce /sbin/init dosyasını ot
 
 Qt Creator bize detaylı hata ayıklama araçları sunuyor. Bu araçları kullanarak Qt uygulamamızın açılmasını en çok yavaşlatan unsurun ne olduğunu tespit edebiliyoruz.
 
-**Statik Derleme** <br>
+**Statik Derleme**
 K5’te yaptığımız en önemli geliştirmelerin başında statik derleme gelmektedir. Statik derleme, uygulamanın çalışabilmesi için gerekli olan tüm kütüphanelerin kendi içinde bulunması demektir. Statik derleme işlemi için özel bazı adımlar uygulamak gerekiyor. (bkz. [6][6], [7][7]) Normal derleme işlemi yaptığımızda uygulama dinamik derlenir. Dinamik derlemede ise, uygulama ihtiyaç duyduğu kütüphaneleri sistem dosyalarından tek tek çağırır, dolayısıyla zaman kaybı meydana gelir. Statik derlemenin bizim kullanım senaryomuzda bir dezavantajı yoktur. Aksine boyut (sisteme yüklenen paketlerin iptali sayesinde), hız gibi avantajları vardır. Yani işlerimizi kısıtlayacak bir durum yok. Bu geliştirme bize yaklaşık olarak 0.33sn kazanç sağladı.
 
-**Budama (Stripping)** <br>
+**Budama (Stripping)**
 Budama işlemi, çalıştırılabilir dosyanın içerisindeki gereksiz alanları budayarak dosya boyutunu küçültmeye yaramaktadır. Özellikle statik derleme işlemi sonrasında çok yararlı, olmazsa olmaz bir adımdır. Budama işlemi için şu komutu kullanmak yeterli olacaktır: `strip --strip-all QtUygulamam` Bu işlem sonrasında 21mb olan uygulama boyutumuz 15mb’a kadar düşmüştür.
 
-**QML Lazy Load** <br>
+**QML Lazy Load**
 Üzerinde çalıştığımız uygulamanın arayüzü çok kompleks olmadığı için bu özellik bir fark oluşturmamaktadır fakat büyük QML dosyalarında, kullanıcıya ilk gösterilecek arayüzün kodlarının bulunduğu dosya, mümkün olduğunca az kod içermeli. Bu sayede kullanıcı erken yüklenen bu ekranı görürken arka tarafta geri kalan işlemler yapılabilir veya işlemler ihtiyaç duyuldukça başlatılabilir.
 
-**Kaynak Dosyalarını Uygulamaya Gömmek** <br>
+**Kaynak Dosyalarını Uygulamaya Gömmek**
 .qrc dosyası aracılığı ile projeye eklediğimiz her türlü kaynak, derlenmiş olan programın içine gömülür. Bu uygulamaya hız kazandırır. Bizim programımızda kullandığımız resmi projemize bu şekilde ekledik. Bunun yanında uygulamamız, yazı tipini sistemden almaktaydı. Biz, kaynak kodumuzda ufak değişiklikler yaparak fontu da derlenmiş programımızın içine gömdük.
 
 
